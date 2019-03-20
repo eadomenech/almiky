@@ -1,0 +1,5 @@
+# Science
+numpy==1.16.2
+
+# Test
+coverage==4.5.3
