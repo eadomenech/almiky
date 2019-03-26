@@ -4,7 +4,7 @@
 import unittest
 
 
-class TestMoments(unittest.TestCase):
+class TestOrtogonalFunctions(unittest.TestCase):
     '''
     Tests to verify the evaluation of ortogonal functions
     '''
@@ -16,9 +16,9 @@ class TestMoments(unittest.TestCase):
 
         order = 8
         x = 4
-        func = OtherFunction()
+        func = OtherFunction(order)
         try:
-            func.moment(x, order)
+            func.eval_poly(x)
         except NotImplementedError:
             # Normal behaivor. OrtogonalFunction derivated
             # clasess must implment 'expression' method because
@@ -28,36 +28,58 @@ class TestMoments(unittest.TestCase):
             assert False, "Evaluated OrtogonalFunction derivated class" \
                 "without 'expression' method"
 
-    def test_moment_defined(self):
+    def test_charlier_eval(self):
         from almiky.moments.functions import CharlierFunction
 
         order = 8
         x = 4
         func = CharlierFunction(order, alpha=5)
-        moment = func.moment(x)
+        value = func._eval(x, 0)
 
-        self.assertEqual(moment, 80, "Incorrect moment")
+        self.assertEqual(value, 390625, "Incorrect evaluation")
+
+    def test_charlier_evaluation(self):
+        from almiky.moments.functions import CharlierFunction
+
+        order = 8
+        x = 4
+        func = CharlierFunction(order, alpha=5)
+        value = func.eval_poly(x)
+
+        self.assertEqual(value, -9375, "Incorrect evaluation")
+
+
+class TestOrtogonalForms(unittest.TestCase):
+    '''
+    Tests to verify the evaluation of ortogonal functions
+    '''
+    def test_charlier_eval(self):
+        from almiky.moments.functions import CharlierFunction
+        from almiky.moments.orthogonal_forms import CharlierForm
+
+        order = 8
+        x = 4
+        func = CharlierFunction(order, alpha=5)
+        form = CharlierForm(func)
+        value = form.eval_form(x)
+
+        self.assertEqual(value, -0.03129170161915745, "Incorrect evaluation")
 
 
 class OrtogonalMatrixTest(unittest.TestCase):
 
     def test_matrix(self):
-        from almiky.moments.matrix import OrtogonalMatrix
-        from almiky.moments.functions import OrtogonalFunction
-
-        class OtherFunction(OrtogonalFunction):
-            def _eval(self, x):
-                return x
+        from almiky.moments.matrix import CharlierMatrix
 
         dimension = 2
-        func = OtherFunction(2)
-        matrix = OrtogonalMatrix.get(func, dimension)
+        matrix = CharlierMatrix(alpha=5)
+        values = matrix.get(dimension)
 
         self.assertEqual(
-            matrix,
+            values,
             [
-                [1, 2],
-                [3, 6]
+                [0.08208499862389880, -0.1835476368560144],
+                [0.1835476368560144, -0.3283399944955952]
             ]
         )
 

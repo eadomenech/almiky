@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import math
-from functools import reduce
+from scipy import special
 
 
 class OrtogonalFunction:
@@ -12,18 +12,18 @@ class OrtogonalFunction:
     be derivated for set the evaluator by implementing _eval(...) method.
     '''
 
-    def __init__(self, orden, **kwargs):
+    def __init__(self, order, **kwargs):
         self.order = order
-        self.kwargs = kwargs
+        self.params = kwargs
 
-    def moment(self, x):
+    def eval_poly(self, x):
         '''
         func.moment(x) => double, return the moment for value x
         '''
-        values = (self._eval(x, o) for o in range(order + 1))
+        values = (self._eval(x, k) for k in range(self.order + 1))
         return math.fsum(values)
 
-    def _eval(self, x):
+    def _eval(self, x, k):
         '''
         func._eval(a) => double, return the result of evaluate func for value x
         '''
@@ -32,5 +32,12 @@ class OrtogonalFunction:
 
 class CharlierFunction(OrtogonalFunction):
 
-    def _eval(self, x, order):
-        return x * order * self.kwargs['alpha']
+    def _eval(self, x, k):
+        aux = (
+            (-1) ** (self.order - k) *
+            special.poch(-self.order, k) *
+            special.poch(-x, k) *
+            self.params['alpha'] ** (self.order - k) /
+            math.factorial(k)
+        )
+        return aux
