@@ -1,0 +1,10 @@
+# python
+__pycache__/
+*.pyc
+*~
+
+# visual studio code
+*.code-workspace
+
+# python virtual env
+venv/
