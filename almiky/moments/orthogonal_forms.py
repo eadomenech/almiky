@@ -12,7 +12,7 @@ from .functions import CharlierFunction
 
 class OrthogonalForm:
     '''
-    Abstract class that represent an orthogonal form. 
+    Abstract class that represent an orthogonal form.
     Especific ortogonal form must define "function_class" class attribute
     and implement "weigth" and "norm" method in derivated classes.
 
@@ -43,7 +43,7 @@ class OrthogonalForm:
     def eval(self, x):
         return (
             self.function.eval(x) *
-            math.sqrt(self.weight(x) / self.norm())
+            math.sqrt(self.weight(x) / self.function.norm())
         )
 
     '''
@@ -51,12 +51,6 @@ class OrthogonalForm:
     orthogonal form in x
     '''
     def weight(self, x):
-        raise NotImplementedError
-
-    '''
-    from.norm(x) => double, return the norm of orthogonal form
-    '''
-    def norm(self):
         raise NotImplementedError
 
 
@@ -69,10 +63,3 @@ class CharlierForm(OrthogonalForm):
     def weight(self, x):
         alpha = self.parameters["alpha"]
         return math.exp(-alpha) * alpha ** x / math.factorial(x)
-
-    def norm(self):
-        alpha = self.parameters["alpha"]
-        if self.order < 0:
-            return 0
-        else:
-            return math.factorial(self.order) * alpha ** self.order
