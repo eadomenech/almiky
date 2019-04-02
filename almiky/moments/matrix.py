@@ -12,8 +12,8 @@ from .orthogonal_forms import CharlierForm
 class OrthogonalMatrix:
     '''
     Abstract class that represent an orthogonal matrix. 
-    Especific ortogonal matrix must define "othogonal_form__class" class attribute
-    and implement "get_values" method in derivated classes.
+    Especific ortogonal matrix must define "othogonal_form__class" class
+    attribute and implement "get_values" method in derivated classes.
 
     class MatrixX(OrthogonalMatrix)
         orthogonal_form_class = FromX
@@ -26,10 +26,10 @@ class OrthogonalMatrix:
 
     For example: MatrixX(alpha=0.2, beta=0.3)
     '''
-    orthogonal_form_class=None
+    orthogonal_form_class = None
 
     def __init__(self, **parameters):
-        self.parameters =  parameters
+        self.parameters = parameters
 
     '''
     matrix.get_value(i, j) => double, return value of the matrix
@@ -41,15 +41,15 @@ class OrthogonalMatrix:
 
     def get_values(self, dimension=8):
         '''
-        matrix.get_values(dimension) => matrix, return all values of an ortogonal matrix
-        of the dimension especified.
+        matrix.get_values(dimension) => matrix, return all values of an
+        ortogonal matrix of the dimension especified.
         '''
         raise NotImplementedError
 
 
 class CharlierMatrix(OrthogonalMatrix):
 
-    orthogonal_form_class=CharlierForm
+    orthogonal_form_class = CharlierForm
 
     def get_values(self, dimension=8):
         matrix = np.zeros((dimension, dimension))

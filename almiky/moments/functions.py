@@ -12,9 +12,10 @@ from scipy import special
 
 class OrtogonalFunction:
     '''
-    Abastract class that represent a polinomial function used to calculate ortogonal
-    moments. This class do not represent any particular polinomial function; should
-    be derivated for set the evaluator by implementing _eval(...) method.
+    Abastract class that represent a polinomial function used to calculate
+    ortogonal moments. This class do not represent any particular polinomial
+    function; should be derivated for set the evaluator by implementing _eval(...)
+    method.
 
     class FunctionX(OrtogonalFunction)
         def keval(...)
@@ -26,9 +27,8 @@ class OrtogonalFunction:
     For example: FunctionX(8, alpha=0.2, beta=0.3)
     '''
 
-    def __init__(self, order, **parameters):
+    def __init__(self, order):
         self.order = order
-        self.parameters = parameters
 
     def eval(self, x):
         '''
@@ -48,11 +48,15 @@ class OrtogonalFunction:
 
 class CharlierFunction(OrtogonalFunction):
 
+    def __init__(self, order, alpha=0.01):
+        super().__init__(order)
+        self.alpha = alpha
+
     def keval(self, x, k):
         return (
             (-1) ** (self.order - k) *
             special.poch(-self.order, k) *
             special.poch(-x, k) *
-            self.parameters['alpha'] ** (self.order - k) /
+            self.alpha ** (self.order - k) /
             math.factorial(k)
         )

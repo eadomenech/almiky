@@ -5,6 +5,7 @@ __pycache__/
 
 # visual studio code
 *.code-workspace
+.vscode/
 
 # python virtual env
 venv/

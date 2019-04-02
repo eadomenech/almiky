@@ -2,12 +2,13 @@
 # -*- coding:utf-8 -*-
 
 '''
-It define orthogonal forms and provide operations for it evaluation. 
+It define orthogonal forms and provide operations for it evaluation.
 Each ortogonal form is defined in a class and depend of an ortogonal function.
 '''
 
 import math
 from .functions import CharlierFunction
+
 
 class OrthogonalForm:
     '''
@@ -42,7 +43,7 @@ class OrthogonalForm:
     def eval(self, x):
         return (
             self.function.eval(x) *
-            math.sqrt(self.weight(x) /  self.norm())
+            math.sqrt(self.weight(x) / self.norm())
         )
 
     '''
