@@ -33,30 +33,31 @@ class OrthogonalForm:
     function_class = None
 
     def __init__(self, order, **parameters):
-        self.function = self.function_class(order, **parameters)
+        self.function = self.function_class(**parameters)
         self.parameters = parameters
         self.order = order
+        self.alpha = parameters['alpha']
 
-    '''
-    from.eval(x) => double, return evaluation of orthogonal form in x
-    '''
     def eval(self, x):
+        '''
+        from.eval(x) => double, return evaluation of orthogonal form in x
+        '''
         return (
-            self.function.eval(x) *
+            self.function.eval(x, self.order) *
             math.sqrt(self.weight(x) / self.norm())
         )
 
-    '''
-    from.weight(x) => double, return evaluation of weight function of
-    orthogonal form in x
-    '''
     def weight(self, x):
+        '''
+        from.weight(x) => double, return evaluation of weight function of
+        orthogonal form in x
+        '''
         raise NotImplementedError
 
-    '''
-    from.norm(x) => double, return the norm of orthogonal form
-    '''
     def norm(self):
+        '''
+        from.norm(x) => double, return the norm of orthogonal form
+        '''
         raise NotImplementedError
 
 
@@ -67,12 +68,10 @@ class CharlierForm(OrthogonalForm):
     function_class = CharlierFunction
 
     def weight(self, x):
-        alpha = self.parameters["alpha"]
-        return math.exp(-alpha) * alpha ** x / math.factorial(x)
+        return math.exp(-self.alpha) * self.alpha ** x / math.factorial(x)
 
     def norm(self):
-        alpha = self.parameters["alpha"]
         if self.order < 0:
             return 0
         else:
-            return math.factorial(self.order) * alpha ** self.order
+            return math.factorial(self.order) * self.alpha ** self.order

@@ -27,18 +27,15 @@ class OrtogonalFunction:
     For example: FunctionX(8, alpha=0.2, beta=0.3)
     '''
 
-    def __init__(self, order):
-        self.order = order
-
-    def eval(self, x):
+    def eval(self, x, order):
         '''
         func.eval(x) => double, return evaluation of the ortogonal function
         in x
         '''
-        values = (self.keval(x, k) for k in range(self.order + 1))
+        values = (self.keval(x, k, order) for k in range(order + 1))
         return sum(values)
 
-    def keval(self, x, k):
+    def keval(self, x, k, order):
         '''
         func.keval(a) => double, return evaluation of the ortogonal function
         in x for specific order
@@ -48,15 +45,15 @@ class OrtogonalFunction:
 
 class CharlierFunction(OrtogonalFunction):
 
-    def __init__(self, order, alpha=0.01):
-        super().__init__(order)
+    def __init__(self, alpha=0.01):
+        super().__init__()
         self.alpha = alpha
 
-    def keval(self, x, k):
+    def keval(self, x, k, order):
         return (
-            (-1) ** (self.order - k) *
-            special.poch(-self.order, k) *
+            (-1) ** (order - k) *
+            special.poch(-order, k) *
             special.poch(-x, k) *
-            self.alpha ** (self.order - k) /
+            self.alpha ** (order - k) /
             math.factorial(k)
         )
