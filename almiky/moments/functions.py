@@ -42,11 +42,10 @@ class OrtogonalFunction:
         '''
         raise NotImplementedError
 
-    '''
-    func.norm(x) => double, return the norm of orthogonal function
-    '''
-
-    def norm(self):
+    def norm(self, order):
+        '''
+        func.norm(x) => double, return the norm of orthogonal function
+        '''
         raise NotImplementedError
 
 

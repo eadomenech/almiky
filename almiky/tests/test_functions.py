@@ -10,7 +10,7 @@ class OrtogonalFunctionsTest(unittest.TestCase):
     Tests to verify the evaluation of ortogonal functions
     '''
 
-    def test_moment_undefined(self):
+    def test_keval(self):
         from almiky.moments.functions import OrtogonalFunction
 
         class OtherFunction(OrtogonalFunction):
@@ -20,15 +20,35 @@ class OrtogonalFunctionsTest(unittest.TestCase):
         x = 4
         func = OtherFunction()
         try:
-            func.eval(x, order)
+            func.keval(x, 6, order)
         except NotImplementedError:
-            # Normal behaivor. OrtogonalFunction derivated
-            # clasess must implment 'expression' method because
-            # is called by "eval" method
+            # Normal behavior. OtherFunction derivated
+            # clasess must implement 'keval' method because
+            # has not been implemented.
             pass
         else:
             assert False, "Evaluated OrtogonalFunction derivated class" \
-                "without 'expression' method"
+                "without 'keval' method"
+
+    def test_norm(self):
+        from almiky.moments.functions import OrtogonalFunction
+
+        class OtherFunction(OrtogonalFunction):
+            pass
+
+        order = 8
+        x = 4
+        func = OtherFunction()
+        try:
+            func.norm(x)
+        except NotImplementedError:
+            # Normal behavior. OtherFunction derivated
+            # clasess must implement 'norm' method because
+            # has not been implemented.
+            pass
+        else:
+            assert False, "Evaluated OrtogonalFunction derivated class" \
+                "without 'norm' method"
 
 
 class CharlierFunctionsTest(unittest.TestCase):
