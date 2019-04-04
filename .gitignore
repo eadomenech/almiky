@@ -5,7 +5,11 @@ __pycache__/
 
 # visual studio code
 *.code-workspace
-.vscode/
+.vscode/*
 
 # python virtual env
 venv/
+
+# coverage
+.coverage
+htmlcov

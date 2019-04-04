@@ -33,24 +33,25 @@ class OrthogonalForm:
     function_class = None
 
     def __init__(self, order, **parameters):
-        self.function = self.function_class(order, **parameters)
+        self.function = self.function_class(**parameters)
         self.parameters = parameters
         self.order = order
+        self.alpha = parameters['alpha']
 
-    '''
-    from.eval(x) => double, return evaluation of orthogonal form in x
-    '''
     def eval(self, x):
+        '''
+        from.eval(x) => double, return evaluation of orthogonal form in x
+        '''
         return (
-            self.function.eval(x) *
-            math.sqrt(self.weight(x) / self.function.norm())
+            self.function.eval(x, self.order) *
+            math.sqrt(self.weight(x) / self.function.norm(self.order))
         )
 
-    '''
-    from.weight(x) => double, return evaluation of weight function of
-    orthogonal form in x
-    '''
     def weight(self, x):
+        '''
+        from.weight(x) => double, return evaluation of weight function of
+        orthogonal form in x
+        '''
         raise NotImplementedError
 
 
@@ -61,5 +62,4 @@ class CharlierForm(OrthogonalForm):
     function_class = CharlierFunction
 
     def weight(self, x):
-        alpha = self.parameters["alpha"]
-        return math.exp(-alpha) * alpha ** x / math.factorial(x)
+        return math.exp(-self.alpha) * self.alpha ** x / math.factorial(x)

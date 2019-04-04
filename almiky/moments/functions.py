@@ -27,15 +27,11 @@ class OrtogonalFunction:
     For example: FunctionX(8, alpha=0.2, beta=0.3)
     '''
 
-    def __init__(self, order):
-        self.order = order
-
-    def eval(self, x, order=None):
+    def eval(self, x, order):
         '''
         func.eval(x) => double, return evaluation of the ortogonal function
         in x
         '''
-        order = self.order if order is None else order
         values = (self.keval(x, k, order) for k in range(order + 1))
         return sum(values)
 
@@ -49,14 +45,15 @@ class OrtogonalFunction:
     '''
     func.norm(x) => double, return the norm of orthogonal function
     '''
+
     def norm(self):
         raise NotImplementedError
 
 
 class CharlierFunction(OrtogonalFunction):
 
-    def __init__(self, order, alpha):
-        super().__init__(order)
+    def __init__(self, alpha):
+        super().__init__()
         self.alpha = alpha
 
     def keval(self, x, k, order):
@@ -68,8 +65,7 @@ class CharlierFunction(OrtogonalFunction):
             math.factorial(k)
         )
 
-    def norm(self, order=None):
-        order = order or self.order
+    def norm(self, order):
         if order < 0:
             return 0
         else:
@@ -78,71 +74,69 @@ class CharlierFunction(OrtogonalFunction):
 
 class CharlierSobolevFunction(CharlierFunction):
 
-    def __init__(self, order, alpha, beta, gamma):
-        super().__init__(order, alpha)
+    def __init__(self, alpha, beta, gamma):
+        super().__init__(alpha)
         self.beta = beta
         self.gamma = gamma
 
-    def kernel(self, x):
+    def kernel(self, x, order):
         return sum(
             [
                 (i * super(CharlierFunction, self).eval(x, i - 1)) ** 2 /
-                self.norm(i) for i in range(self.order)
+                self.norm(i) for i in range(order)
             ]
         )
 
-
-    def An(self, x):
-        if self.order <= 0:
+    def An(self, x, order):
+        if order <= 0:
             return 1
         else:
             num = (
                 self.beta *
-                self.order *
-                super().eval(self.gamma, self.order - 1) *
+                order *
+                super().eval(self.gamma, order - 1) *
                 (
-                    eval(self.gamma, self.order - 1) + (x - self.gamma) *
-                    (self.order - 1) *
-                    super().eval(self.gamma, self.order - 2)
+                    eval(self.gamma, order - 1) + (x - self.gamma) *
+                    (order - 1) *
+                    super().eval(self.gamma, order - 2)
                 )
             )
             den = (
-                self.norm(self.order - 1) *
-                (1 + self.order * self.kernel(self.gamma)) *
+                self.norm(order - 1) *
+                (1 + order * self.kernel(self.gamma, order)) *
                 (x - self.gamma) *
                 (x - self.gamma - 1)
             )
             return 1 - num / den
 
-
-    def Bn(self, x):
-        if self.order <= 0:
+    def Bn(self, x, order):
+        if order <= 0:
             return 0
         else:
             num = (
                 self.beta *
-                self.order *
-                super().eval(self.gamma, self.order - 1) *
+                order *
+                super().eval(self.gamma, order - 1) *
                 (
                     super().eval(self.gamma) + (x - self.gamma) *
-                    self.order *
-                    super().eval(self.gamma, self.order - 1)
+                    order *
+                    super().eval(self.gamma, order - 1)
                 )
             )
             den = (
-                self.norm(self.order - 1) *
-                (1 + self.beta * self.kernel(self.gamma)) *
+                self.norm(order - 1) *
+                (1 + self.beta * self.kernel(self.gamma, order)) *
                 (x - self.gamma) *
-                (x - self.gamma- 1)
+                (x - self.gamma - 1)
             )
             return num / den
 
-    def eval(self, x):
+    def eval(self, x, order):
         '''
         func.eval(x) => double, return evaluation of the ortogonal function
         in x
         '''
         return (
-            self.An(x) * super().eval(x) +
-            self.Bn(x) * super().eval(x, self.order - 1)
+            self.An(x, order) * super().eval(x) +
+            self.Bn(x, order) * super().eval(x, order - 1)
         )
