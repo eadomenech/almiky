@@ -16,7 +16,7 @@ class OrtogonalMatrixTest(unittest.TestCase):
         dimension = 2
         matrix = OtherMatrix(alpha=5)
         try:
-            values = matrix.get_values(dimension)
+            matrix.get_values(dimension)
         except NotImplementedError:
             # Normal behavior. OrthogonalMatrix derivated
             # clasess must implement 'get_values' method because

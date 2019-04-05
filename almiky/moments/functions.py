@@ -95,14 +95,15 @@ class CharlierSobolevFunction(CharlierFunction):
                 order *
                 super().eval(self.gamma, order - 1) *
                 (
-                    eval(self.gamma, order - 1) + (x - self.gamma) *
+                    super().eval(self.gamma, order - 1) +
+                    (x - self.gamma) *
                     (order - 1) *
                     super().eval(self.gamma, order - 2)
                 )
             )
             den = (
                 self.norm(order - 1) *
-                (1 + order * self.kernel(self.gamma, order)) *
+                (1 + self.beta * self.kernel(self.gamma, order)) *
                 (x - self.gamma) *
                 (x - self.gamma - 1)
             )
@@ -117,7 +118,7 @@ class CharlierSobolevFunction(CharlierFunction):
                 order *
                 super().eval(self.gamma, order - 1) *
                 (
-                    super().eval(self.gamma) + (x - self.gamma) *
+                    super().eval(self.gamma, order) + (x - self.gamma) *
                     order *
                     super().eval(self.gamma, order - 1)
                 )
@@ -136,6 +137,6 @@ class CharlierSobolevFunction(CharlierFunction):
         in x
         '''
         return (
-            self.An(x, order) * super().eval(x) +
+            self.An(x, order) * super().eval(x, order) +
             self.Bn(x, order) * super().eval(x, order - 1)
         )

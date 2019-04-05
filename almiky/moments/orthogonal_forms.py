@@ -63,3 +63,10 @@ class CharlierForm(OrthogonalForm):
 
     def weight(self, x):
         return math.exp(-self.alpha) * self.alpha ** x / math.factorial(x)
+
+
+class CharlierSobolevForm(CharlierForm):
+    '''
+    Class that represent a charlier ortogonal form.
+    '''
+    function_class = CharlierSobolevFunction

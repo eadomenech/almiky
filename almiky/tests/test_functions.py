@@ -4,7 +4,6 @@
 import unittest
 import numpy as np
 
-
 class OrtogonalFunctionsTest(unittest.TestCase):
     '''
     Tests to verify the evaluation of ortogonal functions
@@ -98,6 +97,36 @@ class CharlierSobolevFunctionsTest(unittest.TestCase):
         value = func.kernel(x, order)
 
         np.testing.assert_almost_equal(value, 544.321, 3)
+
+    def test_An(self):
+        from almiky.moments.functions import (
+            CharlierFunction, CharlierSobolevFunction)
+
+        x, order, alpha, beta, gamma = 3, 7, 0.5, 10, -2
+        func = CharlierSobolevFunction(alpha, beta, gamma)
+        value = func.An(x, order)
+
+        np.testing.assert_almost_equal(value, 2.491, 3)
+
+    def test_Bn(self):
+        from almiky.moments.functions import (
+            CharlierFunction, CharlierSobolevFunction)
+
+        x, order, alpha, beta, gamma = 3, 7, 0.5, 10, -2
+        func = CharlierSobolevFunction(alpha, beta, gamma)
+        value = func.Bn(x, order)
+
+        np.testing.assert_almost_equal(value, 12.423, 3)
+
+    def test_eval(self):
+        from almiky.moments.functions import (
+            CharlierFunction, CharlierSobolevFunction)
+
+        x, order, alpha, beta, gamma = 3, 7, 0.5, 10, -2
+        func = CharlierSobolevFunction(alpha, beta, gamma)
+        value = func.eval(x, order)
+
+        np.testing.assert_almost_equal(value, -99.581, 3)
 
 
 if __name__ == '__main__':
