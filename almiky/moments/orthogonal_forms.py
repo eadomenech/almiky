@@ -7,7 +7,7 @@ Each ortogonal form is defined in a class and depend of an ortogonal function.
 '''
 
 import math
-from .functions import CharlierFunction
+from .functions import CharlierFunction, CharlierSobolevFunction
 
 
 class OrthogonalForm:

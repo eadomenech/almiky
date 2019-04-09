@@ -6,7 +6,7 @@ It define orthogonal matrix from orthogonal forms
 '''
 
 import numpy as np
-from .orthogonal_forms import CharlierForm
+from .orthogonal_forms import CharlierForm, CharlierSobolevForm
 
 
 class OrthogonalMatrix:
