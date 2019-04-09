@@ -45,5 +45,23 @@ class CharlierMatrixTest(unittest.TestCase):
         )
 
 
+class CharlierSobolevMatrixTest(unittest.TestCase):
+
+    def test_matrix(self):
+        from almiky.moments.matrix import CharlierSobolevMatrix
+
+        dimension = 2
+        matrix = CharlierSobolevMatrix(alpha=0.5, beta=10, gamma=-2)
+        values = matrix.get_values(dimension)
+
+        np.testing.assert_array_almost_equal(
+            values,
+            np.asarray([
+                [0.77880078, -0.55069531],
+                [0.55069531, 0.38940039]
+            ])
+        )
+
+
 if __name__ == '__main__':
     unittest.main()

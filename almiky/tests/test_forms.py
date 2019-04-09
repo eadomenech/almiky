@@ -49,5 +49,21 @@ class CharlierOrtogonalFormsTest(unittest.TestCase):
         self.assertEqual(value, -0.03129170161915745, "Incorrect evaluation")
 
 
+class CharlierSobolevOrtogonalFormsTest(unittest.TestCase):
+    '''
+    Tests to verify the evaluation of ortogonal functions
+    '''
+
+    def test_charlierSobolev_eval(self):
+        from almiky.moments.functions import CharlierSobolevFunction
+        from almiky.moments.orthogonal_forms import CharlierSobolevForm
+# print(eva_form_sob(3, 7, 0.5, 10, -2))
+        x, order = 3, 7
+        form = CharlierSobolevForm(order, alpha=0.5, beta=10, gamma=-2)
+        value = form.eval(x)
+
+        np.testing.assert_almost_equal(value, -1.784, 3)
+
+
 if __name__ == '__main__':
     unittest.main()
