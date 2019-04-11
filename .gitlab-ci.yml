@@ -1,0 +1,13 @@
+before_script:
+ - sproxy
+ - python -m venv venv
+ - source venv/bin/activate
+ - pip install -r requeriments.txt
+    
+stages:
+ - tests
+ 
+run-all-tests:
+ stage: tests
+ script:
+  - source run-test.sh
