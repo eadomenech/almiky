@@ -8,6 +8,7 @@ class TestOrtogonalFunctions(unittest.TestCase):
     '''
     Tests to verify the evaluation of ortogonal functions
     '''
+
     def test_moment_undefined(self):
         from almiky.moments.functions import OrtogonalFunction
 
@@ -16,9 +17,9 @@ class TestOrtogonalFunctions(unittest.TestCase):
 
         order = 8
         x = 4
-        func = OtherFunction(order)
+        func = OtherFunction()
         try:
-            func.eval(x)
+            func.eval(x, order)
         except NotImplementedError:
             # Normal behaivor. OrtogonalFunction derivated
             # clasess must implment 'expression' method because
@@ -33,8 +34,8 @@ class TestOrtogonalFunctions(unittest.TestCase):
 
         order = 8
         x = 4
-        func = CharlierFunction(order, alpha=5)
-        value = func.keval(x, 0)
+        func = CharlierFunction(alpha=5)
+        value = func.keval(x, 0, order)
 
         self.assertEqual(value, 390625, "Incorrect evaluation")
 
@@ -43,8 +44,8 @@ class TestOrtogonalFunctions(unittest.TestCase):
 
         order = 8
         x = 4
-        func = CharlierFunction(order, alpha=5)
-        value = func.eval(x)
+        func = CharlierFunction(alpha=5)
+        value = func.eval(x, order)
 
         self.assertEqual(value, -9375, "Incorrect evaluation")
 
@@ -53,6 +54,7 @@ class TestOrtogonalForms(unittest.TestCase):
     '''
     Tests to verify the evaluation of ortogonal functions
     '''
+
     def test_charlier_eval(self):
         from almiky.moments.functions import CharlierFunction
         from almiky.moments.orthogonal_forms import CharlierForm
@@ -74,7 +76,7 @@ class OrtogonalMatrixTest(unittest.TestCase):
         dimension = 2
         matrix = CharlierMatrix(alpha=5)
         values = matrix.get_values(dimension)
-        
+
         np.testing.assert_array_almost_equal(
             values,
             np.asarray([

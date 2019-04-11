@@ -35,6 +35,7 @@ class OrthogonalMatrix:
     matrix.get_value(i, j) => double, return value of the matrix
     in the coefficients i,j
     '''
+
     def get_value(self, i, j):
         form = self.orthogonal_form_class(j, **self.parameters)
         return form.eval(i)
