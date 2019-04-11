@@ -1,5 +1,5 @@
 # Science
-#scipy
+scipy
 
 # Test
 coverage==4.5.3
