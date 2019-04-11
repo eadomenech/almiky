@@ -11,3 +11,7 @@ run-all-tests:
  stage: tests
  script:
   - source run-test.sh
+ tags:
+  - test
+  - python
+  - coverage
