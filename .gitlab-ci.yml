@@ -10,7 +10,7 @@ stages:
 run-all-tests:
  stage: tests
  script:
-  - source run-test.sh
+  - source run-tests.sh
  tags:
   - test
   - python
