@@ -4,6 +4,7 @@
 import unittest
 import numpy as np
 
+
 class OrtogonalFunctionsTest(unittest.TestCase):
     '''
     Tests to verify the evaluation of ortogonal functions
@@ -75,12 +76,19 @@ class CharlierFunctionsTest(unittest.TestCase):
 
     def test_norm(self):
         from almiky.moments.functions import CharlierFunction
-
         order, alpha = 7, 0.5
         func = CharlierFunction(alpha)
         value = func.norm(order)
 
         self.assertEqual(value, 39.375, "Incorrect evaluation")
+
+    def test_norm_order_less_than_cero(self):
+        from almiky.moments.functions import CharlierFunction
+        order, alpha = -1, 0.5
+        func = CharlierFunction(alpha)
+        value = func.norm(order)
+
+        self.assertEqual(value, 0, "Incorrect evaluation")
 
 
 class CharlierSobolevFunctionsTest(unittest.TestCase):
@@ -89,8 +97,7 @@ class CharlierSobolevFunctionsTest(unittest.TestCase):
     '''
 
     def test_kernel(self):
-        from almiky.moments.functions import (
-            CharlierFunction, CharlierSobolevFunction)
+        from almiky.moments.functions import CharlierSobolevFunction
 
         x, order, alpha, beta, gamma = 3, 7, 0.5, 10, -2
         func = CharlierSobolevFunction(alpha, beta, gamma)
@@ -99,8 +106,7 @@ class CharlierSobolevFunctionsTest(unittest.TestCase):
         np.testing.assert_almost_equal(value, 544.321, 3)
 
     def test_An(self):
-        from almiky.moments.functions import (
-            CharlierFunction, CharlierSobolevFunction)
+        from almiky.moments.functions import CharlierSobolevFunction
 
         x, order, alpha, beta, gamma = 3, 7, 0.5, 10, -2
         func = CharlierSobolevFunction(alpha, beta, gamma)
@@ -108,25 +114,52 @@ class CharlierSobolevFunctionsTest(unittest.TestCase):
 
         np.testing.assert_almost_equal(value, 2.491, 3)
 
-    def test_Bn(self):
-        from almiky.moments.functions import (
-            CharlierFunction, CharlierSobolevFunction)
+    def test_An_order_equal_or_less_than_cero(self):
+        from almiky.moments.functions import CharlierSobolevFunction
 
+        x, alpha, beta, gamma = 3, 0.5, 10, -2
+        func = CharlierSobolevFunction(alpha, beta, gamma)
+
+        value = func.An(x, order=0)
+        self.assertEqual(value, 1)
+        value = func.An(x, order=-1)
+        self.assertEqual(value, 1)
+
+    def test_Bn(self):
+        from almiky.moments.functions import CharlierSobolevFunction
         x, order, alpha, beta, gamma = 3, 7, 0.5, 10, -2
         func = CharlierSobolevFunction(alpha, beta, gamma)
         value = func.Bn(x, order)
 
         np.testing.assert_almost_equal(value, 12.423, 3)
 
+    def test_Bn_order_equal_or_less_than_cero(self):
+        from almiky.moments.functions import CharlierSobolevFunction
+        x, alpha, beta, gamma = 3, 0.5, 10, -2
+        func = CharlierSobolevFunction(alpha, beta, gamma)
+
+        value = func.Bn(x, order=0)
+        self.assertEqual(value, 0)
+        value = func.Bn(x, order=-1)
+        self.assertEqual(value, 0)
+
     def test_eval(self):
-        from almiky.moments.functions import (
-            CharlierFunction, CharlierSobolevFunction)
+        from almiky.moments.functions import CharlierSobolevFunction
 
         x, order, alpha, beta, gamma = 3, 7, 0.5, 10, -2
         func = CharlierSobolevFunction(alpha, beta, gamma)
         value = func.eval(x, order)
 
         np.testing.assert_almost_equal(value, -99.581, 3)
+
+    def test_eval_order_equal_or_less_than_cero(self):
+        from almiky.moments.functions import CharlierSobolevFunction
+
+        x, order, alpha, beta, gamma = 3, 0, 0.5, 10, -2
+        func = CharlierSobolevFunction(alpha, beta, gamma)
+        value = func.eval(x, order)
+
+        self.assertEqual(value, 1)
 
 
 if __name__ == '__main__':
