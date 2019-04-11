@@ -1,5 +1,4 @@
 before_script:
- - apt-get install python3-venv
  - source ~/.proxy
  - python3 -m venv venv
  - source venv/bin/activate
