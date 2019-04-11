@@ -7,12 +7,12 @@ Each ortogonal form is defined in a class and depend of an ortogonal function.
 '''
 
 import math
-from .functions import CharlierFunction
+from .functions import CharlierFunction, CharlierSobolevFunction
 
 
 class OrthogonalForm:
     '''
-    Abstract class that represent an orthogonal form. 
+    Abstract class that represent an orthogonal form.
     Especific ortogonal form must define "function_class" class attribute
     and implement "weigth" and "norm" method in derivated classes.
 
@@ -44,19 +44,13 @@ class OrthogonalForm:
         '''
         return (
             self.function.eval(x, self.order) *
-            math.sqrt(self.weight(x) / self.norm())
+            math.sqrt(self.weight(x) / self.function.norm(self.order))
         )
 
     def weight(self, x):
         '''
         from.weight(x) => double, return evaluation of weight function of
         orthogonal form in x
-        '''
-        raise NotImplementedError
-
-    def norm(self):
-        '''
-        from.norm(x) => double, return the norm of orthogonal form
         '''
         raise NotImplementedError
 
@@ -70,8 +64,9 @@ class CharlierForm(OrthogonalForm):
     def weight(self, x):
         return math.exp(-self.alpha) * self.alpha ** x / math.factorial(x)
 
-    def norm(self):
-        if self.order < 0:
-            return 0
-        else:
-            return math.factorial(self.order) * self.alpha ** self.order
+
+class CharlierSobolevForm(CharlierForm):
+    '''
+    Class that represent a charlier ortogonal form.
+    '''
+    function_class = CharlierSobolevFunction

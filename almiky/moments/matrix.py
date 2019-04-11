@@ -6,12 +6,12 @@ It define orthogonal matrix from orthogonal forms
 '''
 
 import numpy as np
-from .orthogonal_forms import CharlierForm
+from .orthogonal_forms import CharlierForm, CharlierSobolevForm
 
 
 class OrthogonalMatrix:
     '''
-    Abstract class that represent an orthogonal matrix. 
+    Abstract class that represent an orthogonal matrix.
     Especific ortogonal matrix must define "othogonal_form__class" class
     attribute and implement "get_values" method in derivated classes.
 
@@ -61,3 +61,8 @@ class CharlierMatrix(OrthogonalMatrix):
                 matrix[i][j] = self.get_value(i, j)
 
         return matrix
+
+
+class CharlierSobolevMatrix(CharlierMatrix):
+
+    orthogonal_form_class = CharlierSobolevForm

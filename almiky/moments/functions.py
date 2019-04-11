@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 '''
-It define orthogonal functions and provide operations for it evaluation. 
+It define orthogonal functions and provide operations for it evaluation.
 Each orthogonal function is defined in a derivated class of OrtogonalFunction.
 '''
 
@@ -42,10 +42,16 @@ class OrtogonalFunction:
         '''
         raise NotImplementedError
 
+    def norm(self, order):
+        '''
+        func.norm(x) => double, return the norm of orthogonal function
+        '''
+        raise NotImplementedError
+
 
 class CharlierFunction(OrtogonalFunction):
 
-    def __init__(self, alpha=0.01):
+    def __init__(self, alpha):
         super().__init__()
         self.alpha = alpha
 
@@ -56,4 +62,81 @@ class CharlierFunction(OrtogonalFunction):
             special.poch(-x, k) *
             self.alpha ** (order - k) /
             math.factorial(k)
+        )
+
+    def norm(self, order):
+        if order < 0:
+            return 0
+        else:
+            return math.factorial(order) * self.alpha ** order
+
+
+class CharlierSobolevFunction(CharlierFunction):
+
+    def __init__(self, alpha, beta, gamma):
+        super().__init__(alpha)
+        self.beta = beta
+        self.gamma = gamma
+
+    def kernel(self, x, order):
+        return sum(
+            [
+                (i * super(CharlierFunction, self).eval(x, i - 1)) ** 2 /
+                self.norm(i) for i in range(order)
+            ]
+        )
+
+    def An(self, x, order):
+        if order <= 0:
+            return 1
+        else:
+            num = (
+                self.beta *
+                order *
+                super().eval(self.gamma, order - 1) *
+                (
+                    super().eval(self.gamma, order - 1) +
+                    (x - self.gamma) *
+                    (order - 1) *
+                    super().eval(self.gamma, order - 2)
+                )
+            )
+            den = (
+                self.norm(order - 1) *
+                (1 + self.beta * self.kernel(self.gamma, order)) *
+                (x - self.gamma) *
+                (x - self.gamma - 1)
+            )
+            return 1 - num / den
+
+    def Bn(self, x, order):
+        if order <= 0:
+            return 0
+        else:
+            num = (
+                self.beta *
+                order *
+                super().eval(self.gamma, order - 1) *
+                (
+                    super().eval(self.gamma, order) + (x - self.gamma) *
+                    order *
+                    super().eval(self.gamma, order - 1)
+                )
+            )
+            den = (
+                self.norm(order - 1) *
+                (1 + self.beta * self.kernel(self.gamma, order)) *
+                (x - self.gamma) *
+                (x - self.gamma - 1)
+            )
+            return num / den
+
+    def eval(self, x, order):
+        '''
+        func.eval(x) => double, return evaluation of the ortogonal function
+        in x
+        '''
+        return (
+            self.An(x, order) * super().eval(x, order) +
+            self.Bn(x, order) * super().eval(x, order - 1)
         )
