@@ -1,9 +1,6 @@
 before_script:
- - source ~/.bashrc
- - source ~/.bash_aliases
- - whoami
- - sproxy
- - python -m venv venv
+ - source .proxy
+ - python3 -m venv venv
  - source venv/bin/activate
  - pip install -r requeriments.txt
     
