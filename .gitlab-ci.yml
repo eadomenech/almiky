@@ -1,5 +1,5 @@
 before_script:
- - source ~/.bashrc
+ - source ~/.proxy
  - sproxy
  - python3 -m venv venv
  - source venv/bin/activate
