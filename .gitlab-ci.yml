@@ -1,4 +1,5 @@
 before_script:
+ - source ~/.bashrc
  - whoami
  - sproxy
  - python -m venv venv
