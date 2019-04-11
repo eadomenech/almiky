@@ -1,6 +1,6 @@
 before_script:
- - echo ~
  - source ~/.bashrc
+ - source ~/.bash_aliases
  - whoami
  - sproxy
  - python -m venv venv
