@@ -177,7 +177,7 @@ class QHahnFunctionsTest(unittest.TestCase):
 
         np.testing.assert_almost_equal(value, 0.0000994336, 8)
 
-    def test_QHahnFunction_eval(self):
+    def test_QHahnFunction_norm(self):
         from almiky.moments.functions import QHahnFunction
 
         x, order, q, alpha, beta = 4, 8, 0.5, 0.5, 0.5
@@ -186,6 +186,16 @@ class QHahnFunctionsTest(unittest.TestCase):
         value = func.norm(order)
 
         np.testing.assert_almost_equal(value, 1.72631, 5)
+
+    def test_QHahnFunction_norm_order_less_than_zero(self):
+        from almiky.moments.functions import QHahnFunction
+
+        x, order, q, alpha, beta = 4, -1, 0.5, 0.5, 0.5
+
+        func = QHahnFunction(q, alpha, beta, order)
+        value = func.norm(order)
+
+        self.assertEquals(value, 0)
 
 
 if __name__ == '__main__':
