@@ -1,7 +1,7 @@
 before_script:
  - source ~/.proxy
- - python3 -m venv venv
- - source venv/bin/activate
+ - python3 -m venv ../almiky_venv
+ - source ../almiky_venv/bin/activate
  - pip install -r requeriments.txt
     
 stages:
@@ -10,7 +10,7 @@ stages:
 run-all-tests:
  stage: tests
  script:
-  - source run-test.sh
+  - source run-tests.sh
  tags:
   - test
   - python
