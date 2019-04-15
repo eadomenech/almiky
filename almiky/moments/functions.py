@@ -8,6 +8,7 @@ Each orthogonal function is defined in a derivated class of OrtogonalFunction.
 
 import math
 from scipy import special
+from mpmath import *
 
 
 class OrtogonalFunction:
@@ -47,6 +48,54 @@ class OrtogonalFunction:
         func.norm(x) => double, return the norm of orthogonal function
         '''
         raise NotImplementedError
+
+
+class QHahnFunction(OrtogonalFunction):
+
+    def __init__(self, q, alpha, beta, N):
+        super().__init__()
+        self.q = q
+        self.alpha = alpha
+        self.beta = beta
+        self.N = N
+
+    def keval(self, x, k, order):
+        mp.dps = 25; mp.pretty = True
+        return (
+            self.q ** k *
+            qp(self.q ** -order, self.q, k) *
+            qp(self.alpha * self.beta * self.q ** (order + 1), self.q, k) *
+            qp(self.q ** -x, self.q, k) *
+            qp(self.alpha * self.q, self.q, k) ** -1 *
+            qp(self.q ** -self.N, self.q, k) ** -1 /
+            qp(self.q, self.q, k)
+        )
+
+    def norm(self, order):
+        if order < 0:
+            return 0
+        else:
+            return (
+                qp(self.alpha * self.beta * self.q ** 2, self.q, self.N) *
+                qp(self.q, self.q, order) *
+                qp(
+                    self.alpha *
+                    self.beta *
+                    self.q ** (self.N + 2),
+                    self.q,
+                    order
+                ) *
+                qp(self.beta * self.q, self.q, order) *
+                qp(self.beta * self.q, self.q, self.N) ** -1 *
+                qp(self.alpha * self.q, self.q, order) ** -1 *
+                qp(self.alpha * self.beta * self.q, self.q, order) ** -1 *
+                qp(self.q ** -self.N, self.q, order) ** -1 *
+                (self.alpha * self.q) ** -self.N *
+                (1 - self.alpha * self.beta * self.q) *
+                (-self.alpha * self.q) ** order *
+                (1 - self.alpha * self.beta * self.q ** (2 * order + 1)) ** -1 *
+                self.q ** (special.binom(order, 2) - self.N * order)
+            )
 
 
 class CharlierFunction(OrtogonalFunction):
