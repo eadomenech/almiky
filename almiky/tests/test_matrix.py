@@ -63,5 +63,23 @@ class CharlierSobolevMatrixTest(unittest.TestCase):
         )
 
 
+class QHahnMatrixTest(unittest.TestCase):
+
+    def test_matrix(self):
+        from almiky.moments.matrix import QHahnMatrix
+
+        dimension = 2
+        matrix = QHahnMatrix(q=0.5, alpha=0.5, beta=0.5, N=2)
+        values = matrix.get_values(dimension)
+
+        np.testing.assert_array_almost_equal(
+            values,
+            np.asarray([
+                [0.212512, 0.516398],
+                [0.481932, 0.68313]
+            ])
+        )
+
+
 if __name__ == '__main__':
     unittest.main()

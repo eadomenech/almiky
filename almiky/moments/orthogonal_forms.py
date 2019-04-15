@@ -7,7 +7,8 @@ Each ortogonal form is defined in a class and depend of an ortogonal function.
 '''
 
 import math
-from .functions import CharlierFunction, CharlierSobolevFunction
+from .functions import CharlierFunction, CharlierSobolevFunction, QHahnFunction
+from mpmath import *
 
 
 class OrthogonalForm:
@@ -67,6 +68,32 @@ class CharlierForm(OrthogonalForm):
 
 class CharlierSobolevForm(CharlierForm):
     '''
-    Class that represent a charlier ortogonal form.
+    Class that represent a charlier sobolev ortogonal form.
     '''
     function_class = CharlierSobolevFunction
+
+
+class QHahnForm(OrthogonalForm):
+    '''
+    Class that represent a q-hahn ortogonal form.
+    '''
+    function_class = QHahnFunction
+
+    def __init__(self, order, **parameters):
+        super().__init__(order, **parameters)
+        self.beta = parameters['beta']
+        self.q = parameters['q']
+        self.alpha = parameters['alpha']
+        self.beta = parameters['beta']
+        self.N = parameters['N']
+
+    def weight(self, x):
+        mp.dps = 25
+        mp.pretty = True
+        return (
+            qp(self.alpha * self.q, self.q, x) *
+            qp(self.q ** -self.N, self.q, x) *
+            (self.alpha * self.beta * self.q) ** -x *
+            qp(self.q, self.q, x) ** -1 *
+            qp(self.beta ** -1 * self.q ** -self.N, self.q, x) ** -1
+        )

@@ -65,5 +65,33 @@ class CharlierSobolevOrtogonalFormsTest(unittest.TestCase):
         np.testing.assert_almost_equal(value, -1.784, 3)
 
 
+class QHahnOrtogonalFormsTest(unittest.TestCase):
+    '''
+    Tests to verify the evaluation of ortogonal functions
+    '''
+
+    def test_weight_eval(self):
+        from almiky.moments.functions import QHahnFunction
+        from almiky.moments.orthogonal_forms import QHahnForm
+
+        x, order = 4, 8
+
+        form = QHahnForm(order, q=0.5, alpha=0.5, beta=0.5, N=8)
+        value = form.weight(x)
+
+        np.testing.assert_almost_equal(value, 481.44, 3)
+
+    def test_qhahnform_eval(self):
+        from almiky.moments.functions import QHahnFunction
+        from almiky.moments.orthogonal_forms import QHahnForm
+
+        x, order = 4, 8
+
+        form = QHahnForm(order, q=0.5, alpha=0.5, beta=0.5, N=8)
+        value = form.eval(x)
+
+        np.testing.assert_almost_equal(value, 0.00166052, 8)
+
+
 if __name__ == '__main__':
     unittest.main()
