@@ -2,18 +2,5 @@
 scipy
 mpmath
 
-# DICOM
-pydicom
-deid
-
-# Images
-pillow
-opencv-python
-
-# Evolutionary algorithm
-pyswarms
-deap
-
 # Test
 coverage
-factory_boy
