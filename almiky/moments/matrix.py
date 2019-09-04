@@ -6,7 +6,7 @@ It define orthogonal matrix from orthogonal forms
 '''
 
 import numpy as np
-from .orthogonal_forms import CharlierForm, CharlierSobolevForm, QHahnForm
+from .orthogonal_forms import CharlierForm, QHahnForm
 
 
 class OrthogonalMatrix:
@@ -26,19 +26,16 @@ class OrthogonalMatrix:
 
     For example: MatrixX(alpha=0.2, beta=0.3)
     '''
-    orthogonal_form_class = None
 
-    def __init__(self, **parameters):
-        self.parameters = parameters
-
-    '''
-    matrix.get_value(i, j) => double, return value of the matrix
-    in the coefficients i,j
-    '''
+    def __init__(self, ortogonal_form):
+        self.form = ortogonal_form
 
     def get_value(self, i, j):
-        form = self.orthogonal_form_class(j, **self.parameters)
-        return form.eval(i)
+        '''
+        matrix.get_value(i, j) => double, return value of the matrix
+        in the coefficients i,j
+        '''
+        return self.form.eval(i, order=j)
 
     def get_values(self, dimension=8):
         '''
@@ -50,24 +47,12 @@ class OrthogonalMatrix:
 
 class CharlierMatrix(OrthogonalMatrix):
 
-    orthogonal_form_class = CharlierForm
-
     def get_values(self, dimension=8):
         matrix = np.zeros((dimension, dimension))
         indices = range(dimension)
         for i in indices:
-            row = []
             for j in indices:
                 matrix[i][j] = self.get_value(i, j)
 
         return matrix
 
-
-class CharlierSobolevMatrix(CharlierMatrix):
-
-    orthogonal_form_class = CharlierSobolevForm
-
-
-class QHahnMatrix(CharlierMatrix):
-
-    orthogonal_form_class = QHahnForm

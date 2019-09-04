@@ -31,21 +31,17 @@ class OrthogonalForm:
 
     For example: FormX(8, alpha=0.2, beta=0.3)
     '''
-    function_class = None
 
-    def __init__(self, order, **parameters):
-        self.function = self.function_class(**parameters)
-        self.parameters = parameters
-        self.order = order
-        self.alpha = parameters['alpha']
+    def __init__(self, function):
+        self.function = function
 
-    def eval(self, x):
+    def eval(self, x, order):
         '''
         from.eval(x) => double, return evaluation of orthogonal form in x
         '''
         return (
-            self.function.eval(x, self.order) *
-            math.sqrt(self.weight(x) / self.function.norm(self.order))
+            self.function.eval(x, order) *
+            math.sqrt(self.weight(x) / self.function.norm(order))
         )
 
     def weight(self, x):
@@ -60,32 +56,25 @@ class CharlierForm(OrthogonalForm):
     '''
     Class that represent a charlier ortogonal form.
     '''
-    function_class = CharlierFunction
+    def __init__(self, function, alpha):
+        super().__init__(function)
+        self.alpha = alpha
 
     def weight(self, x):
         return math.exp(-self.alpha) * self.alpha ** x / math.factorial(x)
-
-
-class CharlierSobolevForm(CharlierForm):
-    '''
-    Class that represent a charlier sobolev ortogonal form.
-    '''
-    function_class = CharlierSobolevFunction
 
 
 class QHahnForm(OrthogonalForm):
     '''
     Class that represent a q-hahn ortogonal form.
     '''
-    function_class = QHahnFunction
-
-    def __init__(self, order, **parameters):
-        super().__init__(order, **parameters)
-        self.beta = parameters['beta']
-        self.q = parameters['q']
-        self.alpha = parameters['alpha']
-        self.beta = parameters['beta']
-        self.N = parameters['N']
+    def __init__(self, function, beta, q, alpha, N):
+        super().__init__(function)
+        self.beta = beta
+        self.q = q
+        self.alpha = alpha
+        self.beta = beta
+        self.N = N
 
     def weight(self, x):
         mp.dps = 25
