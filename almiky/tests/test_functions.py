@@ -155,7 +155,7 @@ class CharlierSobolevFunctionsTest(unittest.TestCase):
     def test_eval_order_equal_or_less_than_cero(self):
         from almiky.moments.functions import CharlierSobolevFunction
 
-        x, order, alpha, beta, gamma =  3, 0, 0.5, 10, -2
+        x, order, alpha, beta, gamma = 3, 0, 0.5, 10, -2
         func = CharlierSobolevFunction(alpha, beta, gamma)
         value = func.eval(x, order)
 
@@ -195,7 +195,7 @@ class QHahnFunctionsTest(unittest.TestCase):
         func = QHahnFunction(q, alpha, beta, order)
         value = func.norm(order)
 
-        self.assertEqual(value, 0)
+        self.assertEquals(value, 0)
 
 
 if __name__ == '__main__':

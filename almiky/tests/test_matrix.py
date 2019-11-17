@@ -9,17 +9,12 @@ class OrtogonalMatrixTest(unittest.TestCase):
 
     def test_matrix(self):
         from almiky.moments.matrix import OrthogonalMatrix
-        from almiky.moments.orthogonal_forms import CharlierForm
-        from almiky.moments.functions import CharlierFunction
 
         class OtherMatrix(OrthogonalMatrix):
             pass
 
         dimension = 2
-        alpha = 5
-        function = CharlierFunction(alpha)
-        form = CharlierForm(function, alpha)
-        matrix = OtherMatrix(form)
+        matrix = OtherMatrix(alpha=5)
         try:
             matrix.get_values(dimension)
         except NotImplementedError:
@@ -36,14 +31,10 @@ class CharlierMatrixTest(unittest.TestCase):
 
     def test_matrix(self):
         from almiky.moments.matrix import CharlierMatrix
-        from almiky.moments.orthogonal_forms import CharlierForm
-        from almiky.moments.functions import CharlierFunction
 
-        alpha = 5
-        function = CharlierFunction(alpha)
-        form = CharlierForm(function, alpha)
-        matrix = CharlierMatrix(form)
-        values = matrix.get_values(dimension=2)
+        dimension = 2
+        matrix = CharlierMatrix(alpha=5)
+        values = matrix.get_values(dimension)
 
         np.testing.assert_array_almost_equal(
             values,
@@ -57,15 +48,11 @@ class CharlierMatrixTest(unittest.TestCase):
 class CharlierSobolevMatrixTest(unittest.TestCase):
 
     def test_matrix(self):
-        from almiky.moments.matrix import CharlierMatrix
-        from almiky.moments.orthogonal_forms import CharlierForm
-        from almiky.moments.functions import CharlierSobolevFunction
+        from almiky.moments.matrix import CharlierSobolevMatrix
 
-        alpha = 0.5
-        function = CharlierSobolevFunction(alpha=alpha, beta=10, gamma=-2)
-        form = CharlierForm(function, alpha=alpha)
-        matrix = CharlierMatrix(form)
-        values = matrix.get_values(dimension=2)
+        dimension = 2
+        matrix = CharlierSobolevMatrix(alpha=0.5, beta=10, gamma=-2)
+        values = matrix.get_values(dimension)
 
         np.testing.assert_array_almost_equal(
             values,
@@ -79,15 +66,11 @@ class CharlierSobolevMatrixTest(unittest.TestCase):
 class QHahnMatrixTest(unittest.TestCase):
 
     def test_matrix(self):
-        from almiky.moments.matrix import CharlierMatrix
-        from almiky.moments.orthogonal_forms import QHahnForm
-        from almiky.moments.functions import QHahnFunction
+        from almiky.moments.matrix import QHahnMatrix
 
-        paremeters = {'q':0.5, 'alpha':0.5, 'beta':0.5, 'N':2}
-        function = QHahnFunction(**paremeters)
-        form = QHahnForm(function, **paremeters)
-        matrix = CharlierMatrix(form)
-        values = matrix.get_values(dimension=2)
+        dimension = 2
+        matrix = QHahnMatrix(q=0.5, alpha=0.5, beta=0.5, N=2)
+        values = matrix.get_values(dimension)
 
         np.testing.assert_array_almost_equal(
             values,

@@ -15,13 +15,13 @@ class OrtogonalFormsTest(unittest.TestCase):
         from almiky.moments.orthogonal_forms import OrthogonalForm
 
         class OtherOrthogonalForm(OrthogonalForm):
-            pass
+            function_class = CharlierFunction
 
-        function = CharlierFunction(alpha=5)
-
-        form = OtherOrthogonalForm(function)
+        order = 8
+        x = 4
+        form = OtherOrthogonalForm(order, alpha=5)
         try:
-            form.weight(5)
+            form.weight(x)
         except NotImplementedError:
             # Normal behavior. OrthogonalForm derivated
             # clasess must implement 'weight' method because
@@ -41,10 +41,10 @@ class CharlierOrtogonalFormsTest(unittest.TestCase):
         from almiky.moments.functions import CharlierFunction
         from almiky.moments.orthogonal_forms import CharlierForm
 
-        alpha = 5
-        function = CharlierFunction(alpha=5)
-        form = CharlierForm(function, alpha=alpha)
-        value = form.eval(4, order=8)
+        order = 8
+        x = 4
+        form = CharlierForm(order, alpha=5)
+        value = form.eval(x)
 
         self.assertEqual(value, -0.03129170161915745, "Incorrect evaluation")
 
@@ -56,12 +56,11 @@ class CharlierSobolevOrtogonalFormsTest(unittest.TestCase):
 
     def test_charlierSobolev_eval(self):
         from almiky.moments.functions import CharlierSobolevFunction
-        from almiky.moments.orthogonal_forms import CharlierForm
-
-        alpha = 0.5
-        function = CharlierSobolevFunction(alpha=alpha, beta=10, gamma=-2)
-        form = CharlierForm(function, alpha=alpha)
-        value = form.eval(3, order=7)
+        from almiky.moments.orthogonal_forms import CharlierSobolevForm
+# print(eva_form_sob(3, 7, 0.5, 10, -2))
+        x, order = 3, 7
+        form = CharlierSobolevForm(order, alpha=0.5, beta=10, gamma=-2)
+        value = form.eval(x)
 
         np.testing.assert_almost_equal(value, -1.784, 3)
 
@@ -71,25 +70,25 @@ class QHahnOrtogonalFormsTest(unittest.TestCase):
     Tests to verify the evaluation of ortogonal functions
     '''
 
-    def test_weight(self):
+    def test_weight_eval(self):
         from almiky.moments.functions import QHahnFunction
         from almiky.moments.orthogonal_forms import QHahnForm
 
-        parameters = {'alpha':0.5, 'q':0.5, 'beta':0.5, 'N':8}
-        function = QHahnFunction(**parameters)
-        form = QHahnForm(function, **parameters)
-        value = form.weight(4)
+        x, order = 4, 8
+
+        form = QHahnForm(order, q=0.5, alpha=0.5, beta=0.5, N=8)
+        value = form.weight(x)
 
         np.testing.assert_almost_equal(value, 481.44, 3)
 
-    def test_eval(self):
+    def test_qhahnform_eval(self):
         from almiky.moments.functions import QHahnFunction
         from almiky.moments.orthogonal_forms import QHahnForm
 
-        parameters = {'alpha':0.5, 'q':0.5, 'beta':0.5, 'N':8}
-        function = QHahnFunction(**parameters)
-        form = QHahnForm(function, **parameters)
-        value = form.eval(4, order=8)
+        x, order = 4, 8
+
+        form = QHahnForm(order, q=0.5, alpha=0.5, beta=0.5, N=8)
+        value = form.eval(x)
 
         np.testing.assert_almost_equal(value, 0.00166052, 8)
 

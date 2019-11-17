@@ -15,14 +15,15 @@ class OrtogonalFunction:
     '''
     Abastract class that represent a polinomial function used to calculate
     ortogonal moments. This class do not represent any particular polinomial
-    function; should be derivated for set the evaluator by implementing eval(...)
+    function; should be derivated for set the evaluator by implementing _eval(...)
     method.
 
     class FunctionX(OrtogonalFunction)
         def keval(...)
             ...
 
-    FunctionX(**parameters) => new orthogonal function
+    FunctionX(order, **parameters) => new orthogonal function with
+    an specific order and parameters.
 
     For example: FunctionX(8, alpha=0.2, beta=0.3)
     '''
@@ -30,14 +31,14 @@ class OrtogonalFunction:
     def eval(self, x, order):
         '''
         func.eval(x) => double, return evaluation of the ortogonal function
-        in x with an order
+        in x
         '''
         values = (self.keval(x, k, order) for k in range(order + 1))
         return sum(values)
 
     def keval(self, x, k, order):
         '''
-        func.keval(x, k, order) => double, return evaluation of the ortogonal function
+        func.keval(a) => double, return evaluation of the ortogonal function
         in x for specific order
         '''
         raise NotImplementedError
