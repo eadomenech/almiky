@@ -195,7 +195,7 @@ class QHahnFunctionsTest(unittest.TestCase):
         func = QHahnFunction(q, alpha, beta, order)
         value = func.norm(order)
 
-        self.assertEquals(value, 0)
+        self.assertEqual(value, 0)
 
 
 if __name__ == '__main__':

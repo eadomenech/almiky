@@ -36,9 +36,9 @@ class OrthogonalMatrix:
     in the coefficients i,j
     '''
 
-    def get_value(self, i, j):
-        form = self.orthogonal_form_class(j, **self.parameters)
-        return form.eval(i)
+    def get_column(self, order, dimension):
+        form = self.orthogonal_form_class(order, **self.parameters)
+        return np.array([form.eval(i) for i in range(dimension)])
 
     def get_values(self, dimension=8):
         '''
@@ -53,12 +53,10 @@ class CharlierMatrix(OrthogonalMatrix):
     orthogonal_form_class = CharlierForm
 
     def get_values(self, dimension=8):
-        matrix = np.zeros((dimension, dimension))
+        matrix = np.empty((dimension, dimension))
         indices = range(dimension)
         for i in indices:
-            row = []
-            for j in indices:
-                matrix[i][j] = self.get_value(i, j)
+            matrix[:, i] = self.get_column(order=i, dimension=dimension)
 
         return matrix
 
