@@ -13,3 +13,5 @@ venv/
 # coverage
 .coverage
 htmlcov
+
+*egg-info/
