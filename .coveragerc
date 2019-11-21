@@ -1,3 +1,3 @@
 [run]
 source = almiky
-omit = almiky/tests/*
+omit = **test*.py
