@@ -11,7 +11,11 @@ setup(name='almiky',
       install_requires=[
           'numpy',
           'scipy', 
+<<<<<<< HEAD
           'mpmath',
           'opencv-python',
+=======
+          'mpmath'
+>>>>>>> 8554db8802f30548a6f6c15194aafa068e6e2783
       ],
       zip_safe=False)
