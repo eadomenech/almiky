@@ -9,7 +9,26 @@ import numpy as np
 from .orthogonal_forms import CharlierForm, CharlierSobolevForm, QHahnForm
 
 
-class OrthogonalMatrix:
+class Transform:
+    def __init__(self, ortho_matrix):
+        self.values = ortho_matrix
+
+    def direct(self, data):
+        '''
+        obj.direct(data) => (np.array): return direct matrix moments
+        (data) is a (np.array) that it´s shape must match with (self.ortho_matrix shape)
+        '''
+        return np.dot(self.values, np.dot(data, self.values.T))
+
+    def inverse(self, data):
+        '''
+        obj.direct(data) => (np.array): return inverse matrix moments
+        (data) is a (np.array) that it´s shape must match with (self.ortho_matrix shape)
+        '''
+        return np.dot(self.values.T, np.dot(data, self.values))
+
+
+class OrthogonalMatrix(Transform):
     '''
     Abstract class that represent an orthogonal matrix.
     Especific ortogonal matrix must define "othogonal_form__class" class
@@ -28,37 +47,31 @@ class OrthogonalMatrix:
     '''
     orthogonal_form_class = None
 
-    def __init__(self, **parameters):
+    def __init__(self, dimension, **parameters):
+        self.dimension = dimension
         self.parameters = parameters
+        self.set_values()
 
-    '''
-    matrix.get_value(i, j) => double, return value of the matrix
-    in the coefficients i,j
-    '''
-
-    def get_column(self, order, dimension):
+    def get_column(self, order):
         form = self.orthogonal_form_class(order, **self.parameters)
-        return np.array([form.eval(i) for i in range(dimension)])
+        return np.array([form.eval(i) for i in range(self.dimension)])
 
-    def get_values(self, dimension=8):
+    def set_values(self):
         '''
         matrix.get_values(dimension) => matrix, return all values of an
         ortogonal matrix of the dimension especified.
         '''
-        raise NotImplementedError
+        matrix = np.empty((self.dimension, self.dimension))
+        indices = range(self.dimension)
+        for i in indices:
+            matrix[:, i] = self.get_column(order=i)
+
+        self.values = matrix
 
 
 class CharlierMatrix(OrthogonalMatrix):
 
     orthogonal_form_class = CharlierForm
-
-    def get_values(self, dimension=8):
-        matrix = np.empty((dimension, dimension))
-        indices = range(dimension)
-        for i in indices:
-            matrix[:, i] = self.get_column(order=i, dimension=dimension)
-
-        return matrix
 
 
 class CharlierSobolevMatrix(CharlierMatrix):

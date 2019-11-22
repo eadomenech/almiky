@@ -2,6 +2,8 @@
 import hashlib
 import math
 
+import numpy as np
+
 
 def blake2b_bin(key):
     hexa_data = hashlib.blake2b(key.encode('utf-8')).hexdigest()
@@ -123,8 +125,8 @@ def matrix_zig_zag():
 
 def vzig_zag_scan(A):
     L = []
-    pos = matrix2vector(matrix_zig_zag())
-    seq = matrix2vector(A)
+    pos = matrix_zig_zag().reshape(-1)
+    seq = A.reshape(-1)
     for i in range(len(pos)):
         L.append(seq[pos[i]])
     return L
@@ -136,7 +138,7 @@ def inv_vzig_zag_scan(A):
 
 def mzig_zag_scan(vect):
     L = np.zeros(len(vect))
-    pos = vzig_zag_scan(vector2matrix(list(range(64)), 8))
+    pos = vzig_zag_scan(np.array(range(64)).reshape(8, 8))
     for i in range(len(pos)):
         L[int(pos[i])] = vect[i]
-    return vector2matrix(L, 8)
+    return L.reshape(8, 8)
