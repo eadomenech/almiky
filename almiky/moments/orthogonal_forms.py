@@ -7,7 +7,8 @@ Each ortogonal form is defined in a class and depend of an ortogonal function.
 '''
 
 import math
-from .functions import CharlierFunction, CharlierSobolevFunction, QHahnFunction
+from almiky.moments.functions import (
+    CharlierFunction, CharlierSobolevFunction, QHahnFunction, QKrawtchoukFunction)
 from mpmath import *
 
 
@@ -37,7 +38,6 @@ class OrthogonalForm:
         self.function = self.function_class(**parameters)
         self.parameters = parameters
         self.order = order
-        self.alpha = parameters['alpha']
 
     def eval(self, x):
         '''
@@ -61,6 +61,10 @@ class CharlierForm(OrthogonalForm):
     Class that represent a charlier ortogonal form.
     '''
     function_class = CharlierFunction
+
+    def __init__(self, order, **parameters):
+        super().__init__(order, **parameters)
+        self.alpha = parameters['alpha']
 
     def weight(self, x):
         return math.exp(-self.alpha) * self.alpha ** x / math.factorial(x)

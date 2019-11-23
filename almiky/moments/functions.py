@@ -206,8 +206,8 @@ class QKrawtchoukFunction(OrtogonalFunction):
             qp(self.q ** -order, self.q, k) *
             qp(self.q ** -x, self.q, k) *
             qp(-self.p * self.q ** order, self.q, k) *
-            qp(self.q ** -self.N, self.q, k) ** -1
-            qp(0, self.q, k) ** -1
+            qp(self.q ** -self.N, self.q, k) ** -1 *
+            qp(0, self.q, k) ** -1 *
             qp(self.q, self.q, k) ** -1
         )
 
@@ -217,7 +217,7 @@ class QKrawtchoukFunction(OrtogonalFunction):
         else:
             return (
                 qp(self.q, self.q, order) *
-                qp(-self.p * self.q ** (N + 1), self.q, order) *
+                qp(-self.p * self.q ** (self.N + 1), self.q, order) *
                 qp(-self.p, self.q, order) ** -1 *
                 qp(self.q ** -self.N, self.q, order) ** -1 *
                 (1 + self.p) / (1 + self.p * self.q ** (2 * order)) *
