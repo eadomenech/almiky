@@ -36,3 +36,16 @@ class HidderEightFrequencyCoeficients(unittest.TestCase):
         msg = hidder.extract(watermarked_array)
 
         self.assertTrue(msg.startswith('anier'))
+
+    def test_with_charlier_8x8(self):
+        from almiky.moments.matrix import Transform
+        from almiky.utils.ortho_matrix import charl
+
+        trasform = Transform(charl)
+        cover_array = np.random.rand(32, 32)
+        hidder = frequency.HidderEightFrequencyCoeficients(trasform)
+
+        watermarked_array = hidder.insert(cover_array, 'anier')
+        msg = hidder.extract(watermarked_array)
+
+        self.assertTrue(msg.startswith('anier'))

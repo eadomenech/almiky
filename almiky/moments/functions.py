@@ -189,3 +189,40 @@ class CharlierSobolevFunction(CharlierFunction):
             self.An(x, order) * super().eval(x, order) +
             self.Bn(x, order) * super().eval(x, order - 1)
         )
+
+
+class QKrawtchoukFunction(OrtogonalFunction):
+
+    def __init__(self, q, p, N):
+        super().__init__()
+        self.q = q
+        self.p = p
+        self.N = N
+
+    def keval(self, x, k, order):
+        mp.dps = 25; mp.pretty = True
+        return (
+            self.q ** k *
+            qp(self.q ** -order, self.q, k) *
+            qp(self.q ** -x, self.q, k) *
+            qp(-self.p * self.q ** order, self.q, k) *
+            qp(self.q ** -self.N, self.q, k) ** -1
+            qp(0, self.q, k) ** -1
+            qp(self.q, self.q, k) ** -1
+        )
+
+    def norm(self, order):
+        if order < 0:
+            return 0
+        else:
+            return (
+                qp(self.q, self.q, order) *
+                qp(-self.p * self.q ** (N + 1), self.q, order) *
+                qp(-self.p, self.q, order) ** -1 *
+                qp(self.q ** -self.N, self.q, order) ** -1 *
+                (1 + self.p) / (1 + self.p * self.q ** (2 * order)) *
+                qp(-self.p * self.q, self.q, self.N) *
+                self.p ** -self.N * self.q ** -special.binom(self.N + 1, 2) *
+                (-self.p * self.q ** -self.N) ** order *
+                self.q ** order ** 2
+            )

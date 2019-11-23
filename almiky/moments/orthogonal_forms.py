@@ -97,3 +97,25 @@ class QHahnForm(OrthogonalForm):
             qp(self.q, self.q, x) ** -1 *
             qp(self.beta ** -1 * self.q ** -self.N, self.q, x) ** -1
         )
+
+
+class QKrawtchoukForm(OrthogonalForm):
+    '''
+    Class that represent a q-hahn ortogonal form.
+    '''
+    function_class = QKrawtchoukFunction
+
+    def __init__(self, order, **parameters):
+        super().__init__(order, **parameters)
+        self.q = parameters['q']
+        self.p = parameters['p']
+        self.N = parameters['N']
+
+    def weight(self, x):
+        mp.dps = 25
+        mp.pretty = True
+        return (
+            qp(self.q ** -self.N, self.q, x) *
+            qp(self.q, self.q, x) ** -1 *
+            (-self.p) ** -x
+        )
