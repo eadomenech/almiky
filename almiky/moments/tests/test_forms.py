@@ -57,7 +57,7 @@ class CharlierSobolevOrtogonalFormsTest(unittest.TestCase):
     def test_charlierSobolev_eval(self):
         from almiky.moments.functions import CharlierSobolevFunction
         from almiky.moments.orthogonal_forms import CharlierSobolevForm
-# print(eva_form_sob(3, 7, 0.5, 10, -2))
+
         x, order = 3, 7
         form = CharlierSobolevForm(order, alpha=0.5, beta=10, gamma=-2)
         value = form.eval(x)

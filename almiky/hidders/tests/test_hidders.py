@@ -49,3 +49,15 @@ class HidderEightFrequencyCoeficients(unittest.TestCase):
         msg = hidder.extract(watermarked_array)
 
         self.assertTrue(msg.startswith('anier'))
+
+    def test_with_qkrawtchouk_8x8(self):
+        from almiky.moments.matrix import QKrawtchoukMatrix
+
+        trasform = QKrawtchoukMatrix(8, p=707, q=0.77, N=7)
+        cover_array = np.random.rand(32, 32)
+        hidder = frequency.HidderEightFrequencyCoeficients(trasform)
+
+        watermarked_array = hidder.insert(cover_array, 'anier')
+        msg = hidder.extract(watermarked_array)
+
+        self.assertTrue(msg.startswith('anier'))
