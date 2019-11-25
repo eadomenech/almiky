@@ -193,8 +193,7 @@ class CharlierSobolevFunction(CharlierFunction):
 
 class QKrawtchoukFunction(OrtogonalFunction):
 
-    def __init__(self, q, p, N):
-        super().__init__()
+    def __init__(self, p, q, N):
         self.q = q
         self.p = p
         self.N = N
@@ -225,4 +224,15 @@ class QKrawtchoukFunction(OrtogonalFunction):
                 self.p ** -self.N * self.q ** -special.binom(self.N + 1, 2) *
                 (-self.p * self.q ** -self.N) ** order *
                 self.q ** order ** 2
+            )
+            return (
+                qp(self.q, self.q, n) *
+                qp(-self.p * self.q ** (self.N + 1), self.q, n) *
+                qp(-self.p, self.q, n) ** -1 *
+                qp(self.q ** -self.N, self.q, n) ** -1 *
+                (1 + self.p) / (1 + self.p * self.q ** (2 * n)) *
+                qp(-self.p * self.q, self.q, self.N) *
+                self.p ** -self.N * self.q ** -special.binom(self.N + 1, 2) *
+                (-self.p * self.q ** -self.N) ** n *
+                self.q ** n ** 2
             )

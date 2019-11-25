@@ -88,3 +88,9 @@ class QHahnMatrix(CharlierMatrix):
 class QKrawtchoukMatrix(OrthogonalMatrix):
 
     orthogonal_form_class = QKrawtchoukForm
+
+    def __init__(self, dimension, **parameters):
+        self.dimension = dimension
+        self.parameters = parameters
+        self.parameters['N'] = self.dimension - 1
+        self.set_values()

@@ -60,6 +60,7 @@ class CharlierForm(OrthogonalForm):
     '''
     Class that represent a charlier ortogonal form.
     '''
+
     function_class = CharlierFunction
 
     def __init__(self, order, **parameters):

@@ -100,7 +100,7 @@ class QKrawtchoukMatrixTest(unittest.TestCase):
         from almiky.moments.matrix import QKrawtchoukMatrix
 
         dimension = 8
-        matrix = QKrawtchoukMatrix(dimension, q=0.7, p=0.75, N=7)
+        matrix = QKrawtchoukMatrix(dimension, p=0.7, q=0.75)
 
         np.testing.assert_array_almost_equal(
             matrix.values,
@@ -113,8 +113,7 @@ class QKrawtchoukMatrixTest(unittest.TestCase):
                 [0.52837, 0.379548, -0.200752, -0.535383, 0.475853, -0.151373, 0.0219292, -0.00138102],
                 [0.614293, -0.153151, -0.541145, 0.516625, -0.195207, 0.0364955, -0.00345897, 0.000150025],
                 [0.455384, -0.701068, 0.509621, -0.198804, 0.0431869, -0.00522401, 0.000339036, -0.0000103919]
-            ]),
-            decimal=3
+            ])
         )
 
 
