@@ -13,3 +13,10 @@ class ExceededCapacity(Exception):
     def __init__(self):
         msg = "The message length exceeds the embedding capacity."
         super().__init__(msg)
+
+
+class NotMatrixQuasiOrthogonal(Exception):
+
+    def __init__(self):
+        msg = "This matrix in not quasi orthogonal"
+        super().__init__(msg)
