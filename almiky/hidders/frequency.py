@@ -72,12 +72,9 @@ class HidderEightFrequencyCoeficients():
         # self.hashf = increase(self.hashf, block_instace_8x8.max_num_blocks())
         # Checking the embedding capacity
         embd_cap = block_instace_8x8.max_num_blocks() * 8
-        len_emb_cap = len(utils.base_change(embd_cap, 2))
-        embd_cap -= len_emb_cap
         if len(bin_msg) > embd_cap:
             raise ExceededCapacity
-        #bin_msg = utils.base_change(len(bin_msg), 2, len_emb_cap) + bin_msg
-        # Insertion process
+
         for i in range(block_instace_8x8.max_num_blocks()):
             block8x8 = block_instace_8x8.get_block(i)
             block_transf8x8 = self.ortho_matrix.direct(block8x8)
@@ -116,13 +113,6 @@ class HidderEightFrequencyCoeficients():
             for k in range(1,9):
                 extracted_lsb += utils.ext_lsb(abs(round(vac[k])))
         return utils.bin2char(extracted_lsb)
-
-        # Number of bits to determine the length of the secret message
-        embd_cap = block_instace_8x8.max_num_blocks() * 256
-        len_emb_cap = len(utils.base_change(embd_cap, 2))
-        len_emb_bits = utils.bin2dec(extracted_lsb[:len_emb_cap])
-
-        return utils.bin2char(extracted_lsb[len_emb_cap:][:len_emb_bits])
 
 
 class HidderFrequencyLeastSignificantBit(HidderFrequency):
