@@ -3,5 +3,9 @@ scipy
 opencv-python
 mpmath
 
+# images
+imageio
+opencv-python
+
 # Test
 coverage
