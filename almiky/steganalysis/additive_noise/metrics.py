@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from scipy import ndimage
-from scipy.fftpack import dct
+from scipy import fftpack
 
 
 class HCFCOM:
@@ -40,10 +40,10 @@ class HCFCOM:
         '''
         histogram = self.histogram(image)
         N = int(histogram.shape[1] / 2)
-        return [
-            dct(chanel, n=N)
+        return np.array([
+            fftpack.dct(chanel, n=N)
             for chanel in histogram
-        ]
+        ])
 
     def __call__(self, image):
         '''
