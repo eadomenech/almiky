@@ -18,7 +18,7 @@ class ProcessImageFolder:
         return value
 
     def __call__(self, folder):
-        return [
+        return (
             self._process(file)
             for file in folder.iterdir()
-        ]
+        )

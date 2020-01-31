@@ -2,7 +2,6 @@ import numpy as np
 from scipy import ndimage
 from scipy.spatial import distance
 
-from . import metrics
 
 class AdditiveNoiseEstimator:
     '''
@@ -11,17 +10,6 @@ class AdditiveNoiseEstimator:
     of histogran characteristic funcion (hcf) of image and
     mean hcf of image stadistic ditribution.
     '''
-
-    def __init__(self, metric):
-        self.metric = metric
-
-    def _distance(self, item):
-        '''
-        self._ditance(item) => float: return mahalanobis between
-        item and and data mean calculated by self.fit method. 
-        '''
-        cm = self.metric(item)
-        return distance.mahalanobis(cm, self.mean, self.icovariance)
 
     def fit(self, data):
         '''
@@ -41,6 +29,6 @@ class AdditiveNoiseEstimator:
         but cero otherwise.
         '''
         return [
-            1 if self._distance(item) < threshold else 0
+            1 if distance.mahalanobis(item, self.mean, self.icovariance) < threshold else 0
             for item in data
         ]

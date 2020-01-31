@@ -24,7 +24,7 @@ class HCFCOM:
         red_histogram = cv2.calcHist(
             [image], [0], None, [256], [0, 256]).reshape(-1)
         green_histogram = cv2.calcHist(
-            [image], [1], None, [256], [0, 56]).reshape(-1)
+            [image], [1], None, [256], [0, 256]).reshape(-1)
         blue_histogram = cv2.calcHist(
             [image], [2], None, [256], [0, 256]).reshape(-1)
 
