@@ -1,5 +1,4 @@
 import numpy as np
-from scipy import ndimage
 from scipy.spatial import distance
 
 
@@ -10,6 +9,10 @@ class AdditiveNoiseEstimator:
     of histogran characteristic funcion (hcf) of image and
     mean hcf of image stadistic ditribution.
     '''
+
+    def __init__(self, mean=None, icovariance=None):
+        self.mean = mean
+        self.icovariance = icovariance
 
     def fit(self, data):
         '''
