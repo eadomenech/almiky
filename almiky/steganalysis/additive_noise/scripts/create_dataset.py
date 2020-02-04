@@ -34,12 +34,12 @@ def main():
     size = int(args.size)
     target = int(args.target)
     target = np.full((size, 1), target)
-    dir = Path(args.indir)
+    indir = Path(args.indir)
 
     hchfcom = metrics.HCFCOM()
     load = features.ProcessImageFolder(hchfcom)
 
-    data = list(load(dir))
+    data = list(load(indir))
     dataset = np.append(data, target, axis=1)
     np.savetxt(args.output, dataset)
 
