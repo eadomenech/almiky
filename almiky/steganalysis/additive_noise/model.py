@@ -29,6 +29,8 @@ class AdditiveNoiseEstimator:
         but cero otherwise.
         '''
         return [
-            1 if distance.mahalanobis(item, self.mean, self.icovariance) < threshold else 0
+            1 if distance.mahalanobis(
+                item, self.mean, self.icovariance
+            ) < threshold else -1
             for item in data
         ]
