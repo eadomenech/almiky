@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from scipy import ndimage
-from scipy import fftpack
+from numpy import fft
 
 
 class HCFCOM:
@@ -39,17 +39,16 @@ class HCFCOM:
         channels.
         '''
         histogram = self.histogram(image)
-        N = int(histogram.shape[1] / 2)
         return np.array([
-            fftpack.dct(chanel, n=N)
-            for chanel in histogram
+            fft.rfftn(component)
+            for component in histogram
         ])
 
     def __call__(self, image):
         '''
         center_mass(histogram) => numpy array: return color image`s center of
-        mass. Array returned has (3,) shape with one component for each imagen color
-        channels.
+        mass. Array returned has (3,) shape with one component for each
+        imagen color channels.
         '''
 
         return np.array([

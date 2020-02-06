@@ -22,7 +22,7 @@ def main():
         "-t",
         "--target",
         required=True,
-        help="File that cointain target")
+        help="Target")
     parser.add_argument(
         "-s",
         "--size",

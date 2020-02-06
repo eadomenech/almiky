@@ -6,7 +6,7 @@ from unittest.mock import Mock
 import cv2
 import numpy as np
 from scipy import ndimage
-from scipy import fftpack
+from numpy import fft
 
 from almiky.steganalysis.additive_noise import metrics
 
@@ -52,11 +52,11 @@ class HistogramCharacteristicFunction(unittest.TestCase):
     def test_hcf(self):
         image = imageio.imread('{}/01.bmp'.format(IMAGE_DIR))
 
-        transform1 = np.random.rand(128)
-        transform2 = np.random.rand(128)
-        transform3 = np.random.rand(128)
+        transform1 = np.random.rand(128).view(np.complex)
+        transform2 = np.random.rand(128).view(np.complex)
+        transform3 = np.random.rand(128).view(np.complex)
         output = np.array([transform1, transform2, transform3])
-        fftpack.dct = Mock(side_effect=[transform1, transform2, transform3])
+        fft.rfftn = Mock(side_effect=[transform1, transform2, transform3])
 
         hcfcom = metrics.HCFCOM()
         hcf = hcfcom.hchf(image)
@@ -66,9 +66,13 @@ class HistogramCharacteristicFunction(unittest.TestCase):
 class CenterOfMassTest(unittest.TestCase):
     def test_center_mass(self):
         image = imageio.imread('{}/01.bmp'.format(IMAGE_DIR))
+        value1 = 3.5+1j
+        value2 = 4.2+0j
+        value3 = 5.6+4j
 
-        ndimage.center_of_mass = Mock(side_effect=[[2], [3], [4]])
+        ndimage.center_of_mass = Mock(
+            side_effect=[[value1], [value2], [value3]])
         hcfcom = metrics.HCFCOM()
 
         com = hcfcom(image)
-        np.testing.assert_array_equal(com, [2, 3, 4])
+        np.testing.assert_array_equal(com, [value1, value2, value3])

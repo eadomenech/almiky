@@ -1,9 +1,10 @@
+'''
+Test for predictions
+'''
 
-import imageio
-import numpy as np
-from pathlib import Path
 import unittest
 from unittest.mock import Mock
+import numpy as np
 
 from scipy.spatial import distance
 
@@ -28,5 +29,4 @@ class ModelTest(unittest.TestCase):
         estimator.icovariance = np.random.rand(3, 3)
         distance.mahalanobis = Mock(side_effect=[12, 40, 30, 86, 10])
         predictions = estimator.predict(data)
-        self.assertEqual(predictions, [1, 0, 1, 0, 1])
-
+        self.assertEqual(predictions, [1, -1, 1, -1, 1])
