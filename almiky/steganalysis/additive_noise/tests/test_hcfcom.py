@@ -55,7 +55,8 @@ class HistogramCharacteristicFunction(unittest.TestCase):
         transform1 = np.random.rand(128).view(np.complex)
         transform2 = np.random.rand(128).view(np.complex)
         transform3 = np.random.rand(128).view(np.complex)
-        output = np.array([transform1, transform2, transform3])
+        output = np.array([
+            np.abs(transform1), np.abs(transform2), np.abs(transform3)])
         fft.rfftn = Mock(side_effect=[transform1, transform2, transform3])
 
         hcfcom = metrics.HCFCOM()

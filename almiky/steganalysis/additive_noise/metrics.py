@@ -40,7 +40,7 @@ class HCFCOM:
         '''
         histogram = self.histogram(image)
         return np.array([
-            fft.rfftn(component)
+            np.absolute(fft.rfftn(component))
             for component in histogram
         ])
 
