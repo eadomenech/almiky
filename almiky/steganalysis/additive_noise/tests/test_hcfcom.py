@@ -36,6 +36,7 @@ class ColorImageHistogramTest(unittest.TestCase):
 
         cv2.calcHist = Mock(side_effect=side_effect)
         image = imageio.imread('{}/01.bmp'.format(IMAGE_DIR))
+        histogram /= image.size
 
         hcfcom = metrics.HCFCOM()
         hist = hcfcom.histogram(image)
@@ -46,22 +47,6 @@ class ColorImageHistogramTest(unittest.TestCase):
         hcfcom = metrics.HCFCOM()
         hist = hcfcom.histogram(image)
         np.testing.assert_array_equal(hist.shape, (3, 256))
-
-
-class HistogramCharacteristicFunction(unittest.TestCase):
-    def test_hcf(self):
-        image = imageio.imread('{}/01.bmp'.format(IMAGE_DIR))
-
-        transform1 = np.random.rand(128).view(np.complex)
-        transform2 = np.random.rand(128).view(np.complex)
-        transform3 = np.random.rand(128).view(np.complex)
-        output = np.array([
-            np.abs(transform1), np.abs(transform2), np.abs(transform3)])
-        fft.rfftn = Mock(side_effect=[transform1, transform2, transform3])
-
-        hcfcom = metrics.HCFCOM()
-        hcf = hcfcom.hchf(image)
-        np.testing.assert_array_equal(hcf, output)
 
 
 class CenterOfMassTest(unittest.TestCase):

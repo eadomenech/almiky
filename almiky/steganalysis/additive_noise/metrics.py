@@ -20,7 +20,7 @@ class HCFCOM:
         using opencv calHist function. Array returned has (3, N) shape where
         N is bean of histogram
         '''
-
+        # FIXME: arbritarly 8 bit image (256 posibles values) is used
         red_histogram = cv2.calcHist(
             [image], [0], None, [256], [0, 256]).reshape(-1)
         green_histogram = cv2.calcHist(
@@ -28,21 +28,13 @@ class HCFCOM:
         blue_histogram = cv2.calcHist(
             [image], [2], None, [256], [0, 256]).reshape(-1)
 
-        return np.array([red_histogram, green_histogram, blue_histogram])
+        normalize_histogram = np.array([
+            red_histogram,
+            green_histogram,
+            blue_histogram
+        ]) / image.size
 
-    def hchf(self, image):
-        '''
-        hchf(image) => numpy array: return histogram characteristic function
-        of an color image.
-
-        Array returned has (3, N) shape with one component for each imagen color
-        channels.
-        '''
-        histogram = self.histogram(image)
-        return np.array([
-            np.absolute(fft.rfftn(component))
-            for component in histogram
-        ])
+        return normalize_histogram
 
     def __call__(self, image):
         '''
@@ -51,7 +43,14 @@ class HCFCOM:
         imagen color channels.
         '''
 
+        # Characteristic function
+        hchf = fft.ifft(self.histogram(image))
+        # Only [0, N/2 -1 ] coeficients of DFT are used
+        # to calculate center of mass
+        # FIXME: arbritarly 8 bit image (256 posibles values) is used
+        hchf_modified = hchf[:, 127]
+
         return np.array([
             ndimage.center_of_mass(channel)[0]
-            for channel in self.hchf(image)
+            for channel in hchf_modified
         ])
