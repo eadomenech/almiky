@@ -48,7 +48,7 @@ class HCFCOM:
         # Only [0, N/2 -1 ] coeficients of DFT are used
         # to calculate center of mass
         # FIXME: arbritarly 8 bit image (256 posibles values) is used
-        hchf_modified = hchf[:, 127]
+        hchf_modified = np.absolute(hchf[:,:127])
 
         return np.array([
             ndimage.center_of_mass(channel)[0]

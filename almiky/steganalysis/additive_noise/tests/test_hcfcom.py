@@ -51,14 +51,15 @@ class ColorImageHistogramTest(unittest.TestCase):
 
 class CenterOfMassTest(unittest.TestCase):
     def test_center_mass(self):
-        image = imageio.imread('{}/01.bmp'.format(IMAGE_DIR))
-        value1 = 3.5+1j
-        value2 = 4.2+0j
-        value3 = 5.6+4j
-
-        ndimage.center_of_mass = Mock(
-            side_effect=[[value1], [value2], [value3]])
+        image = np.random.rand(48, 48)
+        histogram = np.random.rand(3, 256)
+        hchf = np.absolute(np.fft.ifft(histogram)[:,:127])
         hcfcom = metrics.HCFCOM()
+        hcfcom.histogram = Mock(side_effect=lambda image: histogram)
+        expected_com = np.array([
+            ndimage.center_of_mass(channel)[0]
+            for channel in hchf
+        ])
 
         com = hcfcom(image)
-        np.testing.assert_array_equal(com, [value1, value2, value3])
+        np.testing.assert_array_equal(com, expected_com)
