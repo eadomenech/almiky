@@ -1,14 +1,20 @@
+'''
+Imperceptibility performance metrics
+'''
 
-from math import log10, log
+from math import log10
 import numpy as np
-import cv2
 
 
 def mse(cover_work, ws_work):
     '''
-    mse(cover_work, ws_work) => number: Calculate Mean Square Error (MSE)
+    Calculate an return Mean Square Error (MSE)
     between a cover work an wattermaked work (or stego work)
     '''
+
+    if cover_work.shape != ws_work.shape:
+        raise ValueError('Cover and watermak/stego work have different shape')
+
     dims_cover = cover_work.shape
     m = dims_cover[0]
     n = dims_cover[1]
@@ -20,9 +26,9 @@ def mse(cover_work, ws_work):
         return sum(sum(sum(diff_pow))) / (m * n * dims_cover[2])
 
 
-def psnr(cover_array, stego_array):
+def psnr(cover_array, stego_array, max=255):
     '''
     Peak Signal-to-Noise Ratio (PSNR)
     '''
-    RMSE = mse(cover_array, stego_array)
-    return 10 * log10(255 ** 2 / RMSE) if RMSE else 100
+    RMSE = mse(cover_array, stego_array) or 1 / cover_array.size
+    return 10 * log10(max ** 2 / RMSE) if RMSE else 100
