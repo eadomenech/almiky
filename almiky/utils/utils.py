@@ -77,12 +77,12 @@ def bin2dec(bin_seq):
 
 
 def char2bin(data):
-    return "".join(format(ord(x), '08b') for x in data)
+    return "".join(format(ord(x), '0b') for x in data)
 
 
 def bin2char(bin_seq):
     return ''.join(
-        (chr(int(bin_seq[i:i+8], 2)) for i in range(0, len(bin_seq), 8))
+        (chr(int(bin_seq[i:i+7], 2)) for i in range(0, len(bin_seq), 7))
     )
 
 
