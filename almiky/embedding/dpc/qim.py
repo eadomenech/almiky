@@ -25,7 +25,7 @@ class BinaryQuantizationIndexModulation:
         return (
             2 * self.step *
             round(amplitude / (2 * self.step)) +
-            (bit or - 1) / 2 * self.step
+            (bit or -1) / 2 * self.step
         )
 
     def extract(self, amplitude):

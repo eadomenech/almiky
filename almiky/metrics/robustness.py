@@ -24,7 +24,7 @@ def ber(iwatermark, ewatermark):
 
     def check(ibit, ebit):
         '''
-        Check y two bit are equals; return 1 if are not equals,
+        Check if two bit are equals; return 1 if are not equals,
         return 0 otherwise. Raise an exception if arguments are
         invalid bits.
 
@@ -42,7 +42,8 @@ def ber(iwatermark, ewatermark):
             (
                 check(ibit, ebit)
                 for ibit, ebit in
-                zip(iwatermark, ewatermark))
+                zip(iwatermark, ewatermark)
+            )
         )
         number_bits = min(len(iwatermark), len(ewatermark))
 
