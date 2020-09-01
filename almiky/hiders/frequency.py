@@ -6,7 +6,6 @@ import os
 import numpy as np
 from copy import deepcopy
 from almiky.utils import utils
-from almiky.metrics import metrics
 from almiky.utils.blocks_class import BlocksImage
 from almiky.exceptions import ExceededCapacity
 
@@ -157,3 +156,37 @@ class HidderFrequencyLeastSignificantBit(HidderFrequency):
             msg += self.__extract__(block, coeficient_index)
 
         return utils.bin2char(msg)
+
+
+class BlockHider:
+    """
+    Hides data in transform domain using a desired embedder.
+    Cover work is divided in block and bits of message are
+    hiden in coeficients of trasnformed blocks.
+    """
+
+    def __init__(self, embedder, transform):
+        """
+        Set embedder an transform used by hider
+
+        Arguments:
+        embedder -- It allows to embed message bits in the coeficients.
+        transform -- It allows to move from the domain of space
+        to the trasform domain and vice versa
+        """
+        self.embedder = embedder
+        self.transform = transform
+
+    def hide(self, cover, msg):
+        """
+        Hide msg in cover work and return watermarked/stego work
+
+        Arguments:
+        cover -- cover work
+        msg -- binary message coded in an str
+        """
+        ws_work = np.copy(cover)
+
+        for bit in message:
+            
+        return cover
