@@ -187,6 +187,4 @@ class BlockHider:
         """
         ws_work = np.copy(cover)
 
-        for bit in message:
-            
         return cover

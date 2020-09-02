@@ -27,15 +27,32 @@ class BlocksImage():
             L.append(col_block * self.size_block_cols)
             L.append((col_block + 1) * self.size_block_cols)
             return L
-        raise Exception("There is no such block")
 
-    def get_block(self, num_block):
-        try:
-            pos = self.get_coord(num_block)
-            return self.matrix[pos[0]:pos[1], pos[2]:pos[3]]
-        except Exception:
-            return None
+        raise IndexError("There is no such block")
 
-    def set_block(self, block, num_block):
+    def __getitem__(self, num_block):
+        '''
+        Return the block specified in num_block argument.
+
+        Arguments:
+        num_block: block number
+
+        Raises an IndexError if num_block is higher than
+        blocks number of image or num_block is lesser than cero.
+        '''
+        pos = self.get_coord(num_block)
+        return self.matrix[pos[0]:pos[1], pos[2]:pos[3]]
+
+    def __setitem__(self, num_block, block):
+        '''
+        Replace a block.
+
+        Arguments:
+        num_block: block number
+        block: replacement block
+
+        Raises an IndexError if num_block is higher than
+        blocks number of image or num_block is lesser than cero.
+        '''
         pos = self.get_coord(num_block)
         self.matrix[pos[0]:pos[1], pos[2]:pos[3]] = block
