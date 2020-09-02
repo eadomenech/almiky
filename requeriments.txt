@@ -1,11 +1,10 @@
 # Science
-scipy
-opencv-python
-mpmath
+scipy==1.5.2
+mpmath==1.1.0
 
 # images
-imageio
-opencv-python
+imageio==2.9.0
+opencv-python==4.4.0.42
 
 # Test
-coverage
+coverage==5.2.1
