@@ -41,7 +41,7 @@ class TestBER(unittest.TestCase):
         ewatermark = '1111000111'
 
         ber = metrics.ber(iwatermark, ewatermark)
-        self.assertEquals(ber, 0.25)
+        self.assertEqual(ber, 0.25)
 
     def test_watermarks_same_length(self):
         # Watermark inserted
@@ -50,7 +50,7 @@ class TestBER(unittest.TestCase):
         ewatermark = '1111000111'
 
         ber = metrics.ber(iwatermark, ewatermark)
-        self.assertEquals(ber, 0.4)
+        self.assertEqual(ber, 0.4)
 
 
 if __name__ == '__main__':

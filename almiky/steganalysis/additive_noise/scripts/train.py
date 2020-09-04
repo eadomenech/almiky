@@ -21,7 +21,7 @@ def main():
 
     args = parser.parse_args()
 
-    data = np.loadtxt(args.dataset, usecols=(0, 1, 2)
+    data = np.loadtxt(args.dataset, usecols=(0, 1, 2))
     estimator = model.AdditiveNoiseEstimator()
     estimator.fit(data)
 

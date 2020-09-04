@@ -71,7 +71,7 @@ class TestGaussianNoise(TestCase):
         attacks.gaussian_noise(np.random.rand(4, 4), density=0.1)
 
         expected_uniform_calls = [((0, 1),)] * 16
-        self.assertEquals(
+        self.assertEqual(
             random.uniform.call_args_list, expected_uniform_calls)
         expected_gauss_calls = [((0, 0.5),)] * 16
         self.assertListEqual(

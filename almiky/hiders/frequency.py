@@ -6,7 +6,7 @@ import os
 import numpy as np
 from copy import deepcopy
 from almiky.utils import utils
-from almiky.utils.blocks_class import BlocksImage
+from almiky.utils.blocks import BlocksImage
 from almiky.exceptions import ExceededCapacity
 
 
@@ -75,7 +75,7 @@ class HidderEightFrequencyCoeficients():
             raise ExceededCapacity
 
         for i in range(block_instace_8x8.max_num_blocks()):
-            block8x8 = block_instace_8x8.get_block(i)
+            block8x8 = block_instace_8x8[i]
             block_transf8x8 = self.ortho_matrix.direct(block8x8)
             vac = utils.vzig_zag_scan(block_transf8x8)
             for k in range(1,9):
@@ -85,8 +85,7 @@ class HidderEightFrequencyCoeficients():
                         abs(round(vac[k])), bin_msg[l]
                     )
             block_transf8x8 = utils.mzig_zag_scan(vac)
-            block_instace_8x8.set_block(
-                self.ortho_matrix.inverse(block_transf8x8), i)
+            block_instace_8x8[i] = self.ortho_matrix.inverse(block_transf8x8)
 
         return watermarked_array
 
@@ -106,7 +105,7 @@ class HidderEightFrequencyCoeficients():
         block_instace_8x8 = BlocksImage(red_ws_array)
         # Extraction process
         for i in range(block_instace_8x8.max_num_blocks()):
-            block8x8 = block_instace_8x8.get_block(i)
+            block8x8 = block_instace_8x8[i]
             block_transf8x8 = self.ortho_matrix.direct(block8x8)
             vac = utils.vzig_zag_scan(block_transf8x8)
             for k in range(1,9):

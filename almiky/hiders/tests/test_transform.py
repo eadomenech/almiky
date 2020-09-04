@@ -9,6 +9,7 @@ import numpy as np
 from almiky.hiders import frequency
 
 
+@unittest.skip
 class TestBlockHider(TestCase):
     """
     Test for BlockHider class

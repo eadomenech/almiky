@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
-from almiky.hidders import frequency
+from almiky.hiders import frequency
 from almiky.utils import ortho_matrix
 
 base = Path(__file__).parent.parent.parent
