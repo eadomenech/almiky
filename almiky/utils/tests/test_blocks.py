@@ -17,9 +17,6 @@ class BlockImageTest(TestCase):
     '''
 
     def test_init_default_dimension(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
         image = MagicMock()
         block_manager = BlocksImage(image)
         self.assertEqual(block_manager.matrix, image)
@@ -27,9 +24,6 @@ class BlockImageTest(TestCase):
         self.assertEqual(block_manager.size_block_cols, 8)
 
     def test_init_custom_dimension(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
         image = MagicMock()
         block_manager = BlocksImage(image, 4, 8)
         self.assertEqual(block_manager.matrix, image)
@@ -37,9 +31,6 @@ class BlockImageTest(TestCase):
         self.assertEqual(block_manager.size_block_cols, 8)
 
     def test_get_first_block(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
         image = np.array([
             [0.72996436, 0.30220469, 0.26302874, 0.45926106, 0.83229292,
                 0.36547379, 0.04903042, 0.80401489],
@@ -69,9 +60,6 @@ class BlockImageTest(TestCase):
         np.testing.assert_array_equal(blocks[0], block)
 
     def test_get_middle_block(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
         image = np.array([
             [0.72996436, 0.30220469, 0.26302874, 0.45926106, 0.83229292,
                 0.36547379, 0.04903042, 0.80401489],
@@ -101,9 +89,6 @@ class BlockImageTest(TestCase):
         np.testing.assert_array_equal(blocks[9], block)
 
     def test_get_last_block(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
         image = np.array([
             [0.72996436, 0.30220469, 0.26302874, 0.45926106, 0.83229292,
                 0.36547379, 0.04903042, 0.80401489],
@@ -132,10 +117,7 @@ class BlockImageTest(TestCase):
 
         np.testing.assert_array_equal(blocks[15], block)
 
-    def test_get_block_offset(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
+    def test_get_block_out_of_range(self):
         image = np.array([
             [0.72996436, 0.30220469, 0.26302874, 0.45926106, 0.83229292,
                 0.36547379, 0.04903042, 0.80401489],
@@ -161,9 +143,6 @@ class BlockImageTest(TestCase):
             blocks[16]
 
     def test_set_block(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
         image = np.array([
             [0.72996436, 0.30220469, 0.26302874, 0.45926106, 0.83229292,
                 0.36547379, 0.04903042, 0.80401489],
@@ -198,10 +177,7 @@ class BlockImageTest(TestCase):
 
         np.testing.assert_array_equal(image, modified_image)
 
-    def test_set_block_offset(self):
-        '''
-        Test BlockImage init for 8x8 blocks
-        '''
+    def test_set_block_out_of_range(self):
         image = np.array([
             [0.72996436, 0.30220469, 0.26302874, 0.45926106, 0.83229292,
                 0.36547379, 0.04903042, 0.80401489],
@@ -230,3 +206,57 @@ class BlockImageTest(TestCase):
 
         with self.assertRaises(IndexError, msg="There is no such block"):
             blocks[16] = new_block
+
+    def test_block_image_is_iterable(self):
+        '''
+        Test capacity of iterate over the blocks.
+        '''
+        image = np.array([
+            [0.98838329, 0.92974977, 0.40523466, 0.41932678],
+            [0.40426586, 0.44543487, 0.67170983, 0.46135769],
+            [0.85925337, 0.59646605, 0.38249919, 0.8737707 ],
+            [0.85925337, 0.59646605, 0.45148745, 0.79845514]
+        ])
+
+        expected = [
+            np.array([
+                [0.98838329, 0.92974977],
+                [0.40426586, 0.44543487]
+            ]),
+            np.array([
+                [0.40523466, 0.41932678],
+                [0.67170983, 0.46135769]
+            ]),
+            np.array([
+                [0.85925337, 0.59646605],
+                [0.85925337, 0.59646605]
+            ]),
+            np.array([
+                [0.38249919, 0.8737707],
+                [0.45148745, 0.79845514]
+            ]),
+        ]
+
+        blocks = BlocksImage(image, 2, 2)
+
+        for index, block in enumerate(blocks):
+            np.testing.assert_array_equal(block, expected[index])
+
+    def test_element_modification(self):
+        image = np.array([
+            [0.98838329, 0.92974977, 0.40523466, 0.41932678],
+            [0.40426586, 0.44543487, 0.67170983, 0.46135769],
+            [0.85925337, 0.59646605, 0.38249919, 0.8737707 ],
+            [0.85925337, 0.59646605, 0.45148745, 0.79845514]
+        ])
+
+        new_block = np.array([
+            [0.40426582, 0.92974977],
+            [0.40426586, 0.44543487]
+        ])
+
+        blocks = BlocksImage(image, 2, 2)
+        block = blocks[0]
+        block[0][0] = 0.40426582
+
+        np.testing.assert_array_equal(blocks[0], new_block)
