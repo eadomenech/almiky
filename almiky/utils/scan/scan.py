@@ -6,18 +6,41 @@ import numpy as np
 from .maps import ROW_MAJOR_8x8
 
 
-class ScanMapping:
-    def __init__(self, block, map=ROW_MAJOR_8x8):
+class ScanMapper:
+    '''
+    Provide an interface for scan a NxN data using a map
+
+    You can use default row major 8x8 map:
+    scanning = ScanMapper(data)
+
+    or use a custom map:
+    scanning = ScanMapper(data, map=ZIGZAG)
+
+    Then is posible get an element by index:
+    amplitude = scanning[5]
+
+    or modify an element
+    scanning[2] = 0.75
+
+    A IndexError is raised if index is out of range.
+
+    Also is posible iterate over elements:
+    for coefficient in scanning:
+        ...
+
+    '''
+
+    def __init__(self, data, map):
         '''
-        Initialization
+        Initialize self. See help(type(self)) for accurate signature.
 
         Arguments:
-        block -- block to scan
+        data -- data to scan
         map -- map used for scanning
         '''
-        self.block = block
+        self.data = data
         self.map = map
-        self.length = self.block.shape[1]
+        self.length = self.data.shape[1]
 
     def _get_indexes(self, pos):
         '''
@@ -51,7 +74,7 @@ class ScanMapping:
     def __iter__(self):
         for i in self.map:
             x, y = self._get_indexes(i)
-            yield self.block[x, y]
+            yield self.data[x, y]
 
     def __getitem__(self, index):
         '''
@@ -63,7 +86,7 @@ class ScanMapping:
         pos = self.get_pos(index)
         x, y = self._get_indexes(pos)
 
-        return self.block[x, y]
+        return self.data[x, y]
 
     def __setitem__(self, index, value):
         '''
@@ -75,4 +98,40 @@ class ScanMapping:
         pos = self.get_pos(index)
         x, y = self._get_indexes(pos)
 
-        self.block[x, y] = value
+        self.data[x, y] = value
+
+
+class ScanMapping:
+    '''
+    Allows to obtain an ScanMapper given a NxN data
+    and a scan map.
+
+    The mapping is built given a scan map
+    scan = ScanMapping(map=ZIGZAG)
+
+    or using default row major map:
+    scan = ScanMapping()
+
+    The ScanMapper instance is obtained calling scan with
+    data as argument.
+    scanning = scan(data)
+
+    See help(ScanMapper) for more details
+    '''
+    def __init__(self, map=ROW_MAJOR_8x8):
+        '''
+        Initialize self. See help(type(self)) for accurate signature.
+
+        Arguments:
+        map -- map used for scanning
+        '''
+        self.map = map
+
+    def __call__(self, data):
+        '''
+        Return an scan mapper
+
+        Arguments:
+        data -- data to scan: (NxN) numpy array
+        '''
+        return ScanMapper(data, self.map)

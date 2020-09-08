@@ -25,7 +25,8 @@ class DefaultMappingScanTest(TestCase):
 
         exploration = list(range(0, 64))
 
-        scanning = ScanMapping(block)
+        scan = ScanMapping()
+        scanning = scan(block)
 
         np.testing.assert_array_equal(list(scanning), exploration)
 
@@ -35,7 +36,8 @@ class DefaultMappingScanTest(TestCase):
         '''
         block = np.array(range(0, 64)).reshape(8, 8)
 
-        scanning = ScanMapping(block)
+        scan = ScanMapping()
+        scanning = scan(block)
 
         self.assertEqual(scanning[0], 0)
         self.assertEqual(scanning[18], 18)
@@ -45,7 +47,8 @@ class DefaultMappingScanTest(TestCase):
 
         block = np.array(range(0, 64)).reshape(8, 8)
 
-        scanning = ScanMapping(block)
+        scan = ScanMapping()
+        scanning = scan(block)
 
         with self.assertRaises(IndexError, msg='scan index out of range'):
             scanning[64]
@@ -65,7 +68,8 @@ class DefaultMappingScanTest(TestCase):
             [9, 11, 18, 24]
         ])
 
-        scanning = ScanMapping(block)
+        scan = ScanMapping()
+        scanning = scan(block)
 
         with self.assertRaises(IndexError, msg='block index out of range'):
             scanning[63]
@@ -79,7 +83,8 @@ class DefaultMappingScanTest(TestCase):
         '''
         block = np.array(range(0, 64)).reshape(8, 8)
 
-        scanning = ScanMapping(block)
+        scan = ScanMapping()
+        scanning = scan(block)
         scanning[24] = 8
 
         self.assertEqual(block[3, 0], 8)
@@ -107,7 +112,8 @@ class MappingScanTest(TestCase):
 
         exploration = list(range(0, 64))
 
-        scanning = ScanMapping(block, maps.ZIGZAG_8x8)
+        scan = ScanMapping(map=maps.ZIGZAG_8x8)
+        scanning = scan(block)
         
         np.testing.assert_array_equal(list(scanning), exploration)
 
@@ -126,7 +132,8 @@ class MappingScanTest(TestCase):
             [35, 36, 48, 49, 57, 58, 62, 63]
         ])
 
-        scanning = ScanMapping(block, maps.ZIGZAG_8x8)
+        scan = ScanMapping(map=maps.ZIGZAG_8x8)
+        scanning = scan(block)
 
         self.assertEqual(scanning[0], 0)
         self.assertEqual(scanning[18], 18)
@@ -145,7 +152,8 @@ class MappingScanTest(TestCase):
             [35, 36, 48, 49, 57, 58, 62, 63]
         ])
 
-        scanning = ScanMapping(block, maps.ZIGZAG_8x8)
+        scan = ScanMapping(map=maps.ZIGZAG_8x8)
+        scanning = scan(block)
 
         with self.assertRaises(IndexError, msg='scan index out of range'):
             scanning[64]
@@ -165,7 +173,8 @@ class MappingScanTest(TestCase):
             [9, 11, 18, 24]
         ])
 
-        scanning = ScanMapping(block, maps.ZIGZAG_8x8)
+        scan = ScanMapping(map=maps.ZIGZAG_8x8)
+        scanning = scan(block)
 
         with self.assertRaises(IndexError, msg='block index out of range'):
             scanning[63]
@@ -188,7 +197,8 @@ class MappingScanTest(TestCase):
             [35, 36, 48, 49, 57, 58, 62, 63]
         ])
 
-        scanning = ScanMapping(block, maps.ZIGZAG_8x8)
+        scan = ScanMapping(map=maps.ZIGZAG_8x8)
+        scanning = scan(block)
         scanning[24] = 8
 
         self.assertEqual(block[3, 3], 8)
