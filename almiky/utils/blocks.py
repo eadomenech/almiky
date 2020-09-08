@@ -85,3 +85,6 @@ class BlocksImage():
         '''
         for i in range(self.max_num_blocks()):
             yield self[i]
+
+    def __len__(self):
+        return self.max_num_blocks()
