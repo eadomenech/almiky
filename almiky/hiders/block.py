@@ -3,10 +3,45 @@ Basic hiders
 '''
 import itertools
 
+import numpy as np
+
 from almiky.utils.blocks import BlocksImage
 
 
-class BlockBitHider:
+class BlockHider:
+    '''
+    Abstract class to hide payload in blocks.
+    '''
+
+    def __init__(self, hider):
+        '''
+        Initialize self. See help(type(self)) for accurate signature.
+        '''
+        self.hider = hider
+
+    def insert(self, cover, payload, block_shape=(8, 8)):
+        '''
+        Hide the payload in a cover work.
+
+        Arguments:
+        cover -- cover work
+        payload -- payload
+        block_shape: -- block dimensions
+        '''
+        raise NotImplementedError
+
+    def extract(self, ws_work, block_shape=(8, 8)):
+        '''
+        Extract payload from watermarked/stego work
+
+        Arguments:
+        ws_cover -- watermarked/stego work
+        block_shape: -- block dimensions
+        '''
+        raise NotImplementedError
+
+
+class BlockBitHider(BlockHider):
     '''
     Hide a bit in one coefficient.
 
@@ -27,7 +62,7 @@ class BlockBitHider:
         '''
         self.hider = hider
 
-    def insert(self, cover, msg, index=0, block_shape=(8, 8)):
+    def insert(self, cover, msg, block_shape=(8, 8), **kwargs):
         '''
         Hide a bit
 
@@ -35,10 +70,16 @@ class BlockBitHider:
         bit -- bit to hide
         index -- index of coefficient where bit will be hidden
         '''
-        blocks = BlocksImage(cover, *block_shape)
+        data = np.copy(cover)
+        blocks = BlocksImage(data, *block_shape)
 
-        for block, bit in zip(blocks, msg):
-            self.hider.insert(block, int(bit), index)
+        for i in range(len(msg)):
+            try:
+                blocks[i] = self.hider.insert(blocks[i], msg[i], **kwargs)
+            except IndexError as e:
+                raise ValueError("Capacity exceded.") from e
+
+        return data
 
     def extract(self, ws_work, index=0, block_shape=(8, 8)):
         '''

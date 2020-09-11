@@ -15,11 +15,41 @@ class BlockBitHidderTest(TestCase):
     Test for BlockHidder class
     """
 
-    def mock_insert(self, scan, bit, index):
-        scan.data[0, 0] = 0
-
     def test_insert(self):
-        msg = '1010'
+        cover = np.array([
+            [0.72953648, 0.62911616, 0.51911824, 0.87013322],
+            [0.17510781, 0.84696329, 0.98087834, 0.38006197],
+            [0.74479979, 0.13571776, 0.15937805, 0.16483562],
+            [0.86981138, 0.49378362, 0.50166927, 0.11741198]
+        ])
+        expected_ws_work = np.array([
+            [0.72153848, 0.62911616, 0.51171824, 0.87013322],
+            [0.17510781, 0.84696329, 0.98087834, 0.38006197],
+            [0.74479979, 0.13571776, 0.15937805, 0.16483562],
+            [0.86981138, 0.49378362, 0.50166927, 0.11741198]
+        ])
+        ws_base_works = [
+            np.array([
+                [0.72153848, 0.62911616],
+                [0.17510781, 0.84696329],
+            ]),
+            np.array([
+                [0.51171824, 0.87013322],
+                [0.98087834, 0.38006197],
+            ]),
+        ]
+
+        base_hider = Mock()
+        base_hider.insert = Mock(side_effect=ws_base_works)
+
+        hider = hiders.BlockBitHider(base_hider)
+        ws_work = hider.insert(cover, '01', block_shape=(2, 2), index=0)
+
+        self.assertEqual(base_hider.insert.call_count, 2)
+
+        np.testing.assert_array_equal(ws_work, expected_ws_work)
+
+    def test_less_blocks_than_bits(self):
         cover = np.array([
             [0.72953648, 0.62911616, 0.51911824, 0.87013322],
             [0.17510781, 0.84696329, 0.98087834, 0.38006197],
@@ -27,22 +57,19 @@ class BlockBitHidderTest(TestCase):
             [0.86981138, 0.49378362, 0.50166927, 0.11741198]
         ])
 
-        bit_hidder = Mock()
-        bit_hidder.insert = Mock(side_effect=self.mock_insert)
-
-        ws = np.array([
-            [0, 0.62911616, 0, 0.87013322],
-            [0.17510781, 0.84696329, 0.98087834, 0.38006197],
-            [0, 0.13571776, 0, 0.16483562],
-            [0.86981138, 0.49378362, 0.50166927, 0.11741198]
+        ws_work = np.array([
+            [0.72953648, 0.62911616],
+            [0.17510781, 0.84696329],
         ])
 
-        hider = hiders.BlockBitHider(bit_hidder)
-        hider.insert(cover, msg, block_shape=(2, 2), index=0)
+        base_hider = Mock()
+        base_hider.insert = Mock(return_value=ws_work)
+        hider = hiders.BlockBitHider(base_hider)
 
-        self.assertEqual(bit_hidder.insert.call_count, 4)
+        with self.assertRaises(ValueError):
+            hider.insert(cover, '01100', block_shape=(2, 2), index=0)
 
-        np.testing.assert_array_equal(cover, ws)
+        self.assertEqual(base_hider.insert.call_count, 4)
 
     def test_extract(self):
 
