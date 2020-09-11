@@ -33,10 +33,12 @@ class SingleBitHider:
         bit -- bit to hide
         index -- index of coefficient where bit will be hidden
         '''
-        scanning = self.scan(cover)
+        data = np.copy(cover)
+        scanning = self.scan(data)
         amplitude = scanning[index]
-        bit = bit
         scanning[index] = self.embedder.embed(amplitude, bit)
+
+        return data
 
     def extract(self, cover, index=0):
         '''
