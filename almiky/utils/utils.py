@@ -142,3 +142,16 @@ def mzig_zag_scan(vect):
     for i in range(len(pos)):
         L[int(pos[i])] = vect[i]
     return L.reshape(8, 8)
+
+
+def max_psnr(shape, max=255):
+    '''
+    Determinate max psnr value (MSE = 0)
+
+    Arguments:
+    shape -- tuple: image dimensions
+    max -- max amplitude value
+    '''
+    x, y = shape
+
+    return 10 * math.log10(math.pow(max, 2) * x * y)
