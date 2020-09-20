@@ -48,5 +48,26 @@ class BinaryToStrTest(TestCase):
         self.assertEqual(utils.bin2char(binary), 'núñez')
 
 
+class MaxPSNRTest(TestCase):
+    def test_default_amplitude(self):
+        '''
+        Testing with aplitude equal to 255
+        '''
+
+        dimensions = (256, 256)
+        expected = 96.295602915
+        value = utils.max_psnr(dimensions)
+
+        self.assertAlmostEqual(value, expected)
+
+    def test_custom_amplitude(self):
+
+        dimensions = (256, 256)
+        expected = 102.350198526
+        value = utils.max_psnr(dimensions, max=512)
+
+        self.assertAlmostEqual(value, expected)
+
+
 if __name__ == '__main__':
     unittest.main()
