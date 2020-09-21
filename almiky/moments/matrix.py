@@ -5,7 +5,9 @@
 It define orthogonal matrix from orthogonal forms
 '''
 
+from almiky.exceptions import NotMatrixQuasiOrthogonal
 import numpy as np
+
 from .orthogonal_forms import (
     CharlierForm, CharlierSobolevForm, QHahnForm, QKrawtchoukForm)
 
@@ -52,6 +54,10 @@ class OrthogonalMatrix(Transform):
         self.dimension = dimension
         self.parameters = parameters
         self.set_values()
+        
+    def ident(self, matrix):
+        I = np.identity(matrix.shape[0])
+        return sum(sum(abs(np.around(np.dot(matrix.T, matrix)))-I))
 
     def get_column(self, order):
         form = self.orthogonal_form_class(order, **self.parameters)
@@ -66,6 +72,9 @@ class OrthogonalMatrix(Transform):
         indices = range(self.dimension)
         for i in indices:
             matrix[:, i] = self.get_column(order=i)
+            
+        if not(ident(matrix) == 0 and ident(matrix.T) == 0):
+            raise NotMatrixQuasiOrthogonal
 
         self.values = matrix
 
