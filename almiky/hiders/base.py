@@ -80,18 +80,16 @@ class TransformHider:
         Insert the payload in transform domain using
         base hider.
         '''
-        transformed_cover_work = self.transform.direct(cover_work)
-        transformed_ws_work = self.hider.insert(transformed_cover_work, **kwargs)
-        ws_work = self.transform.inverse(transformed_ws_work)
+        direct = self.transform.direct(cover_work)
+        ws_work = self.hider.insert(direct, **kwargs)
 
-        return ws_work
+        return self.transform.inverse(ws_work)
 
     def extract(self, ws_work, **kwargs):
         '''
         Extract payload from transform domain using
         base hider.
         '''
-        transformed_ws_work = self.transform.direct(ws_work)
-        msg = self.hider.extract(transformed_ws_work, **kwargs)
+        direct = self.transform.direct(ws_work)
 
-        return msg
+        return self.hider.extract(direct, **kwargs)
