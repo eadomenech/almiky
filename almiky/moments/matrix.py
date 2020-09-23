@@ -1,11 +1,7 @@
-# -*- encoding:utf-8 -*-
-# -*- coding:utf-8 -*-
-
-'''
-It define orthogonal matrix from orthogonal forms
-'''
+'''It define orthogonal matrix from orthogonal forms.'''
 
 import numpy as np
+
 from .orthogonal_forms import (
     CharlierForm, CharlierSobolevForm, QHahnForm, QKrawtchoukForm)
 
@@ -17,7 +13,8 @@ class Transform:
     def direct(self, data):
         '''
         obj.direct(data) => (np.array): return direct matrix moments
-        (data) is a (np.array) that it´s shape must match with (self.ortho_matrix shape)
+        (data) is a (np.array) that it´s shape must match with
+        (self.ortho_matrix shape)
         '''
         return np.dot(self.values, np.dot(data, self.values.T))
 
@@ -66,6 +63,10 @@ class OrthogonalMatrix(Transform):
         self.parameters = parameters
         self.set_values()
 
+    def ident(self, matrix):
+        identity = np.identity(matrix.shape[0])
+        return sum(sum(abs(np.around(np.dot(matrix.T, matrix))) - identity))
+
     def get_column(self, order):
         form = self.orthogonal_form_class(order, **self.parameters)
         return np.array([form.eval(i) for i in range(self.dimension)])
@@ -81,6 +82,10 @@ class OrthogonalMatrix(Transform):
             matrix[:, i] = self.get_column(order=i)
 
         self.values = matrix
+        self.quasi_orthogonal = (
+            self.ident(matrix) == 0 and
+            self.ident(matrix.T) == 0
+        )
 
 
 class CharlierMatrix(OrthogonalMatrix):

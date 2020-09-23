@@ -3,7 +3,6 @@ Tests for utility module
 '''
 
 import unittest
-
 from unittest import TestCase
 
 from almiky.utils import utils

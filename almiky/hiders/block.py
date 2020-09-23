@@ -81,7 +81,7 @@ class BlockBitHider(BlockHider):
 
         return data
 
-    def extract(self, ws_work, index=0, block_shape=(8, 8)):
+    def extract(self, ws_work, block_shape=(8, 8), **kwargs):
         '''
         Get bit hidden an return it
 
@@ -92,7 +92,7 @@ class BlockBitHider(BlockHider):
         blocks = BlocksImage(ws_work, *block_shape)
 
         for block in blocks:
-            bit = self.hider.extract(block, index)
+            bit = self.hider.extract(block, **kwargs)
             msg += str(bit)
 
         return msg
