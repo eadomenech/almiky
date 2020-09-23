@@ -29,6 +29,19 @@ class Transform:
         return np.dot(self.values.T, np.dot(data, self.values))
 
 
+class ImageTransform:
+    def __init__(self, transform, max_amplitude=255):
+        self.transform = transform
+        self.max_amplitude = max_amplitude
+
+    def direct(self, data):
+        return self.transform.direct(data)
+
+    def inverse(self, data):
+        inverted = self.transform.inverse(data)
+        return np.clip(np.rint(inverted), 0, self.max_amplitude)
+
+
 class OrthogonalMatrix(Transform):
     '''
     Abstract class that represent an orthogonal matrix.

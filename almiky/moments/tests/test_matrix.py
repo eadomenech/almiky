@@ -2,7 +2,67 @@
 # -*- coding:utf-8 -*-
 
 import unittest
+from unittest.mock import Mock
+
 import numpy as np
+
+from almiky.moments import matrix
+
+
+class ImageTransform(unittest.TestCase):
+    def test_direct(self):
+        data = np.random.rand(4, 4)
+        expected = np.random.rand(4, 4)
+        # Base transform mock
+        transform = Mock()
+        transform.direct = Mock(return_value=expected)
+
+        itransform = matrix.ImageTransform(transform)
+
+        # transform.direct.assert_called()
+        np.testing.assert_equal(itransform.direct(data), expected)
+
+    def test_inverse_defaul_max_amplitude(self):
+        '''
+        Testing inverse with max aplitude equal to 255
+        '''
+        inverse = np.array([
+            [-1.8, 0, 58.78],
+            [255.0, 255.1, 52.17]
+        ])
+        data = np.random.rand(4, 4)
+        expected = np.array([
+            [0, 0, 59],
+            [255, 255, 52]
+        ])
+        # Base transform mock
+        transform = Mock()
+        transform.inverse = Mock(return_value=inverse)
+
+        itransform = matrix.ImageTransform(transform)
+
+        # transform.direct.assert_called()
+        np.testing.assert_equal(itransform.inverse(data), expected)
+
+    def test_inverse_custom_max_amplitude(self):
+        max_amplitude = 16
+        inverse = np.array([
+            [-1.8, 0, 14.59],
+            [16.0, 16.1, 12.17]
+        ])
+        data = np.random.rand(4, 4)
+        expected = np.array([
+            [0, 0, 15],
+            [16, 16, 12]
+        ])
+        # Base transform mock
+        transform = Mock()
+        transform.inverse = Mock(return_value=inverse)
+
+        itransform = matrix.ImageTransform(transform, max_amplitude)
+
+        # transform.direct.assert_called()
+        np.testing.assert_equal(itransform.inverse(data), expected)
 
 
 class OrtogonalMatrixTest(unittest.TestCase):
