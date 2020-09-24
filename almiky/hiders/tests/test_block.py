@@ -2,12 +2,11 @@
 
 import unittest
 from unittest import TestCase
-from unittest.mock import Mock, MagicMock, patch
+from unittest.mock import Mock, call
 
 import numpy as np
 
 from almiky.hiders import block as hiders
-from almiky.utils.scan.scan import ScanMapping
 
 
 class BlockBitHidderTest(TestCase):

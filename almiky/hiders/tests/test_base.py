@@ -60,12 +60,12 @@ class SingleBitHidderTest(TestCase):
 class TranformHiderTest(TestCase):
 
     def test_insert(self):
-        data = np.array([
+        cover_work = np.array([
             [0.72104381, 0.3611912],
             [0.54423469, 0.99351504],
         ])
 
-        def mock_insert(cover_work, **kwargs):
+        def mock_insert(cover_work, data, **kwargs):
             return cover_work * 2
 
         def mock_direct(cover_work):
@@ -82,8 +82,8 @@ class TranformHiderTest(TestCase):
         transform.inverse = Mock(side_effect=mock_inverse)
 
         hider = hiders.TransformHider(base_hider, transform=transform)
-        ws_work = hider.insert(data, bit=1, index=0)
-        ws_work_expected = ((data * 3) * 2) * -1
+        ws_work = hider.insert(cover_work, data=1, index=0)
+        ws_work_expected = ((cover_work * 3) * 2) * -1
 
         base_hider.insert.assert_called_once()
         transform.direct.assert_called_once()

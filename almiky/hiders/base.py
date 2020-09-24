@@ -26,7 +26,7 @@ class SingleBitHider:
         self.embedder = embedder
         self.scan = scan
 
-    def insert(self, cover, bit=1, index=0):
+    def insert(self, cover, bit, index=0):
         '''
         Hide a bit
 
@@ -75,13 +75,13 @@ class TransformHider:
         self.hider = hider
         self.transform = transform
 
-    def insert(self, cover_work, **kwargs):
+    def insert(self, cover_work, data, **kwargs):
         '''
         Insert the payload in transform domain using
         base hider.
         '''
         direct = self.transform.direct(cover_work)
-        ws_work = self.hider.insert(direct, **kwargs)
+        ws_work = self.hider.insert(direct, data, **kwargs)
 
         return self.transform.inverse(ws_work)
 
