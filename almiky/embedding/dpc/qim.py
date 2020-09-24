@@ -13,12 +13,13 @@ class BinaryQuantizationIndexModulation:
         self.step = step
 
     def embed(self, amplitude, bit):
-        '''Embedds a bit and return the new amplitude value.
-        
+        '''
+        Embedds a bit and return the new amplitude value.
         Arguments:
         amplitude -- amplitude of signal
         bit -- bit to embedd
         '''
+        bit = int(bit)
         if bit not in (0, 1):
             raise ValueError('Embedding an invalid bit')
 

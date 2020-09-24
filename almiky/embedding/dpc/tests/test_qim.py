@@ -1,7 +1,6 @@
 '''Test for methods based on quantization index modulation (QIM)'''
 
 
-import unittest
 from unittest import TestCase
 
 from almiky.embedding.dpc import qim
@@ -20,15 +19,22 @@ class BitnaryQIMTest(TestCase):
     def test_embedding_one(self):
         '''Test embedding a one with arbitrary step size'''
         embedder = qim.BinaryQuantizationIndexModulation(step=10)
-        modified = embedder.embed(150, 1)
 
+        modified = embedder.embed(150, 1)
+        self.assertEqual(modified, 165)
+
+        modified = embedder.embed(150, '1')
         self.assertEqual(modified, 165)
 
     def test_embedding_cero(self):
         '''Test embedding a cero with arbitrary step size'''
         embedder = qim.BinaryQuantizationIndexModulation(step=10)
-        modified = embedder.embed(155, 0)
 
+        modified = embedder.embed(155, 0)
+        self.assertEqual(modified, 155)
+
+        # Testing that bit can be represented as str
+        modified = embedder.embed(155, '0')
         self.assertEqual(modified, 155)
 
     def test_extraction(self):
