@@ -55,3 +55,22 @@ class BitnaryQIMTest(TestCase):
 
         bit = embedder.extract(-20)
         self.assertEqual(bit, 0)
+
+    def test_inverse(self):
+        '''Tested em.extract(em.insert(amplitude, bit) == bit'''
+        embedder = qim.BinaryQuantizationIndexModulation(step=40)
+        modified = embedder.embed(150, 1)
+        bit = embedder.extract(modified)
+        self.assertEqual(bit, 1)
+
+        modified = embedder.embed(150, 0)
+        bit = embedder.extract(modified)
+        self.assertEqual(bit, 0)
+
+        modified = embedder.embed(-150, 1)
+        bit = embedder.extract(modified)
+        self.assertEqual(bit, 1)
+
+        modified = embedder.embed(-150, 0)
+        bit = embedder.extract(modified)
+        self.assertEqual(bit, 0)
