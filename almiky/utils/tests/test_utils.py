@@ -8,44 +8,20 @@ from unittest import TestCase
 from almiky.utils import utils
 
 
-class StrToBinaryTest(TestCase):
+class BinaryConversion(TestCase):
     '''
     Tests for conversion from str to binary str sequence
     '''
-
     def test_empty_string(self):
-        self.assertEqual(utils.char2bin(''), '')
+        self.assertEqual(utils.bin2char(utils.char2bin('')), '')
 
-    def test_hello(self):
-        binary = '11010001100101110110011011001101111'
+    def test_ascii(self):
+        msg = 'hello world'
+        self.assertEqual(utils.bin2char(utils.char2bin(msg)), msg)
 
-        self.assertEqual(utils.char2bin('hello'), binary)
-
-    @unittest.expectedFailure
     def test_utf8(self):
-        binary = '11011101100001110111010110000111011000111001011111010'
-
-        self.assertEqual(utils.char2bin('núñez'), binary)
-
-
-class BinaryToStrTest(TestCase):
-    '''
-    Tests for conversion from binary str sequence to str
-    '''
-
-    def test_empty_string(self):
-        self.assertEqual(utils.bin2char(''), '')
-
-    def test_hello(self):
-        binary = '11010001100101110110011011001101111'
-
-        self.assertEqual(utils.bin2char(binary), 'hello')
-
-    @unittest.expectedFailure
-    def test_utf8(self):
-        binary = '01101110110000111011101011000011101100010110010101111010'
-
-        self.assertEqual(utils.bin2char(binary), 'núñez')
+        msg = 'díaz núñez'
+        self.assertEqual(utils.bin2char(utils.char2bin(msg)), msg)
 
 
 class MaxPSNRTest(TestCase):

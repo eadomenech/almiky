@@ -82,7 +82,7 @@ def char2bin(data):
 
 def bin2char(bin_seq):
     return ''.join(
-        (chr(int(bin_seq[i:i+7], 2)) for i in range(0, len(bin_seq), 7))
+        (chr(int(bin_seq[i:i+8], 2)) for i in range(0, len(bin_seq), 8))
     )
 
 
