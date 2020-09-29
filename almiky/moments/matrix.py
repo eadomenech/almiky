@@ -6,9 +6,24 @@ from .orthogonal_forms import (
     CharlierForm, CharlierSobolevForm, QHahnForm, QKrawtchoukForm)
 
 
+class SeparableTransform:
+    def __init__(self, left_orthon_matrix, right_orthon_matrix):
+        self.l_orthon_matrix = left_orthon_matrix
+        self.r_orthon_matrix = right_orthon_matrix
+
+    def direct(self, A):
+        return np.dot(self.l_orthon_matrix.T, np.dot(A, self.r_orthon_matrix))
+
+    def inverse(self, A):
+        return np.dot(
+            self.l_orthon_matrix,
+            np.dot(A, self.r_orthon_matrix.T)
+        )
+
+
 class Transform:
     def __init__(self, ortho_matrix):
-        self.values = ortho_matrix
+        self.transform = SeparableTransform(ortho_matrix, ortho_matrix)
 
     def direct(self, data):
         '''
@@ -16,14 +31,15 @@ class Transform:
         (data) is a (np.array) that it´s shape must match with
         (self.ortho_matrix shape)
         '''
-        return np.dot(self.values, np.dot(data, self.values.T))
+        return self.transform.direct(data)
 
     def inverse(self, data):
         '''
         obj.direct(data) => (np.array): return inverse matrix moments
-        (data) is a (np.array) that it´s shape must match with (self.ortho_matrix shape)
+        (data) is a (np.array) that it´s shape must match with
+        (self.ortho_matrix shape)
         '''
-        return np.dot(self.values.T, np.dot(data, self.values))
+        return self.transform.inverse(data)
 
 
 class ImageTransform:
@@ -61,7 +77,8 @@ class OrthogonalMatrix(Transform):
     def __init__(self, dimension, **parameters):
         self.dimension = dimension
         self.parameters = parameters
-        self.set_values()
+        matrix = self.get_values()
+        super().__init__(matrix)
 
     def ident(self, matrix):
         identity = np.identity(matrix.shape[0])
@@ -71,7 +88,7 @@ class OrthogonalMatrix(Transform):
         form = self.orthogonal_form_class(order, **self.parameters)
         return np.array([form.eval(i) for i in range(self.dimension)])
 
-    def set_values(self):
+    def get_values(self):
         '''
         matrix.get_values(dimension) => matrix, return all values of an
         ortogonal matrix of the dimension especified.
@@ -81,11 +98,11 @@ class OrthogonalMatrix(Transform):
         for i in indices:
             matrix[:, i] = self.get_column(order=i)
 
-        self.values = matrix
         self.quasi_orthogonal = (
             self.ident(matrix) == 0 and
             self.ident(matrix.T) == 0
         )
+        return matrix
 
 
 class CharlierMatrix(OrthogonalMatrix):
@@ -108,7 +125,5 @@ class QKrawtchoukMatrix(OrthogonalMatrix):
     orthogonal_form_class = QKrawtchoukForm
 
     def __init__(self, dimension, **parameters):
-        self.dimension = dimension
-        self.parameters = parameters
-        self.parameters['N'] = self.dimension - 1
-        self.set_values()
+        parameters['N'] = dimension - 1
+        super().__init__(dimension, **parameters)
