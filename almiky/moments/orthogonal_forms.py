@@ -10,6 +10,7 @@ import math
 from almiky.moments.functions import (
     CharlierFunction, CharlierSobolevFunction, QHahnFunction, QKrawtchoukFunction)
 from mpmath import *
+from scipy import special
 
 
 class OrthogonalForm:
@@ -123,4 +124,35 @@ class QKrawtchoukForm(OrthogonalForm):
             qp(self.q ** -self.N, self.q, x) *
             qp(self.q, self.q, x) ** -1 *
             (-self.p) ** -x
+        )
+
+
+class TchebichefForm(OrthogonalForm):
+    '''
+    Class that represent a Tchebichef ortogonal form.
+    '''
+    function_class = TchebichefFunction
+
+    def weight(self, x):
+        return 1
+
+
+class QCharlierForm(OrthogonalForm):
+    '''
+    Class that represent a q-Charlier ortogonal form.
+    '''
+    function_class = QCharlierFunction
+
+    def __init__(self, order, **parameters):
+        super().__init__(order, **parameters)
+        self.a = parameters['a']
+        self.q = parameters['q']
+
+    def weight(self, x):
+        mp.dps = 25
+        mp.pretty = True
+        return (
+            self.a ** x /
+            qp(self.q, self.q, x) *
+            self.q ** special.binom(x, 2)
         )

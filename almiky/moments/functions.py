@@ -238,7 +238,7 @@ class QKrawtchoukFunction(OrtogonalFunction):
             )
 
 
-class TchebichefPolynomials():
+class TchebichefFunction():
     def __init__(self, N):
         self.N = N
 
@@ -257,7 +257,7 @@ class TchebichefPolynomials():
         )
 
 
-class QCharlierPolynomials():
+class QCharlierFunction():
     def __init__(self, a, q):
         self.a = a
         self.q = q
