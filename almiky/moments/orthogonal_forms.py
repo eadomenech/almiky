@@ -8,7 +8,8 @@ Each ortogonal form is defined in a class and depend of an ortogonal function.
 
 import math
 from almiky.moments.functions import (
-    CharlierFunction, CharlierSobolevFunction, QHahnFunction, QKrawtchoukFunction)
+    CharlierFunction, CharlierSobolevFunction, QHahnFunction, QKrawtchoukFunction,
+    TchebichefFunction, QCharlierFunction)
 from mpmath import *
 from scipy import special
 

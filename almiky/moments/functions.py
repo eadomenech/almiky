@@ -107,7 +107,7 @@ class CharlierFunction(OrtogonalFunction):
     def keval(self, x, k, order):
         return (
             (-1) ** (order - k) *
-            special.poch(-order, k) *order
+            special.poch(-order, k) *   
             special.poch(-x, k) *
             self.alpha ** (order - k) /
             math.factorial(k)
