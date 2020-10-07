@@ -50,7 +50,7 @@ def gaussian_noise(image, density, mu=0, sigma=0.5, max_value=255):
         for j in range(y):
             alpha = random.uniform(0, 1)
             if alpha < density:
-                offset = random.gauss(mu, sigma)
+                offset = random.gauss(mu, sigma) * max_value
                 new_value = round(image[i, j] + offset)
                 if new_value < 0: new_value = 0
                 elif new_value > max_value: new_value = max_value
