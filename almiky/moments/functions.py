@@ -107,7 +107,7 @@ class CharlierFunction(OrtogonalFunction):
     def keval(self, x, k, order):
         return (
             (-1) ** (order - k) *
-            special.poch(-order, k) *
+            special.poch(-order, k) *order
             special.poch(-x, k) *
             self.alpha ** (order - k) /
             math.factorial(k)
@@ -236,3 +236,42 @@ class QKrawtchoukFunction(OrtogonalFunction):
                 (-self.p * self.q ** -self.N) ** n *
                 self.q ** n ** 2
             )
+
+
+class TchebichefPolynomials():
+    def __init__(self, N):
+        self.N = N
+
+    def eval(self, x, order):
+        mp.dps = 25; mp.pretty = True
+        return (
+            special.poch(1 - self.N, order) *
+            hyp3f2(-order, -x, 1 + order, 1, 1 - self.N, 1)
+        )
+
+    def norm(self, order):
+        mp.dps = 25; mp.pretty = True
+        return (
+            math.factorial(2 * order) *
+            special.binom(self.N + order, 2 * order + 1)
+        )
+
+
+class QCharlierPolynomials():
+    def __init__(self, a, q):
+        self.a = a
+        self.q = q
+
+    def eval(self, x, order):
+        mp.dps = 25; mp.pretty = True
+        L = [self.q ** -order, self.q ** -x]
+        return qhyper(L, [0], self.q, -self.q ** (order + 1) / self.a)
+
+    def norm(self, order):
+        mp.dps = 25; mp.pretty = True
+        return (
+            self.q ** -order *
+            special.qp(-self.a, self.q) *
+            special.qp(-self.a ** -1 * self.q, self.q, order) *
+            special.qp(self.q, self.q, order)
+        )
