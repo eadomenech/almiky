@@ -2,10 +2,9 @@
 
 
 import numpy as np
-import random
 
 
-def salt_paper_noise(image, density, max_value=255):
+def salt_pepper_noise(image, density, max_value=255):
     '''Applies Salt and Pepper noise to image.
 
     Arguments:
@@ -16,44 +15,37 @@ def salt_paper_noise(image, density, max_value=255):
     Return: altered image as numpy array
     '''
 
-    values = [0, max_value]
-    x, y = image.shape
-    altered = np.copy(image)
+    # Generation of salt & pepper noise with desired density
+    mask = np.random.uniform(size=image.shape) < density
+    noise = np.random.choice([-max_value, max_value], image.shape) * mask
 
-    for i in range(x):
-        for j in range(y):
-            alpha = random.uniform(0, 1)
-            if alpha < density:
-                beta = random.randint(0, 1)
-                altered[i, j] = values[beta]
+    noisy = image + noise
+    # Ensuring valid noisy image data: value range and data type
+    noisy = np.clip(noisy, 0, max_value).astype(image.dtype)
 
-    return altered
+    return noisy
 
 
-def gaussian_noise(image, density, mu=0, sigma=0.5, max_value=255):
+def gaussian_noise(image, percent_noise, max_value=255):
     '''Applies Gaussian noise to image.
 
     Arguments:
     data -- image data as numpy array
-    density -- probability at the pixels are altered (value between 0 an 1)
     mu -- mean
     sigma -- standar deviation
+    percent_noise -- percent ratio of the standard deviation of
+    the white Gaussian noise versus the signal for whole image
     max_value -- maximun image values
 
-    Return: altered image as numpy array
+    Return: noisy image as numpy array
     '''
 
-    x, y = image.shape
-    altered = np.copy(image)
+    # Generation of gaussina noise with desired mu, sigma and density
+    img_std = np.std(image)
+    noise = np.random.normal(0, img_std * percent_noise, image.shape)
 
-    for i in range(x):
-        for j in range(y):
-            alpha = random.uniform(0, 1)
-            if alpha < density:
-                offset = random.gauss(mu, sigma) * max_value
-                new_value = round(image[i, j] + offset)
-                if new_value < 0: new_value = 0
-                elif new_value > max_value: new_value = max_value
-                altered[i, j] = new_value if new_value >= 0 else 0
+    noisy = image + noise
+    # Ensuring valid noisy image data: value range and data type
+    noisy = np.clip(noisy, 0, max_value).astype(image.dtype)
 
-    return altered
+    return noisy
