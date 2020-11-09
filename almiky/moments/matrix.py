@@ -3,7 +3,8 @@
 import numpy as np
 
 from .orthogonal_forms import (
-    CharlierForm, CharlierSobolevForm, QHahnForm, QKrawtchoukForm)
+    CharlierForm, CharlierSobolevForm, QHahnForm, QKrawtchoukForm,
+    QCharlierForm, TchebichefForm)
 
 
 class SeparableTransform:
@@ -127,3 +128,13 @@ class QKrawtchoukMatrix(OrthogonalMatrix):
     def __init__(self, dimension, **parameters):
         parameters['N'] = dimension - 1
         super().__init__(dimension, **parameters)
+        
+
+class QCharlierMatrix(OrthogonalMatrix):
+
+    orthogonal_form_class = QCharlierForm
+    
+    
+class TchebichefMatrix(OrthogonalMatrix):
+
+    orthogonal_form_class = TchebichefForm
