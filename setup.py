@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='almiky',
@@ -7,8 +7,8 @@ setup(
       url='https://gitlab.udg.co.cu/Investigacion/almiky',
       author='Yenner J. Diaz-Nuñez, Anier Soria-Lorente, Ernesto Avila-Domenech',
       author_email='yennerdiaz@gmail.com',
-      license='LGPL3',
-      packages=['almiky'],
+      license='LICENSE.txt',
+      packages=find_packages(),
       install_requires=[
           'numpy==1.19.4',
           'scipy==1.5.4', 
