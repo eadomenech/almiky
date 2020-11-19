@@ -1,6 +1,6 @@
 # Almiky
 
-## Python library for data hiding in signals and images
+## Python library for data hiding in images
 
 ### Packaging Project
 
