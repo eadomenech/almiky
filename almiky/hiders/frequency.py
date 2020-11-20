@@ -51,6 +51,8 @@ class HidderEightFrequencyCoeficients():
         obj.insert(cover_array, msg) => (np.numpy): Return a watermarked
         work (stego work) with specified message.
         '''
+        # Initial Values
+        count = 0
         # Binary message
         bin_msg = utils.char2bin(msg)
         # Creating copy
@@ -76,9 +78,14 @@ class HidderEightFrequencyCoeficients():
             vac = utils.vzig_zag_scan(block_transf8x8)
             for k in range(1, 9):
                 # TODO: l deleted
-                vac[k] = np.sign(vac[k]) * utils.replace(
-                    abs(round(vac[k])), bin_msg[i % (len(bin_msg))]
-                )
+                # vac[k] = np.sign(vac[k]) * utils.replace(
+                #     abs(round(vac[k])), bin_msg[i % (len(bin_msg))]
+                # )
+                if count < len(bin_msg):
+                    vac[k] = np.sign(vac[k]) * utils.replace(
+                        abs(round(vac[k])), bin_msg[count]
+                    )
+                    count += 1
             block_transf8x8 = utils.mzig_zag_scan(vac)
             block_instace_8x8[i] = self.ortho_matrix.inverse(block_transf8x8)
 
