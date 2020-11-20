@@ -10,6 +10,7 @@ from scipy.spatial import distance
 
 from almiky.steganalysis.additive_noise.model import AdditiveNoiseEstimator
 
+
 class ModelTest(unittest.TestCase):
     def test_fit(self):
         data = np.random.rand(5, 3)

@@ -1,12 +1,10 @@
 import unittest
-from unittest.mock import Mock
-from unittest.mock import patch
 from pathlib import Path
 
 import numpy as np
 
 from almiky.hiders import frequency
-from almiky.utils import ortho_matrix
+# from almiky.utils import ortho_matrix
 
 base = Path(__file__).parent.parent.parent
 
@@ -19,7 +17,8 @@ base = Path(__file__).parent.parent.parent
 #         cover_array = np.random.rand(64, 64)
 #         hidder = frequency.HidderFrequencyLeastSignificantBit(transform)
 
-#         watermarked_array = hidder.insert(cover_array, 'anier', coeficient_index=10)
+#        watermarked_array = hidder.insert(
+#            cover_array, 'anier', coeficient_index=10)
 #         msg = hidder.extract(watermarked_array, coeficient_index=10)
 
 #         self.assertTrue(msg.startswith('anier'))

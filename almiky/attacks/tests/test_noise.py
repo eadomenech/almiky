@@ -1,10 +1,8 @@
 '''Test for noisy attacks'''
 
-
-import random
 import unittest
 from unittest import TestCase
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import numpy as np
 

@@ -6,7 +6,6 @@ from unittest.mock import Mock
 import cv2
 import numpy as np
 from scipy import ndimage
-from numpy import fft
 
 from almiky.steganalysis.additive_noise import metrics
 
@@ -54,7 +53,7 @@ class CenterOfMassTest(unittest.TestCase):
     def test_center_mass(self):
         image = np.random.rand(48, 48)
         histogram = np.random.rand(3, 256)
-        hchf = np.absolute(np.fft.ifft(histogram)[:,:127])
+        hchf = np.absolute(np.fft.ifft(histogram)[:, :127])
         hcfcom = metrics.HCFCOM()
         hcfcom.histogram = Mock(side_effect=lambda image: histogram)
         expected_com = np.array([

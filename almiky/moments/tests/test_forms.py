@@ -38,7 +38,6 @@ class CharlierOrtogonalFormsTest(unittest.TestCase):
     '''
 
     def test_charlier_eval(self):
-        from almiky.moments.functions import CharlierFunction
         from almiky.moments.orthogonal_forms import CharlierForm
 
         order = 8
@@ -55,7 +54,6 @@ class CharlierSobolevOrtogonalFormsTest(unittest.TestCase):
     '''
 
     def test_charlierSobolev_eval(self):
-        from almiky.moments.functions import CharlierSobolevFunction
         from almiky.moments.orthogonal_forms import CharlierSobolevForm
 
         x, order = 3, 7
@@ -71,7 +69,6 @@ class QHahnOrtogonalFormsTest(unittest.TestCase):
     '''
 
     def test_weight_eval(self):
-        from almiky.moments.functions import QHahnFunction
         from almiky.moments.orthogonal_forms import QHahnForm
 
         x, order = 4, 8
@@ -82,7 +79,6 @@ class QHahnOrtogonalFormsTest(unittest.TestCase):
         np.testing.assert_almost_equal(value, 481.44, 3)
 
     def test_qhahnform_eval(self):
-        from almiky.moments.functions import QHahnFunction
         from almiky.moments.orthogonal_forms import QHahnForm
 
         x, order = 4, 8

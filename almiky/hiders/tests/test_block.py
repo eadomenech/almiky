@@ -2,7 +2,7 @@
 
 import unittest
 from unittest import TestCase
-from unittest.mock import Mock, call
+from unittest.mock import Mock
 
 import numpy as np
 
@@ -86,7 +86,7 @@ class BlockBitHidderTest(TestCase):
         msg = hider.extract(cover, index=0, block_shape=(2, 2))
 
         self.assertEqual(bit_hidder.extract.call_count, 4)
-        
+
         self.assertEqual(msg, '1001')
 
 
