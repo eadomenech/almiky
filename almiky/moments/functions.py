@@ -107,7 +107,7 @@ class CharlierFunction(OrtogonalFunction):
     def keval(self, x, k, order):
         return (
             (-1) ** (order - k) *
-            special.poch(-order, k) *order
+            special.poch(-order, k) *   
             special.poch(-x, k) *
             self.alpha ** (order - k) /
             math.factorial(k)
@@ -238,7 +238,7 @@ class QKrawtchoukFunction(OrtogonalFunction):
             )
 
 
-class TchebichefPolynomials():
+class TchebichefFunction():
     def __init__(self, N):
         self.N = N
 
@@ -257,7 +257,7 @@ class TchebichefPolynomials():
         )
 
 
-class QCharlierPolynomials():
+class QCharlierFunction():
     def __init__(self, a, q):
         self.a = a
         self.q = q
