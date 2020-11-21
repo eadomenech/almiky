@@ -93,7 +93,7 @@ class CharlierMatrixTest(unittest.TestCase):
         matrix = CharlierMatrix(dimension, alpha=5)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
                 [0.08208499862389880, -0.1835476368560144],
                 [0.1835476368560144, -0.3283399944955952]
@@ -106,7 +106,8 @@ class CharlierMatrixTest(unittest.TestCase):
         dimension = 2
         matrix = CharlierMatrix(dimension, alpha=5)
         data = np.random.rand(2, 2)
-        result = np.dot(matrix.values, np.dot(data, matrix.values.T))
+        result = np.dot(
+            matrix.get_values(), np.dot(data, matrix.get_values().T))
         np.testing.assert_array_almost_equal(matrix.direct(data), result)
 
     def test_inverse(self):
@@ -115,7 +116,8 @@ class CharlierMatrixTest(unittest.TestCase):
         dimension = 2
         matrix = CharlierMatrix(dimension, alpha=5)
         data = np.random.rand(2, 2)
-        result = np.dot(matrix.values.T, np.dot(data, matrix.values))
+        result = np.dot(
+            matrix.get_values().T, np.dot(data, matrix.get_values()))
 
         np.testing.assert_array_almost_equal(matrix.inverse(data), result)
 
@@ -129,7 +131,7 @@ class CharlierSobolevMatrixTest(unittest.TestCase):
         matrix = CharlierSobolevMatrix(dimension, alpha=0.5, beta=10, gamma=-2)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
                 [0.77880078, -0.55069531],
                 [0.55069531, 0.38940039]
@@ -146,7 +148,7 @@ class QHahnMatrixTest(unittest.TestCase):
         matrix = QHahnMatrix(dimension, q=0.5, alpha=0.5, beta=0.5, N=2)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
                 [0.212512, 0.516398],
                 [0.481932, 0.68313]
@@ -163,7 +165,7 @@ class QKrawtchoukMatrixTest(unittest.TestCase):
         matrix = QKrawtchoukMatrix(dimension, p=0.7, q=0.75)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
                 [
                     0.00232851, 0.00682813, 0.0168077, 0.0394712, 0.0917658,
