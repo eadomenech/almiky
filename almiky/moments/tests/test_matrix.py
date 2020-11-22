@@ -93,29 +93,31 @@ class CharlierMatrixTest(unittest.TestCase):
         matrix = CharlierMatrix(dimension, alpha=5)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
                 [0.08208499862389880, -0.1835476368560144],
                 [0.1835476368560144, -0.3283399944955952]
             ])
         )
-    
+
     def test_direct_transform(self):
         from almiky.moments.matrix import CharlierMatrix
 
         dimension = 2
         matrix = CharlierMatrix(dimension, alpha=5)
+        values = matrix.get_values()
         data = np.random.rand(2, 2)
-        result = np.dot(matrix.values, np.dot(data, matrix.values.T))
+        result = np.dot(values.T, np.dot(data, values))
         np.testing.assert_array_almost_equal(matrix.direct(data), result)
-    
+
     def test_inverse(self):
         from almiky.moments.matrix import CharlierMatrix
 
         dimension = 2
         matrix = CharlierMatrix(dimension, alpha=5)
+        values = matrix.get_values()
         data = np.random.rand(2, 2)
-        result = np.dot(matrix.values.T, np.dot(data, matrix.values))
+        result = np.dot(values, np.dot(data, values.T))
 
         np.testing.assert_array_almost_equal(matrix.inverse(data), result)
 
@@ -129,7 +131,7 @@ class CharlierSobolevMatrixTest(unittest.TestCase):
         matrix = CharlierSobolevMatrix(dimension, alpha=0.5, beta=10, gamma=-2)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
                 [0.77880078, -0.55069531],
                 [0.55069531, 0.38940039]
@@ -146,7 +148,7 @@ class QHahnMatrixTest(unittest.TestCase):
         matrix = QHahnMatrix(dimension, q=0.5, alpha=0.5, beta=0.5, N=2)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
                 [0.212512, 0.516398],
                 [0.481932, 0.68313]
@@ -163,16 +165,32 @@ class QKrawtchoukMatrixTest(unittest.TestCase):
         matrix = QKrawtchoukMatrix(dimension, p=0.7, q=0.75)
 
         np.testing.assert_array_almost_equal(
-            matrix.values,
+            matrix.get_values(),
             np.asarray([
-                [0.00232851, 0.00682813, 0.0168077, 0.0394712, 0.0917658, 0.211195, 0.463611, 0.854487],
-                [0.0141819, 0.0383304, 0.085273, 0.174665, 0.331691, 0.543652, 0.564362, -0.486281],
-                [0.0550748, 0.131992, 0.250916, 0.407944, 0.518678, 0.288771, -0.605489, 0.176455],
-                [0.155209, 0.308613, 0.44707, 0.442106, 0.0548819, -0.624575, 0.300124, -0.0464647],
-                [0.329795, 0.476248, 0.369815, -0.114016, -0.58576, 0.402597, -0.0968305, 0.00922526],
-                [0.52837, 0.379548, -0.200752, -0.535383, 0.475853, -0.151373, 0.0219292, -0.00138102],
-                [0.614293, -0.153151, -0.541145, 0.516625, -0.195207, 0.0364955, -0.00345897, 0.000150025],
-                [0.455384, -0.701068, 0.509621, -0.198804, 0.0431869, -0.00522401, 0.000339036, -0.0000103919]
+                [
+                    0.00232851, 0.00682813, 0.0168077, 0.0394712,
+                    0.0917658, 0.211195, 0.463611, 0.854487],
+                [
+                    0.0141819, 0.0383304, 0.085273, 0.174665,
+                    0.331691, 0.543652, 0.564362, -0.486281],
+                [
+                    0.0550748, 0.131992, 0.250916, 0.407944,
+                    0.518678, 0.288771, -0.605489, 0.176455],
+                [
+                    0.155209, 0.308613, 0.44707, 0.442106,
+                    0.0548819, -0.624575, 0.300124, -0.0464647],
+                [
+                    0.329795, 0.476248, 0.369815, -0.114016,
+                    -0.58576, 0.402597, -0.0968305, 0.00922526],
+                [
+                    0.52837, 0.379548, -0.200752, -0.535383,
+                    0.475853, -0.151373, 0.0219292, -0.00138102],
+                [
+                    0.614293, -0.153151, -0.541145, 0.516625,
+                    -0.195207, 0.0364955, -0.00345897, 0.000150025],
+                [
+                    0.455384, -0.701068, 0.509621, -0.198804,
+                    0.0431869, -0.00522401, 0.000339036, -0.0000103919]
             ])
         )
 
