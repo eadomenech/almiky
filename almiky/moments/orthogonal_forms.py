@@ -29,7 +29,7 @@ class OrthogonalForm:
         def weigth(...)
             ...
 
-    FormX(order, **parameters) => new orthogonal form from
+    FormX(order, \**parameters) => new orthogonal form from
     orthogonal function FunctionX with n especific order and parameters.
 
     For example: FormX(8, alpha=0.2, beta=0.3)

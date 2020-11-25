@@ -68,7 +68,7 @@ class OrthogonalMatrix(Transform):
         def get_values(...)
             ...
 
-    MatixX(**parameters) => new orthogonal matrix from orthogonal form FormX
+    MatixX(\**parameters) => new orthogonal matrix from orthogonal form FormX
     with an specific parameters.
 
     For example: MatrixX(alpha=0.2, beta=0.3)

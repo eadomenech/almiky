@@ -22,7 +22,7 @@ class OrtogonalFunction:
         def keval(...)
             ...
 
-    FunctionX(order, **parameters) => new orthogonal function with
+    FunctionX(order, \**parameters) => new orthogonal function with
     an specific order and parameters.
 
     For example: FunctionX(8, alpha=0.2, beta=0.3)
