@@ -9,7 +9,6 @@ Subpackages
 
    almiky.utils.optimization
    almiky.utils.scan
-   almiky.utils.tests
 
 Submodules
 ----------

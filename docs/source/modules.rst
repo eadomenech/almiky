@@ -1,5 +1,5 @@
-almiky
-======
+Packages and modules
+====================
 
 .. toctree::
    :maxdepth: 4

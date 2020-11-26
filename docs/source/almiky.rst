@@ -1,11 +1,12 @@
+==============
 almiky package
 ==============
 
 Subpackages
------------
+===========
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 6
 
    almiky.attacks
    almiky.embedding
@@ -16,20 +17,12 @@ Subpackages
    almiky.utils
 
 Submodules
-----------
+==========
 
 almiky.exceptions module
 ------------------------
 
 .. automodule:: almiky.exceptions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky
    :members:
    :undoc-members:
    :show-inheritance:

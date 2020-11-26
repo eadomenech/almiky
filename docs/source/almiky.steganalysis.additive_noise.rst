@@ -8,7 +8,6 @@ Subpackages
    :maxdepth: 4
 
    almiky.steganalysis.additive_noise.scripts
-   almiky.steganalysis.additive_noise.tests
 
 Submodules
 ----------
@@ -33,14 +32,6 @@ almiky.steganalysis.additive\_noise.model module
 ------------------------------------------------
 
 .. automodule:: almiky.steganalysis.additive_noise.model
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky.steganalysis.additive_noise
    :members:
    :undoc-members:
    :show-inheritance:

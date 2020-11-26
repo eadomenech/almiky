@@ -11,11 +11,3 @@ almiky.utils.optimization.functions.multiple module
    :members:
    :undoc-members:
    :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky.utils.optimization.functions
-   :members:
-   :undoc-members:
-   :show-inheritance:

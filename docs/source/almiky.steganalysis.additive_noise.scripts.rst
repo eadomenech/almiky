@@ -27,11 +27,3 @@ almiky.steganalysis.additive\_noise.scripts.train module
    :members:
    :undoc-members:
    :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky.steganalysis.additive_noise.scripts
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,14 +1,6 @@
 almiky.hiders package
 =====================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   almiky.hiders.tests
-
 Submodules
 ----------
 
@@ -32,14 +24,6 @@ almiky.hiders.frequency module
 ------------------------------
 
 .. automodule:: almiky.hiders.frequency
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky.hiders
    :members:
    :undoc-members:
    :show-inheritance:

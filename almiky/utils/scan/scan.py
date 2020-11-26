@@ -23,8 +23,8 @@ class ScanMapper:
     A IndexError is raised if index is out of range.
 
     Also is posible iterate over elements:
-    for coefficient in scanning:
-        ...
+        for coefficient in scanning:
+            ...
 
     '''
 

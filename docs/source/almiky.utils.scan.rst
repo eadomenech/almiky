@@ -19,11 +19,3 @@ almiky.utils.scan.scan module
    :members:
    :undoc-members:
    :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky.utils.scan
-   :members:
-   :undoc-members:
-   :show-inheritance:

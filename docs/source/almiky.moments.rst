@@ -1,14 +1,6 @@
 almiky.moments package
 ======================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   almiky.moments.tests
-
 Submodules
 ----------
 
@@ -40,14 +32,6 @@ almiky.moments.transform module
 -------------------------------
 
 .. automodule:: almiky.moments.transform
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky.moments
    :members:
    :undoc-members:
    :show-inheritance:
