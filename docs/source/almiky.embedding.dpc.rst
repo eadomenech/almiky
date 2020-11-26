@@ -1,8 +1,9 @@
+============================
 almiky.embedding.dpc package
 ============================
 
 Submodules
-----------
+==========
 
 almiky.embedding.dpc.qim module
 -------------------------------

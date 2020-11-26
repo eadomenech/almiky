@@ -6,7 +6,7 @@ Subpackages
 ===========
 
 .. toctree::
-   :maxdepth: 6
+   :maxdepth: 7
 
    almiky.attacks
    almiky.embedding
