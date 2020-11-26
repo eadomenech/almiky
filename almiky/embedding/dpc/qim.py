@@ -17,7 +17,7 @@ class BinaryQuantizationIndexModulation:
         
         Args:
             amplitude (undefine): amplitude of signal
-            bit (int): bit to embedd
+            bit (int): bit to embedd (0 or 1)
         '''
         bit = int(bit)
         if bit not in (0, 1):
@@ -36,7 +36,7 @@ class BinaryQuantizationIndexModulation:
             amplitude (undefine): amplitude of signal
         
         Returns:
-            int: embedded bit
+            int: embedded bit (0 or 1)
         '''
         amplitude_diffs = list(map(
             lambda bit: abs(self.embed(amplitude, bit) - amplitude),
