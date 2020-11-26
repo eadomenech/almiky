@@ -24,8 +24,8 @@ for mod_name in MOCK_MODULES:
 # -- Project information -----------------------------------------------------
 
 project = 'Almiky'
-copyright = '2020, Yenner J. Diaz-Nuñez, Anier Soria-Lorente and Ernesto Avila-Domenech'
-author = 'Yenner J. Diaz-Nuñez, Anier Soria-Lorente and Ernesto Avila-Domenech'
+copyright = '2020, Yenner J. Diaz-Núñez, Anier Soria-Lorente and Ernesto Avila-Domenech'
+author = "Yenner J. Diaz-Núñez, Anier Soria-Lorente and Ernesto Avila-Domenech"
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.1'
