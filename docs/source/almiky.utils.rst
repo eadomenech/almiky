@@ -1,8 +1,9 @@
+====================
 almiky.utils package
 ====================
 
 Subpackages
------------
+===========
 
 .. toctree::
    :maxdepth: 4
@@ -11,7 +12,7 @@ Subpackages
    almiky.utils.scan
 
 Submodules
-----------
+==========
 
 almiky.utils.blocks module
 --------------------------
@@ -41,14 +42,6 @@ almiky.utils.utils module
 -------------------------
 
 .. automodule:: almiky.utils.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: almiky.utils
    :members:
    :undoc-members:
    :show-inheritance:

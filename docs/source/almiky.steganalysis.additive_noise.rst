@@ -1,8 +1,9 @@
+===========================================
 almiky.steganalysis.additive\_noise package
 ===========================================
 
 Subpackages
------------
+===========
 
 .. toctree::
    :maxdepth: 4
@@ -10,7 +11,7 @@ Subpackages
    almiky.steganalysis.additive_noise.scripts
 
 Submodules
-----------
+==========
 
 almiky.steganalysis.additive\_noise.features module
 ---------------------------------------------------

@@ -1,9 +1,6 @@
 almiky.utils.optimization.functions package
 ===========================================
 
-Submodules
-----------
-
 almiky.utils.optimization.functions.multiple module
 ---------------------------------------------------
 

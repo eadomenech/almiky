@@ -1,9 +1,6 @@
 almiky.steganalysis.additive\_noise.scripts package
 ===================================================
 
-Submodules
-----------
-
 almiky.steganalysis.additive\_noise.scripts.create\_dataset module
 ------------------------------------------------------------------
 

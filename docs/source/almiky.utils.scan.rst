@@ -1,9 +1,6 @@
 almiky.utils.scan package
 =========================
 
-Submodules
-----------
-
 almiky.utils.scan.maps module
 -----------------------------
 

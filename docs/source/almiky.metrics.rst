@@ -1,9 +1,6 @@
 almiky.metrics package
 ======================
 
-Submodules
-----------
-
 almiky.metrics.imperceptibility module
 --------------------------------------
 

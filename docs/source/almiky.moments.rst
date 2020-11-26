@@ -1,9 +1,6 @@
 almiky.moments package
 ======================
 
-Submodules
-----------
-
 almiky.moments.functions module
 -------------------------------
 
