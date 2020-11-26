@@ -1,9 +1,6 @@
 almiky.hiders package
 =====================
 
-Submodules
-----------
-
 almiky.hiders.base module
 -------------------------
 
