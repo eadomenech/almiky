@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import numpy as np
 
-from almiky.attacks import noise as attacks
+from almiky.attacks import noises as attacks
 
 
 class TestSaltAndPepperNoise(TestCase):

@@ -1,10 +1,10 @@
 almiky.attacks package
 ======================
 
-almiky.attacks.noise module
----------------------------
+almiky.attacks.noises module
+----------------------------
 
-.. automodule:: almiky.attacks.noise
+.. automodule:: almiky.attacks.noises
    :members:
    :undoc-members:
    :show-inheritance:
