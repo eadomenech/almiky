@@ -2,22 +2,22 @@
 
 
 class BinaryQuantizationIndexModulation:
-    '''Quantization index modulation is used to embed one bit'''
+    '''Quantization index modulation is used to embed one bit
+    
+    Attributes:
+        step: step size used for embedding and extraction.
+    '''
 
     def __init__(self, step):
-        '''Init class attr
-
-        Arguments:
-        step -- step size used for embedding and extraction.
-        '''
+        '''Init class attr.'''
         self.step = step
 
     def embed(self, amplitude, bit):
-        '''
-        Embedds a bit and return the new amplitude value.
-        Arguments:
-        amplitude -- amplitude of signal
-        bit -- bit to embedd
+        '''Embedds a bit and return the new amplitude value.
+        
+        Args:
+            amplitude (undefine): amplitude of signal
+            bit (int): bit to embedd
         '''
         bit = int(bit)
         if bit not in (0, 1):
@@ -31,9 +31,12 @@ class BinaryQuantizationIndexModulation:
 
     def extract(self, amplitude):
         '''Extracts the embedded bit according to the amplitude value.
-        Arguments:
-        amplitude -- amplitude of signal
-        bit -- bit to embedd
+        
+        Args:
+            amplitude (undefine): amplitude of signal
+        
+        Returns:
+            int: embedded bit
         '''
         amplitude_diffs = list(map(
             lambda bit: abs(self.embed(amplitude, bit) - amplitude),
