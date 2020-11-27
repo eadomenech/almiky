@@ -15,4 +15,4 @@ flake8:
   before_script:
     - pip --proxy=http://proxy22.udg.co.cu:3128 install -q flake8
   script:
-    - flake8
+    - flake8 almiky
