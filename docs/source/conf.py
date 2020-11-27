@@ -28,7 +28,7 @@ copyright = '2020, Yenner J. Diaz-Núñez, Anier Soria-Lorente and Ernesto Avila
 author = "Yenner J. Diaz-Núñez, Anier Soria-Lorente and Ernesto Avila-Domenech"
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '0.0.2'
 
 
 # -- General configuration ---------------------------------------------------
@@ -56,7 +56,7 @@ exclude_patterns = [
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'bizstyle'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

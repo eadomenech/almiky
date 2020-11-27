@@ -35,7 +35,7 @@ def gaussian_noise(image, percent_noise, max_value=255):
         image (numpy array): image data
         percent_noise (float): percent ratio of the standard deviation of
             the white Gaussian noise versus the signal for whole image
-        max_value (int, optional): maximun image values
+        max_value (int, optional): maximun image values (default is 255)
 
     Returns:
         numpy array: noisy image

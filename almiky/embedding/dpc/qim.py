@@ -1,7 +1,10 @@
 '''Embedding methods based on quantization index modulation (QIM)'''
 
 
-class BinaryQuantizationIndexModulation:
+from almiky.embedding.base import Embedder
+
+
+class BinaryQuantizationIndexModulation(Embedder):
     '''Quantization index modulation is used to embed one bit
     
     Attributes:
@@ -16,7 +19,7 @@ class BinaryQuantizationIndexModulation:
         '''Embedds a bit and return the new amplitude value.
         
         Args:
-            amplitude (undefine): amplitude of signal
+            amplitude (int): amplitude of signal
             bit (int): bit to embedd (0 or 1)
         '''
         bit = int(bit)
@@ -33,7 +36,7 @@ class BinaryQuantizationIndexModulation:
         '''Extracts the embedded bit according to the amplitude value.
         
         Args:
-            amplitude (undefine): amplitude of signal
+            amplitude (int): amplitude of signal
         
         Returns:
             int: embedded bit (0 or 1)

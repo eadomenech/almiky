@@ -9,3 +9,11 @@ Subpackages
 
    almiky.embedding.dpc
 
+almiky.embedding.base module
+----------------------------
+
+.. automodule:: almiky.embedding.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

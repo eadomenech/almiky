@@ -5,18 +5,21 @@ import numpy as np
 
 
 class SingleBitHider:
-    '''
-    Hide a bit in one coefficient.
-
+    '''Hide a bit in one coefficient.
+    
     Build an hider from a scanner and embedder:
-    hider = SingleBitHider(scan, embeder)
-
-    then you can insert a bit in a coefficient
-    index = 0
-    hider.insert(1, index)
-
-    or extract a bit from a coefficient
-    hider.extract(10)
+        hider = SingleBitHider(scan, embedder)
+    
+    then you can insert a bit in a coefficient:
+        index = 0
+        hider.insert(1, index)
+    
+    or extract a bit from a coefficient:
+        hider.extract(10)
+    
+    Attributes:
+        scan (ScanMapping):
+        embedder (Embedder):
     '''
 
     def __init__(self, scan, embedder):
@@ -26,13 +29,14 @@ class SingleBitHider:
         self.embedder = embedder
         self.scan = scan
 
-    def insert(self, cover, bit, index=0):
+    def insert(self, cover_work, bit, index=0):
         '''
         Hide a bit
 
-        Arguments:
-        bit -- bit to hide
-        index -- index of coefficient where bit will be hidden
+        Args:
+            cover (numpy array): cover array
+            bit (int): bit to hide
+            index (int): index of coefficient where bit will be hidden
         '''
         data = np.copy(cover)
         scanning = self.scan(data)
@@ -41,14 +45,16 @@ class SingleBitHider:
 
         return data
 
-    def extract(self, cover, index=0):
+    def extract(self, stego, index=0):
         '''
         Get bit hidden an return it
 
-        Arguments:
-        index -- index of coefficient where bit will be extracted
+        Args:
+            stego (numpy array): stego array
+            index (int): index of coefficient where bit will be extracted
+                (default is 0) 
         '''
-        scanning = self.scan(cover)
+        scanning = self.scan(stego)
         amplitude = scanning[index]
         return self.embedder.extract(amplitude)
 

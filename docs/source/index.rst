@@ -15,7 +15,6 @@ Welcome to Almiky's documentation!
    modules
 
 
-
 Indices and tables
 ==================
 
