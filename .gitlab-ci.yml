@@ -1,17 +1,18 @@
-before_script:
- - source ~/.proxy
- - python3 -m venv ../almiky_venv
- - source ../almiky_venv/bin/activate
- - pip install -r requeriments.txt
-    
 stages:
- - tests
- 
-run-all-tests:
- stage: tests
- script:
-  - source run-tests.sh
- tags:
-  - test
-  - python
-  - coverage
+  - lint
+  
+variables:
+  # This will instruct Docker not to start over TLS.
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+  
+
+flake8:
+  stage: lint
+  image: python:3.7-alpine
+  tags:
+    - docker
+  before_script:
+    - pip --proxy=http://proxy22.udg.co.cu:3128 install -q flake8
+  script:
+    - flake8
