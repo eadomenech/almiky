@@ -34,27 +34,27 @@ class SingleBitHider:
         Hide a bit
 
         Args:
-            cover (numpy array): cover array
+            cover_work (numpy array): cover Work array
             bit (int): bit to hide
             index (int): index of coefficient where bit will be hidden
         '''
-        data = np.copy(cover)
+        data = np.copy(cover_work)
         scanning = self.scan(data)
         amplitude = scanning[index]
         scanning[index] = self.embedder.embed(amplitude, bit)
 
         return data
 
-    def extract(self, stego, index=0):
+    def extract(self, ws_work, index=0):
         '''
         Get bit hidden an return it
 
         Args:
-            stego (numpy array): stego array
+            ws_work (numpy array): watermarked or stego Work array
             index (int): index of coefficient where bit will be extracted
                 (default is 0) 
         '''
-        scanning = self.scan(stego)
+        scanning = self.scan(ws_work)
         amplitude = scanning[index]
         return self.embedder.extract(amplitude)
 
