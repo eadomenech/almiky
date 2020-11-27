@@ -12,7 +12,7 @@ from mpmath import qp, mp, qhyper, hyp3f2
 
 
 class OrtogonalFunction:
-    '''
+    r'''
     Abastract class that represent a polinomial function used to calculate
     ortogonal moments. This class do not represent any particular polinomial
     function; should be derivated for set the evaluator by implementing

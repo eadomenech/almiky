@@ -57,7 +57,7 @@ class ImageTransform:
 
 
 class OrthogonalMatrix(Transform):
-    '''
+    r'''
     Abstract class that represent an orthogonal matrix.
     Especific ortogonal matrix must define "othogonal_form__class" class
     attribute and implement "get_values" method in derivated classes.

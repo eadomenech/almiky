@@ -6,7 +6,7 @@ from almiky.embedding.base import Embedder
 
 class BinaryQuantizationIndexModulation(Embedder):
     '''Quantization index modulation is used to embed one bit
-    
+
     Attributes:
         step: step size used for embedding and extraction.
     '''
@@ -17,7 +17,7 @@ class BinaryQuantizationIndexModulation(Embedder):
 
     def embed(self, amplitude, bit):
         '''Embedds a bit and return the new amplitude value.
-        
+
         Args:
             amplitude (int): amplitude of signal
             bit (int): bit to embedd (0 or 1)
@@ -34,10 +34,10 @@ class BinaryQuantizationIndexModulation(Embedder):
 
     def extract(self, amplitude):
         '''Extracts the embedded bit according to the amplitude value.
-        
+
         Args:
             amplitude (int): amplitude of signal
-        
+
         Returns:
             int: embedded bit (0 or 1)
         '''

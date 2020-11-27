@@ -15,7 +15,7 @@ from scipy import special
 
 
 class OrthogonalForm:
-    '''
+    r'''
     Abstract class that represent an orthogonal form.
     Especific ortogonal form must define "function_class" class attribute
     and implement "weigth" and "norm" method in derivated classes.

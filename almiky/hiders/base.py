@@ -6,17 +6,17 @@ import numpy as np
 
 class SingleBitHider:
     '''Hide a bit in one coefficient.
-    
+
     Build an hider from a scanner and embedder:
         hider = SingleBitHider(scan, embedder)
-    
+
     then you can insert a bit in a coefficient:
-        index = 0
+        index = 0 \n
         hider.insert(1, index)
-    
+
     or extract a bit from a coefficient:
         hider.extract(10)
-    
+
     Attributes:
         scan (ScanMapping):
         embedder (Embedder):
@@ -52,7 +52,7 @@ class SingleBitHider:
         Args:
             ws_work (numpy array): watermarked or stego Work array
             index (int): index of coefficient where bit will be extracted
-                (default is 0) 
+                (default is 0)
         '''
         scanning = self.scan(ws_work)
         amplitude = scanning[index]
@@ -66,13 +66,17 @@ class TransformHider:
     an arbitrary transform too.
 
     hider and transform dependencies are set in itialization:
-    hider = TransformHider(base_hider, transform)
+        hider = TransformHider(base_hider, transform)
 
-    This class implement hider interface
-    hider.insert(cover_work, ...)
-    hider.extract(ws_work, ....)
+    This class implement hider interface:
+        hider.insert(cover_work, ...) \n
+        hider.extract(ws_work, ....)
 
     Aditional arguments are pased to based hider.
+
+    Attributes:
+        hider:
+        transform:
     '''
     def __init__(self, hider, transform):
         '''
