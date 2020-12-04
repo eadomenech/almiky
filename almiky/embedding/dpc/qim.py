@@ -31,7 +31,6 @@ class BinaryQuantizationIndexModulation:
 
     def extract(self, amplitude):
         '''Extracts the embedded bit according to the amplitude value.
-        
         Arguments:
         amplitude -- amplitude of signal
         bit -- bit to embedd

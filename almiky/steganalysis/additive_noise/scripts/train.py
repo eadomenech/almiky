@@ -1,12 +1,8 @@
 import argparse
-import json
 import numpy as np
-from pathlib import Path
-import pickle
-import sys
 
-from almiky.steganalysis.additive_noise import metrics
 from almiky.steganalysis.additive_noise import model
+
 
 def main():
     parser = argparse.ArgumentParser(

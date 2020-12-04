@@ -4,6 +4,7 @@ from unittest.mock import Mock
 from almiky.utils.optimization.functions import multiple
 from almiky.utils.functions import WeightedFunction
 
+
 class ConventionalWeightedAggregationTest(TestCase):
     def test_evaluation(self):
         f = Mock(side_effect=lambda x: x * 2)

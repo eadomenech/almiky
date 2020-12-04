@@ -75,7 +75,7 @@ class OrtogonalMatrixTest(unittest.TestCase):
 
         dimension = 2
         try:
-            matrix = OtherMatrix(dimension, alpha=5)
+            OtherMatrix(dimension, alpha=5)
         except TypeError:
             # Normal behavior. orthogonal_form_class must be set
             pass

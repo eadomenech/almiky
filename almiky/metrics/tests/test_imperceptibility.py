@@ -75,7 +75,7 @@ class TestPSNR(unittest.TestCase):
         ws_work = np.array([[4.4, 7.7], [9.9, 10.0]])
 
         psnr = metrics.psnr(cover_work, ws_work)
-        
+
         np.testing.assert_almost_equal(psnr, 54.151403522, 3)
 
     @patch.object(metrics, 'mse', side_effect=mse_non_zero_mock)

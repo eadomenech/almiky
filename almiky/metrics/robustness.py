@@ -4,7 +4,7 @@ Robustness performance metrics
 
 
 def ber(iwatermark, ewatermark):
-    ''' 
+    '''
     Calculate a return Bit Error Rate (BER). Raise an exception
     if almost one of watermarks is empty or are invalid binary
     sequence. Is posible to process watermarks of different size,

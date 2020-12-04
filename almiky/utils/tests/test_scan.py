@@ -2,9 +2,7 @@
 Tests for utility module
 '''
 
-import unittest
 from unittest import TestCase
-from unittest.mock import Mock, MagicMock
 
 import numpy as np
 
@@ -62,7 +60,7 @@ class DefaultMappingScanTest(TestCase):
         less dimension than the map
         '''
         block = np.array([
-            [0, 1, 5 , 6,],
+            [0, 1, 5, 6],
             [2, 4, 7, 13],
             [3, 8, 12, 17],
             [9, 11, 18, 24]
@@ -100,13 +98,13 @@ class MappingScanTest(TestCase):
         Test scanning with 8x8 zig-zag scan
         '''
         block = np.array([
-            [0, 1, 5 , 6, 14, 15, 27, 28],
-            [2, 4, 7, 13, 16, 26, 29 , 42],
+            [0, 1, 5, 6, 14, 15, 27, 28],
+            [2, 4, 7, 13, 16, 26, 29, 42],
             [3, 8, 12, 17, 25, 30, 41, 43],
             [9, 11, 18, 24, 31, 40, 44, 53],
             [10, 19, 23, 32, 39, 45, 52, 54],
             [20, 22, 33, 38, 46, 51, 55, 60],
-            [21, 34 , 37, 47, 50, 56, 59, 61],
+            [21, 34, 37, 47, 50, 56, 59, 61],
             [35, 36, 48, 49, 57, 58, 62, 63]
         ])
 
@@ -114,7 +112,7 @@ class MappingScanTest(TestCase):
 
         scan = ScanMapping(map=maps.ZIGZAG_8x8)
         scanning = scan(block)
-        
+
         np.testing.assert_array_equal(list(scanning), exploration)
 
     def test_get_coeficient(self):
@@ -122,13 +120,13 @@ class MappingScanTest(TestCase):
         Test get coefficient with 8x8 zig-zag scan
         '''
         block = np.array([
-            [0, 1, 5 , 6, 14, 15, 27, 28],
-            [2, 4, 7, 13, 16, 26, 29 , 42],
+            [0, 1, 5, 6, 14, 15, 27, 28],
+            [2, 4, 7, 13, 16, 26, 29, 42],
             [3, 8, 12, 17, 25, 30, 41, 43],
             [9, 11, 18, 24, 31, 40, 44, 53],
             [10, 19, 23, 32, 39, 45, 52, 54],
             [20, 22, 33, 38, 46, 51, 55, 60],
-            [21, 34 , 37, 47, 50, 56, 59, 61],
+            [21, 34, 37, 47, 50, 56, 59, 61],
             [35, 36, 48, 49, 57, 58, 62, 63]
         ])
 
@@ -142,13 +140,13 @@ class MappingScanTest(TestCase):
     def test_map_index_out_range(self):
 
         block = np.array([
-            [0, 1, 5 , 6, 14, 15, 27, 28],
-            [2, 4, 7, 13, 16, 26, 29 , 42],
+            [0, 1, 5, 6, 14, 15, 27, 28],
+            [2, 4, 7, 13, 16, 26, 29, 42],
             [3, 8, 12, 17, 25, 30, 41, 43],
             [9, 11, 18, 24, 31, 40, 44, 53],
             [10, 19, 23, 32, 39, 45, 52, 54],
             [20, 22, 33, 38, 46, 51, 55, 60],
-            [21, 34 , 37, 47, 50, 56, 59, 61],
+            [21, 34, 37, 47, 50, 56, 59, 61],
             [35, 36, 48, 49, 57, 58, 62, 63]
         ])
 
@@ -167,7 +165,7 @@ class MappingScanTest(TestCase):
         less dimension than the map
         '''
         block = np.array([
-            [0, 1, 5 , 6,],
+            [0, 1, 5, 6],
             [2, 4, 7, 13],
             [3, 8, 12, 17],
             [9, 11, 18, 24]
@@ -187,13 +185,13 @@ class MappingScanTest(TestCase):
         Test set coefficient with 8x8 zig-zag scan
         '''
         block = np.array([
-            [0, 1, 5 , 6, 14, 15, 27, 28],
-            [2, 4, 7, 13, 16, 26, 29 , 42],
+            [0, 1, 5, 6, 14, 15, 27, 28],
+            [2, 4, 7, 13, 16, 26, 29, 42],
             [3, 8, 12, 17, 25, 30, 41, 43],
             [9, 11, 18, 24, 31, 40, 44, 53],
             [10, 19, 23, 32, 39, 45, 52, 54],
             [20, 22, 33, 38, 46, 51, 55, 60],
-            [21, 34 , 37, 47, 50, 56, 59, 61],
+            [21, 34, 37, 47, 50, 56, 59, 61],
             [35, 36, 48, 49, 57, 58, 62, 63]
         ])
 

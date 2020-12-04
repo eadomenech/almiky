@@ -1,8 +1,6 @@
 '''Methods for scanning'''
 
 
-import numpy as np
-
 from .maps import ROW_MAJOR_8x8
 
 

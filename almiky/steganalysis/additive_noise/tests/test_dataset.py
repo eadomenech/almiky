@@ -6,14 +6,13 @@ import numpy as np
 import imageio
 
 from almiky.steganalysis.additive_noise import features
-from almiky.steganalysis.additive_noise import metrics
+
 
 class DirectoryLoadTest(unittest.TestCase):
     def test_folder_loading(self):
         # Fake data
         folder = Mock()
         files = (Path('imagen1'), Path('imagen2'), Path('imagen3'))
-        target = np.array([0, 1, 0])
         com = np.random.rand(3)
         com1 = np.random.rand(3)
         com2 = np.random.rand(3)
