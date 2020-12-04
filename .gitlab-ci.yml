@@ -19,7 +19,7 @@ flake8:
     - flake8 almiky
 
 tests:
-  stage: tests
+  stage: test
   tags:
     - docker
   script:
