@@ -8,15 +8,15 @@ Each orthogonal function is defined in a derivated class of OrtogonalFunction.
 
 import math
 from scipy import special
-from mpmath import *
+from mpmath import qp, mp, qhyper, hyp3f2
 
 
 class OrtogonalFunction:
     '''
     Abastract class that represent a polinomial function used to calculate
     ortogonal moments. This class do not represent any particular polinomial
-    function; should be derivated for set the evaluator by implementing _eval(...)
-    method.
+    function; should be derivated for set the evaluator by implementing
+    _eval(...) method.
 
     class FunctionX(OrtogonalFunction)
         def keval(...)
@@ -60,7 +60,8 @@ class QHahnFunction(OrtogonalFunction):
         self.N = N
 
     def keval(self, x, k, order):
-        mp.dps = 25; mp.pretty = True
+        mp.dps = 25
+        mp.pretty = True
         return (
             self.q ** k *
             qp(self.q ** -order, self.q, k) *
@@ -93,8 +94,8 @@ class QHahnFunction(OrtogonalFunction):
                 (self.alpha * self.q) ** -self.N *
                 (1 - self.alpha * self.beta * self.q) *
                 (-self.alpha * self.q) ** order *
-                (1 - self.alpha * self.beta * self.q ** (2 * order + 1)) ** -1 *
-                self.q ** (special.binom(order, 2) - self.N * order)
+                (1 - self.alpha * self.beta * self.q ** (2 * order + 1)) **
+                -1 * self.q ** (special.binom(order, 2) - self.N * order)
             )
 
 
@@ -107,7 +108,7 @@ class CharlierFunction(OrtogonalFunction):
     def keval(self, x, k, order):
         return (
             (-1) ** (order - k) *
-            special.poch(-order, k) *   
+            special.poch(-order, k) *
             special.poch(-x, k) *
             self.alpha ** (order - k) /
             math.factorial(k)
@@ -199,7 +200,8 @@ class QKrawtchoukFunction(OrtogonalFunction):
         self.N = N
 
     def keval(self, x, k, order):
-        mp.dps = 25; mp.pretty = True
+        mp.dps = 25
+        mp.pretty = True
         return (
             self.q ** k *
             qp(self.q ** -order, self.q, k) *
@@ -211,6 +213,8 @@ class QKrawtchoukFunction(OrtogonalFunction):
         )
 
     def norm(self, order):
+        # TODO: Who is n?
+        n = None
         if order < 0:
             return 0
         else:
@@ -243,14 +247,16 @@ class TchebichefFunction():
         self.N = N
 
     def eval(self, x, order):
-        mp.dps = 25; mp.pretty = True
+        mp.dps = 25
+        mp.pretty = True
         return (
             special.poch(1 - self.N, order) *
             hyp3f2(-order, -x, 1 + order, 1, 1 - self.N, 1)
         )
 
     def norm(self, order):
-        mp.dps = 25; mp.pretty = True
+        mp.dps = 25
+        mp.pretty = True
         return (
             math.factorial(2 * order) *
             special.binom(self.N + order, 2 * order + 1)
@@ -263,12 +269,14 @@ class QCharlierFunction():
         self.q = q
 
     def eval(self, x, order):
-        mp.dps = 25; mp.pretty = True
+        mp.dps = 25
+        mp.pretty = True
         L = [self.q ** -order, self.q ** -x]
         return qhyper(L, [0], self.q, -self.q ** (order + 1) / self.a)
 
     def norm(self, order):
-        mp.dps = 25; mp.pretty = True
+        mp.dps = 25
+        mp.pretty = True
         return (
             self.q ** -order *
             special.qp(-self.a, self.q) *

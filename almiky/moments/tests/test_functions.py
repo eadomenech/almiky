@@ -36,7 +36,6 @@ class OrtogonalFunctionsTest(unittest.TestCase):
         class OtherFunction(OrtogonalFunction):
             pass
 
-        order = 8
         x = 4
         func = OtherFunction()
         try:
@@ -180,7 +179,7 @@ class QHahnFunctionsTest(unittest.TestCase):
     def test_QHahnFunction_norm(self):
         from almiky.moments.functions import QHahnFunction
 
-        x, order, q, alpha, beta = 4, 8, 0.5, 0.5, 0.5
+        order, q, alpha, beta = 8, 0.5, 0.5, 0.5
 
         func = QHahnFunction(q, alpha, beta, order)
         value = func.norm(order)
@@ -190,7 +189,7 @@ class QHahnFunctionsTest(unittest.TestCase):
     def test_QHahnFunction_norm_order_less_than_zero(self):
         from almiky.moments.functions import QHahnFunction
 
-        x, order, q, alpha, beta = 4, -1, 0.5, 0.5, 0.5
+        order, q, alpha, beta = -1, 0.5, 0.5, 0.5
 
         func = QHahnFunction(q, alpha, beta, order)
         value = func.norm(order)
