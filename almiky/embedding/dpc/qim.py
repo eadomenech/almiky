@@ -48,7 +48,7 @@ class BinaryQuantizationIndexModulation(BaseBinaryQIM):
 class BinaryQIM(BaseBinaryQIM):
     '''
     Quantization index modulation is used to embed one bit.
-    From: Chen, B., & Wornell, G. W. (2001). Quantization index modulation: 
+    From: Chen, B., & Wornell, G. W. (2001). Quantization index modulation:
     A class of provably good methods for digital watermarking and
     information embedding. IEEE Transactions on
     Information theory, 47(4), 1423-1443.
