@@ -45,8 +45,15 @@ class BinaryQuantizationIndexModulation(BaseBinaryQIM):
         return amplitude_diffs.index(min(amplitude_diffs))
 
 
-class BinaryQuantizationIndexModulation2(BaseBinaryQIM):
-    '''Quantization index modulation is used to embed one bit'''
+class BinaryQIM(BaseBinaryQIM):
+    '''
+    Quantization index modulation is used to embed one bit.
+    From: Chen, B., & Wornell, G. W. (2001). Quantization index modulation: 
+    A class of provably good methods for digital watermarking and
+    information embedding. IEEE Transactions on
+    Information theory, 47(4), 1423-1443.
+    With: d[k,0] = -∆/4
+    '''
 
     def embed(self, amplitude, bit):
         '''
@@ -60,9 +67,15 @@ class BinaryQuantizationIndexModulation2(BaseBinaryQIM):
             raise ValueError('Embedding an invalid bit')
 
         if not bit:
-            new_amplitude = self.step * round(amplitude/self.step + 0.25) - self.step / 4
+            new_amplitude = (
+                self.step *
+                round(amplitude / self.step + 0.25) -
+                self.step / 4.0)
         else:
-            new_amplitude = self.step * round(amplitude/self.step - 0.25) + self.step / 4
+            new_amplitude = (
+                self.step *
+                round(amplitude / self.step - 0.25) +
+                self.step / 4.0)
 
         return new_amplitude
 
@@ -75,8 +88,8 @@ class BinaryQuantizationIndexModulation2(BaseBinaryQIM):
         one = self.embed(amplitude, 1)
         zero = self.embed(amplitude, 0)
         if abs(amplitude - one) < abs(amplitude - zero):
-            bit = 0
-        else:
             bit = 1
+        else:
+            bit = 0
 
         return bit
