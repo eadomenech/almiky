@@ -1,10 +1,10 @@
-almiky.embedding.dpc package
+almiky.embedding.qim package
 ============================
 
-almiky.embedding.dpc.qim module
+almiky.embedding.qim.dm module
 -------------------------------
 
-.. automodule:: almiky.embedding.dpc.qim
+.. automodule:: almiky.embedding.qim.dm
    :members:
    :undoc-members:
    :show-inheritance:
