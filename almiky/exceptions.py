@@ -8,6 +8,7 @@ class RegisterNotFound(Exception):
         msg = "Register does not exist."
         super().__init__(msg)
 
+
 class ExceededCapacity(Exception):
 
     def __init__(self):

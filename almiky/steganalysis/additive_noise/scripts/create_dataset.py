@@ -1,11 +1,10 @@
 import argparse
-import json
 import numpy as np
 from pathlib import Path
-import sys
 
 from almiky.steganalysis.additive_noise import metrics
 from almiky.steganalysis.additive_noise import features
+
 
 def main():
     parser = argparse.ArgumentParser(

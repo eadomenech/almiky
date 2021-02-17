@@ -2,9 +2,7 @@
 Data hidding methods for digital images
 '''
 
-import os
 import numpy as np
-from copy import deepcopy
 from almiky.utils import utils
 from almiky.utils.blocks import BlocksImage
 from almiky.exceptions import ExceededCapacity
@@ -28,7 +26,7 @@ class HidderFrequency:
         embd_cap -= len_emb_cap
         if len(bin_msg) > embd_cap:
             raise ExceededCapacity
-        #return utils.base_change(len(bin_msg), 2, len_emb_cap) + bin_msg
+        # return utils.base_change(len(bin_msg), 2, len_emb_cap) + bin_msg
 
 
 class HidderEightFrequencyCoeficients():
@@ -54,7 +52,7 @@ class HidderEightFrequencyCoeficients():
         work (stego work) with specified message.
         '''
         # Initial Values
-        l = -1
+        count = 0
         # Binary message
         bin_msg = utils.char2bin(msg)
         # Creating copy
@@ -78,17 +76,20 @@ class HidderEightFrequencyCoeficients():
             block8x8 = block_instace_8x8[i]
             block_transf8x8 = self.ortho_matrix.direct(block8x8)
             vac = utils.vzig_zag_scan(block_transf8x8)
-            for k in range(1,9):
-                if l < len(bin_msg) - 1:
-                    l += 1
+            for k in range(1, 9):
+                # TODO: l deleted
+                # vac[k] = np.sign(vac[k]) * utils.replace(
+                #     abs(round(vac[k])), bin_msg[i % (len(bin_msg))]
+                # )
+                if count < len(bin_msg):
                     vac[k] = np.sign(vac[k]) * utils.replace(
-                        abs(round(vac[k])), bin_msg[l]
+                        abs(round(vac[k])), bin_msg[count]
                     )
+                    count += 1
             block_transf8x8 = utils.mzig_zag_scan(vac)
             block_instace_8x8[i] = self.ortho_matrix.inverse(block_transf8x8)
 
         return watermarked_array
-
 
     def extract(self, ws_array, msg=None):
         '''
@@ -108,7 +109,7 @@ class HidderEightFrequencyCoeficients():
             block8x8 = block_instace_8x8[i]
             block_transf8x8 = self.ortho_matrix.direct(block8x8)
             vac = utils.vzig_zag_scan(block_transf8x8)
-            for k in range(1,9):
+            for k in range(1, 9):
                 extracted_lsb += utils.ext_lsb(abs(round(vac[k])))
         return utils.bin2char(extracted_lsb)
 
@@ -186,4 +187,4 @@ class BlockHider:
         """
         ws_work = np.copy(cover)
 
-        return cover
+        return ws_work

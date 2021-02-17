@@ -57,7 +57,7 @@ class ImageTransform:
 
 
 class OrthogonalMatrix(Transform):
-    '''
+    r'''
     Abstract class that represent an orthogonal matrix.
     Especific ortogonal matrix must define "othogonal_form__class" class
     attribute and implement "get_values" method in derivated classes.
@@ -68,7 +68,7 @@ class OrthogonalMatrix(Transform):
         def get_values(...)
             ...
 
-    MatixX(**parameters) => new orthogonal matrix from orthogonal form FormX
+    MatixX(\**parameters) => new orthogonal matrix from orthogonal form FormX
     with an specific parameters.
 
     For example: MatrixX(alpha=0.2, beta=0.3)
@@ -128,13 +128,13 @@ class QKrawtchoukMatrix(OrthogonalMatrix):
     def __init__(self, dimension, **parameters):
         parameters['N'] = dimension - 1
         super().__init__(dimension, **parameters)
-        
+
 
 class QCharlierMatrix(OrthogonalMatrix):
 
     orthogonal_form_class = QCharlierForm
-    
-    
+
+
 class TchebichefMatrix(OrthogonalMatrix):
 
     orthogonal_form_class = TchebichefForm

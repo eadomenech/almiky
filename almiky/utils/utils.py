@@ -41,7 +41,7 @@ def base_change(entrada, base, n=None):
         pe = entrada // base
         r.insert(0, entrada % base)
         entrada = pe
-    if n == None:
+    if n is None:
         return list2str(r)
     elif len(r) == n:
         return list2str(r)

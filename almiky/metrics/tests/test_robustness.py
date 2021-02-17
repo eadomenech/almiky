@@ -3,10 +3,6 @@ Test for imperceptibility performance metrics
 '''
 
 import unittest
-from unittest.mock import Mock, MagicMock
-from unittest.mock import patch
-
-import numpy as np
 
 from almiky.metrics import robustness as metrics
 

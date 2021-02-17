@@ -5,18 +5,21 @@ import numpy as np
 
 
 class SingleBitHider:
-    '''
-    Hide a bit in one coefficient.
+    '''Hide a bit in one coefficient.
 
     Build an hider from a scanner and embedder:
-    hider = SingleBitHider(scan, embeder)
+        hider = SingleBitHider(scan, embedder)
 
-    then you can insert a bit in a coefficient
-    index = 0
-    hider.insert(1, index)
+    then you can insert a bit in a coefficient:
+        index = 0 \n
+        hider.insert(1, index)
 
-    or extract a bit from a coefficient
-    hider.extract(10)
+    or extract a bit from a coefficient:
+        hider.extract(10)
+
+    Args:
+        scan (ScanMapping): Scan Mapping
+        embedder (Embedder): Embedder
     '''
 
     def __init__(self, scan, embedder):
@@ -26,29 +29,32 @@ class SingleBitHider:
         self.embedder = embedder
         self.scan = scan
 
-    def insert(self, cover, bit, index=0):
+    def insert(self, cover_work, bit, index=0):
         '''
         Hide a bit
 
-        Arguments:
-        bit -- bit to hide
-        index -- index of coefficient where bit will be hidden
+        Args:
+            cover_work (numpy array): cover Work array
+            bit (int): bit to hide
+            index (int): index of coefficient where bit will be hidden
         '''
-        data = np.copy(cover)
+        data = np.copy(cover_work)
         scanning = self.scan(data)
         amplitude = scanning[index]
         scanning[index] = self.embedder.embed(amplitude, bit)
 
         return data
 
-    def extract(self, cover, index=0):
+    def extract(self, ws_work, index=0):
         '''
         Get bit hidden an return it
 
-        Arguments:
-        index -- index of coefficient where bit will be extracted
+        Args:
+            ws_work (numpy array): watermarked or stego Work array
+            index (int): index of coefficient where bit will be extracted
+                (default is 0)
         '''
-        scanning = self.scan(cover)
+        scanning = self.scan(ws_work)
         amplitude = scanning[index]
         return self.embedder.extract(amplitude)
 
@@ -60,13 +66,17 @@ class TransformHider:
     an arbitrary transform too.
 
     hider and transform dependencies are set in itialization:
-    hider = TransformHider(base_hider, transform)
+        hider = TransformHider(base_hider, transform)
 
-    This class implement hider interface
-    hider.insert(cover_work, ...)
-    hider.extract(ws_work, ....)
+    This class implement hider interface:
+        hider.insert(cover_work, ...) \n
+        hider.extract(ws_work, ....)
 
     Aditional arguments are pased to based hider.
+
+    Args:
+        hider ():
+        transform ():
     '''
     def __init__(self, hider, transform):
         '''

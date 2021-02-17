@@ -2,7 +2,7 @@
 
 import unittest
 from unittest import TestCase
-from unittest.mock import Mock, MagicMock, patch
+from unittest.mock import Mock, MagicMock
 
 import numpy as np
 
@@ -102,7 +102,6 @@ class TranformHiderTest(TestCase):
 
         def mock_direct(cover_work):
             return cover_work * 3
-
 
         base_hider = Mock()
         base_hider.extract = Mock(side_effect=mock_extract)

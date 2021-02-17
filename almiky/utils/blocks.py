@@ -19,8 +19,7 @@ class BlocksImage():
     This two las operation modify image elements.
 
     It is posible too iterate over the blocks:
-    for block in blocks:
-        block[2][7] = ...
+    for block in blocks: block[2][7] = ...
 
     '''
     def __init__(self, image_plane, sblock_rows=8, sblock_cols=8):
