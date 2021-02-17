@@ -64,7 +64,7 @@ class BinaryDM(Embedder):
         Args:
             amplitude (float): amplitude of signal
             bit (int): bit to embed (value 0 or 1)
-        
+
         Returns:
             float: new amplitude
         '''
@@ -83,7 +83,7 @@ class BinaryDM(Embedder):
 
         Args:
             amplitude (float): amplitude of signal
-        
+
         Returns:
             int: watermark bit extrated (value 0 or 1)
         '''
