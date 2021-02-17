@@ -1,5 +1,6 @@
 stages:
   - lint
+  - test
   
 variables:
   # This will instruct Docker not to start over TLS.
@@ -16,3 +17,11 @@ flake8:
     - pip --proxy=http://proxy22.udg.co.cu:3128 install -q flake8
   script:
     - flake8 almiky
+
+tests:
+  stage: test
+  tags:
+    - docker
+  script:
+    - docker build -t almiky .
+    - docker run almiky
