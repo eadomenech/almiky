@@ -17,9 +17,9 @@ class SingleBitHider:
     or extract a bit from a coefficient:
         hider.extract(10)
 
-    Attributes:
-        scan (ScanMapping):
-        embedder (Embedder):
+    Args:
+        scan (ScanMapping): Scan Mapping
+        embedder (Embedder): Embedder
     '''
 
     def __init__(self, scan, embedder):
@@ -74,9 +74,9 @@ class TransformHider:
 
     Aditional arguments are pased to based hider.
 
-    Attributes:
-        hider:
-        transform:
+    Args:
+        hider ():
+        transform ():
     '''
     def __init__(self, hider, transform):
         '''
