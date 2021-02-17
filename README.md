@@ -42,3 +42,12 @@ $ pip install setuptools wheel
 $ cd almiky/
 $ python3 setup.py sdist bdist_wheel
 ```
+
+### Docs
+
+Build the doc:
+
+```bash
+$ cd almiky/docs/
+$ make html
+```
